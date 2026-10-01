@@ -1,0 +1,532 @@
+{
+  "logo": {
+    "Audi": {
+      "fichier": "audi.png",
+      "licence": "Public domain",
+      "auteur": "Strichpunkt / KMS Team",
+      "source": "https://commons.wikimedia.org/wiki/File:Audi-Logo_2016.svg"
+    },
+    "BMW": {
+      "fichier": "bmw.png",
+      "licence": "Public domain",
+      "auteur": "BMW",
+      "source": "https://commons.wikimedia.org/wiki/File:BMW.svg"
+    },
+    "Mercedes-Benz": {
+      "fichier": "mercedes-benz.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "Khaled",
+      "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Logo.svg"
+    },
+    "Volkswagen": {
+      "fichier": "volkswagen.png",
+      "licence": "Public domain",
+      "auteur": "Volkswagen",
+      "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_logo_2019.svg"
+    },
+    "Toyota": {
+      "fichier": "toyota.png",
+      "licence": "Public domain",
+      "auteur": "Toyota Motor Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:Toyota.svg"
+    },
+    "Honda": {
+      "fichier": "honda.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Honda.svg"
+    },
+    "Nissan": {
+      "fichier": "nissan.png",
+      "licence": "Public domain",
+      "auteur": "Nissan",
+      "source": "https://commons.wikimedia.org/wiki/File:Nissan_brand_wordmark.svg"
+    },
+    "Subaru": {
+      "fichier": "subaru.png",
+      "licence": "Public domain",
+      "auteur": "Subaru Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:Subaru_logo_(transparent).svg"
+    },
+    "Mitsubishi": {
+      "fichier": "mitsubishi.png",
+      "licence": "Public domain",
+      "auteur": "Mitsubishi Motors Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:Mitsubishi_motors_new_logo.svg"
+    },
+    "Renault": {
+      "fichier": "renault.png",
+      "licence": "Public domain",
+      "auteur": "Renault / Reproduction : Kilyann Le Hen",
+      "source": "https://commons.wikimedia.org/wiki/File:Renault_2021_Text.svg"
+    },
+    "Citroën": {
+      "fichier": "citroen.png",
+      "licence": "Public domain",
+      "auteur": "Citroën",
+      "source": "https://commons.wikimedia.org/wiki/File:Citroen_2022.svg"
+    },
+    "Fiat": {
+      "fichier": "fiat.png",
+      "licence": "Public domain",
+      "auteur": "FIAT",
+      "source": "https://commons.wikimedia.org/wiki/File:FIAT_logo_coloured.svg"
+    },
+    "Ford": {
+      "fichier": "ford.png",
+      "licence": "Public domain",
+      "auteur": "Ford Motor Company",
+      "source": "https://commons.wikimedia.org/wiki/File:Ford_logo_flat.svg"
+    },
+    "Jeep": {
+      "fichier": "jeep.png",
+      "licence": "Public domain",
+      "auteur": "Jeep",
+      "source": "https://commons.wikimedia.org/wiki/File:Jeep_wordmark.svg"
+    },
+    "Tesla": {
+      "fichier": "tesla.png",
+      "licence": "Public domain",
+      "auteur": "Tesla",
+      "source": "https://commons.wikimedia.org/wiki/File:Tesla_Motors.svg"
+    },
+    "Hyundai": {
+      "fichier": "hyundai.png",
+      "licence": "Public domain",
+      "auteur": "Hyundai Motor Company",
+      "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Motor_Company_logo.svg"
+    },
+    "Kia": {
+      "fichier": "kia.png",
+      "licence": "Public domain",
+      "auteur": "Kia Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:KIA_logo3.svg"
+    },
+    "MINI": {
+      "fichier": "mini.png",
+      "licence": "Public domain",
+      "auteur": "BMW SVG by CMetalCore This W3C-unspecified vector image was created with Inkscape .",
+      "source": "https://commons.wikimedia.org/wiki/File:MINI_logo.svg"
+    },
+    "Bugatti": {
+      "fichier": "bugatti.png",
+      "licence": "Public domain",
+      "auteur": "Bugatti",
+      "source": "https://commons.wikimedia.org/wiki/File:Bugatti_logo.svg"
+    },
+    "Suzuki": {
+      "fichier": "suzuki.png",
+      "licence": "Public domain",
+      "auteur": "Suzuki Motor Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:Suzuki_Motor_Corporation_logo.svg"
+    },
+    "Ferrari": {
+      "fichier": "ferrari.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "Rundvald",
+      "source": "https://commons.wikimedia.org/wiki/File:Ferrari-Cavalino-rampante-Saint-Briac-sur-Mer-byRundvald.jpg"
+    },
+    "Porsche": {
+      "fichier": "porsche.png",
+      "licence": "Public domain",
+      "auteur": "Martin M.B.",
+      "source": "https://commons.wikimedia.org/wiki/File:Newporschecrest.jpg"
+    },
+    "Opel": {
+      "fichier": "opel.png",
+      "licence": "Public domain",
+      "auteur": "Opel",
+      "source": "https://commons.wikimedia.org/wiki/File:Opel_logo_2023.svg"
+    },
+    "Lamborghini": {
+      "fichier": "lamborghini.png",
+      "licence": "Public domain",
+      "auteur": "Self made",
+      "source": "https://commons.wikimedia.org/wiki/File:Lamborghini_-_logo_wordmark%2Bpayoff_(Italy,_1963-).svg"
+    },
+    "Škoda": {
+      "fichier": "skoda.png",
+      "licence": "Public domain",
+      "auteur": "Skoda Auto",
+      "source": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_nieuw.png"
+    },
+    "Alfa Romeo": {
+      "fichier": "alfa-romeo.png",
+      "licence": "CC BY 2.0",
+      "auteur": "Ivan Radic",
+      "source": "https://commons.wikimedia.org/wiki/File:ALFA_ROMEO_badge_on_a_car_(cropped).jpg"
+    },
+    "Volvo": {
+      "fichier": "volvo.png",
+      "licence": "Public domain",
+      "auteur": "Volvo Group",
+      "source": "https://commons.wikimedia.org/wiki/File:Volvo-Iron-Mark-Black.svg"
+    },
+    "Aston Martin": {
+      "fichier": "aston-martin.png",
+      "licence": "Public domain",
+      "auteur": "Aston Martin",
+      "source": "https://commons.wikimedia.org/wiki/File:Aston_Martin_1935.svg"
+    },
+    "Land Rover": {
+      "fichier": "land-rover.png",
+      "licence": "Public domain",
+      "auteur": "Jaguar Land Rover Automotive PLC",
+      "source": "https://commons.wikimedia.org/wiki/File:Land_Rover_2023.svg"
+    },
+    "Rolls-Royce": {
+      "fichier": "rolls-royce.png",
+      "licence": "Public domain",
+      "auteur": "inconnu",
+      "source": "https://commons.wikimedia.org/wiki/File:Rolls-Royce_Motor_Cars_logo.svg"
+    },
+    "Maserati": {
+      "fichier": "maserati.png",
+      "licence": "Public domain",
+      "auteur": "Maserati",
+      "source": "https://commons.wikimedia.org/wiki/File:Maserati_logo_2.svg"
+    },
+    "Lancia": {
+      "fichier": "lancia.png",
+      "licence": "Public domain",
+      "auteur": "Gruppo Stellantis N.V. - upload: Giov.c",
+      "source": "https://commons.wikimedia.org/wiki/File:Lancia_Logo_2023.svg"
+    },
+    "Dacia": {
+      "fichier": "dacia.png",
+      "licence": "Public domain",
+      "auteur": "Dacia / Reproduction : Kilyann Le Hen",
+      "source": "https://commons.wikimedia.org/wiki/File:Dacia_2021_logo_green.svg"
+    },
+    "Saab": {
+      "fichier": "saab.png",
+      "licence": "Public domain",
+      "auteur": "Saab",
+      "source": "https://commons.wikimedia.org/wiki/File:Saab_wordmark_grey.svg"
+    },
+    "Alpine": {
+      "fichier": "alpine.png",
+      "licence": "Public domain",
+      "auteur": "Alpine-Renault",
+      "source": "https://commons.wikimedia.org/wiki/File:Alpine_logo.png"
+    },
+    "Pagani": {
+      "fichier": "pagani.png",
+      "licence": "CC BY 4.0",
+      "auteur": "Gabriele0921",
+      "source": "https://commons.wikimedia.org/wiki/File:IMGPAGANI25.png"
+    },
+    "McLaren": {
+      "fichier": "mclaren.png",
+      "licence": "Public domain",
+      "auteur": "Ved havet",
+      "source": "https://commons.wikimedia.org/wiki/File:McLaren_Speedmark.svg"
+    },
+    "Koenigsegg": {
+      "fichier": "koenigsegg.png",
+      "licence": "Public domain",
+      "auteur": "™/® Koenigsegg Automotive AB",
+      "source": "https://commons.wikimedia.org/wiki/File:Koenigsegg_logo.svg"
+    },
+    "Maybach": {
+      "fichier": "maybach.png",
+      "licence": "Public domain",
+      "auteur": "DaimlerChrysler AG",
+      "source": "https://commons.wikimedia.org/wiki/File:Maybach_Manufaktur_logo.svg"
+    },
+    "DS Automobiles": {
+      "fichier": "ds-automobiles.png",
+      "licence": "Public domain",
+      "auteur": "Automobiles Citroën S.A.",
+      "source": "https://commons.wikimedia.org/wiki/File:DS_Automobiles_2009_logo.svg"
+    },
+    "Polestar": {
+      "fichier": "polestar.png",
+      "licence": "Public domain",
+      "auteur": "Unknown artist Unknown artist",
+      "source": "https://commons.wikimedia.org/wiki/File:Polestar_logo_2020.svg"
+    },
+    "Rimac": {
+      "fichier": "rimac.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Rimac_Automobili_logo.svg"
+    },
+    "Spyker": {
+      "fichier": "spyker.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Logo_Spyker.svg"
+    },
+    "TVR": {
+      "fichier": "tvr.png",
+      "licence": "Public domain",
+      "auteur": "unbekannt TVR",
+      "source": "https://commons.wikimedia.org/wiki/File:TVR_Logo.svg"
+    },
+    "Caterham": {
+      "fichier": "caterham.png",
+      "licence": "Public domain",
+      "auteur": "Caterham Group.",
+      "source": "https://commons.wikimedia.org/wiki/File:Caterham_Group..jpg"
+    },
+    "De Tomaso": {
+      "fichier": "de-tomaso.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Detomaso_automobili_logo.png"
+    },
+    "Chevrolet": {
+      "fichier": "chevrolet.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_simple_logo.svg"
+    },
+    "Dodge": {
+      "fichier": "dodge.png",
+      "licence": "Public domain",
+      "auteur": "Stellantis N.V.",
+      "source": "https://commons.wikimedia.org/wiki/File:Dodge_2022_logo.svg"
+    },
+    "Buick": {
+      "fichier": "buick.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Buick_logo_1980.png"
+    },
+    "Lincoln": {
+      "fichier": "lincoln.png",
+      "licence": "Public domain",
+      "auteur": "Lincoln Motor Company; Ford Motor Company",
+      "source": "https://commons.wikimedia.org/wiki/File:Logo_Lincoln.svg"
+    },
+    "Oldsmobile": {
+      "fichier": "oldsmobile.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Oldsmobile_logo_used_from_1981_until_1997.svg"
+    },
+    "Studebaker": {
+      "fichier": "studebaker.png",
+      "licence": "Public domain",
+      "auteur": "Андрей Перцев",
+      "source": "https://commons.wikimedia.org/wiki/File:Studebaker.svg"
+    },
+    "Packard": {
+      "fichier": "packard.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Packard_automobile_textlogo.png"
+    },
+    "DeLorean": {
+      "fichier": "delorean.png",
+      "licence": "Public domain",
+      "auteur": "Bovineone at en.wikipedia",
+      "source": "https://commons.wikimedia.org/wiki/File:DeLorean_Motor_Company_logo.svg"
+    },
+    "AMC": {
+      "fichier": "amc.png",
+      "licence": "Public domain",
+      "auteur": "American Motors Corporation",
+      "source": "https://commons.wikimedia.org/wiki/File:American-motors.svg"
+    },
+    "Mazda": {
+      "fichier": "mazda.png",
+      "licence": "Public domain",
+      "auteur": "Mazda",
+      "source": "https://commons.wikimedia.org/wiki/File:Mazda_logo_2024_(vertical).svg"
+    },
+    "Lexus": {
+      "fichier": "lexus.png",
+      "licence": "Public domain",
+      "auteur": "Gaspard",
+      "source": "https://commons.wikimedia.org/wiki/File:Lexus.svg"
+    },
+    "Daihatsu": {
+      "fichier": "daihatsu.png",
+      "licence": "Public domain",
+      "auteur": "Daihatsu",
+      "source": "https://commons.wikimedia.org/wiki/File:Daihatsu_logo_1998.svg"
+    },
+    "Isuzu": {
+      "fichier": "isuzu.png",
+      "licence": "Public domain",
+      "auteur": "Isuzu",
+      "source": "https://commons.wikimedia.org/wiki/File:Isuzu.svg"
+    },
+    "SsangYong": {
+      "fichier": "ssangyong.png",
+      "licence": "Public domain",
+      "auteur": "KG Mobility",
+      "source": "https://commons.wikimedia.org/wiki/File:KG_Mobility_brand_logo.svg"
+    },
+    "Tata": {
+      "fichier": "tata.png",
+      "licence": "Public domain",
+      "auteur": "Tata Motors",
+      "source": "https://commons.wikimedia.org/wiki/File:Tata_Motors_Logo.svg"
+    },
+    "Proton": {
+      "fichier": "proton.png",
+      "licence": "CC0",
+      "auteur": "Aiman Zaharuddin",
+      "source": "https://commons.wikimedia.org/wiki/File:PROTON_Holdings.png"
+    },
+    "Perodua": {
+      "fichier": "perodua.png",
+      "licence": "Public domain",
+      "auteur": "Ayzkao",
+      "source": "https://commons.wikimedia.org/wiki/File:Perodua_Logo_(2008_-_Present).svg"
+    },
+    "BYD": {
+      "fichier": "byd.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:BYD_Auto_Logo.svg"
+    },
+    "Geely": {
+      "fichier": "geely.png",
+      "licence": "Public domain",
+      "auteur": "Farzam.akbarian86",
+      "source": "https://commons.wikimedia.org/wiki/File:Geely_Logo_2022.svg"
+    },
+    "Chery": {
+      "fichier": "chery.png",
+      "licence": "Public domain",
+      "auteur": "Chery",
+      "source": "https://commons.wikimedia.org/wiki/File:Chery_logo.svg"
+    },
+    "Great Wall": {
+      "fichier": "great-wall.png",
+      "licence": "Public domain",
+      "auteur": "Great Wall Motor Company Limited",
+      "source": "https://commons.wikimedia.org/wiki/File:GWM_2025_logo.svg"
+    },
+    "XPeng": {
+      "fichier": "xpeng.png",
+      "licence": "Public domain",
+      "auteur": "XPeng Motor",
+      "source": "https://commons.wikimedia.org/wiki/File:XPeng_logo.svg"
+    },
+    "Nio": {
+      "fichier": "nio.png",
+      "licence": "Public domain",
+      "auteur": "Original: NIO (car company) Vectorization: Unknown Unknown",
+      "source": "https://commons.wikimedia.org/wiki/File:NIO_logo.svg"
+    },
+    "Changan": {
+      "fichier": "changan.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "292Jacob",
+      "source": "https://commons.wikimedia.org/wiki/File:Changan_icon.svg"
+    },
+    "Holden": {
+      "fichier": "holden.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Holden_text_logo.png"
+    },
+    "Lada": {
+      "fichier": "lada.png",
+      "licence": "Public domain",
+      "auteur": "AvtoVAZ",
+      "source": "https://commons.wikimedia.org/wiki/File:Lada_company_logo_image.png"
+    },
+    "Moskvitch": {
+      "fichier": "moskvitch.png",
+      "licence": "Public domain",
+      "auteur": "Nik made",
+      "source": "https://commons.wikimedia.org/wiki/File:Logo_ao_moskvich.jpg"
+    },
+    "ZAZ": {
+      "fichier": "zaz.png",
+      "licence": "Public domain",
+      "auteur": "Zaz motors",
+      "source": "https://commons.wikimedia.org/wiki/File:Zaz-logo.svg"
+    },
+    "Zastava": {
+      "fichier": "zastava.png",
+      "licence": "Public domain",
+      "auteur": "http://autoshowserbia.info/manufacturer_logos/zastava.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Zastava_Automobiles_logo.jpg"
+    },
+    "Iran Khodro": {
+      "fichier": "iran-khodro.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "292Jacob",
+      "source": "https://commons.wikimedia.org/wiki/File:Iran_Khodro_symbol.svg"
+    },
+    "Togg": {
+      "fichier": "togg.png",
+      "licence": "Public domain",
+      "auteur": "TOGG",
+      "source": "https://commons.wikimedia.org/wiki/File:TOGG_logo.svg"
+    },
+    "Simca": {
+      "fichier": "simca.png",
+      "licence": "CC0",
+      "auteur": "WXDS",
+      "source": "https://commons.wikimedia.org/wiki/File:Simca_logo_1970.svg"
+    },
+    "Talbot": {
+      "fichier": "talbot.png",
+      "licence": "Public domain",
+      "auteur": "Talbot Automotive Brand - upload: Giov.c",
+      "source": "https://commons.wikimedia.org/wiki/File:Talbot_Automotive_Brand_Logo.svg"
+    },
+    "Autobianchi": {
+      "fichier": "autobianchi.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Autobianchi-Logo.svg"
+    },
+    "NSU": {
+      "fichier": "nsu.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:NSU_1960_Logo.svg"
+    },
+    "DKW": {
+      "fichier": "dkw.png",
+      "licence": "Public domain",
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:DKW_AutoUnion_Logo.svg"
+    },
+    "Horch": {
+      "fichier": "horch.png",
+      "licence": "Public domain",
+      "auteur": "Ernst Böhm",
+      "source": "https://commons.wikimedia.org/wiki/File:Horch.svg"
+    },
+    "Borgward": {
+      "fichier": "borgward.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "Borgward Company",
+      "source": "https://commons.wikimedia.org/wiki/File:Borgward-logo.png"
+    },
+    "Auto Union": {
+      "fichier": "auto-union.png",
+      "licence": "CC BY-SA 4.0",
+      "auteur": "EMWWME",
+      "source": "https://commons.wikimedia.org/wiki/File:Auto_Union.svg"
+    },
+    "Hanomag": {
+      "fichier": "hanomag.png",
+      "licence": "CC BY-SA 3.0",
+      "auteur": "Hacki1000",
+      "source": "https://commons.wikimedia.org/wiki/File:Rheinstahl-Hanomag_Logo.png"
+    },
+    "Austin": {
+      "fichier": "austin.png",
+      "licence": "Public domain",
+      "auteur": "Githek",
+      "source": "https://commons.wikimedia.org/wiki/File:Logo_Automobile_Austin.jpg"
+    },
+    "Bentley": {
+      "fichier": "bentley.png",
+      "licence": "CC0",
+      "auteur": "Kai xzzrs",
+      "source": "https://commons.wikimedia.org/wiki/File:Bentley.svg"
+    }
+  }
+}

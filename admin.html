@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestion des questions du quiz.">
+  <title>Administration — Auto Quiz</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/outfit-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <a href="#contenu" class="lien-evitement">Aller au contenu</a>
+
+  <header class="site-header">
+    <nav class="conteneur nav-contenu" aria-label="Navigation principale">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true">🏎️</span>
+        <span class="logo-text">Auto Quiz</span>
+      </a>
+      <ul class="nav-links" id="menu-principal">
+          <li><a href="index.html">Jouer</a></li>
+          <li><a href="classement.html">Classement</a></li>
+          <li id="nav-profil" hidden><a href="profil.html">Mes stats</a></li>
+          <li id="nav-admin" hidden><a href="admin.html" aria-current="page">Admin</a></li>
+          <li id="nav-connexion"><a href="connexion.html">Connexion</a></li>
+          <li id="nav-inscription"><a href="inscription.html">Créer un compte</a></li>
+          <li id="nav-deconnexion" hidden><a href="#" id="lien-deconnexion">Déconnexion</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button type="button" class="bouton-icone" id="bascule-theme"
+                aria-label="Changer de thème">☀️</button>
+        <button type="button" class="bouton-icone bouton-menu" id="bouton-menu"
+                aria-label="Ouvrir le menu" aria-expanded="false"
+                aria-controls="menu-principal">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <div class="conteneur">
+      <div class="page-header">
+        <h1>Administration</h1>
+        <p>Activer, désactiver et calibrer la difficulté des questions.</p>
+      </div>
+
+      <div class="grille-stats" id="admin-stats"></div>
+
+      <h2>Questions</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Épreuve</th>
+              <th>Réponse</th>
+              <th>Difficulté</th>
+              <th>Licence</th>
+              <th>Active</th>
+            </tr>
+          </thead>
+          <tbody id="corps-questions"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur footer-contenu">
+      <p>Auto Quiz — projet libre 8WEB101, Automne 2026</p>
+      <p>Images issues de Wikimedia Commons, sous licence libre.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

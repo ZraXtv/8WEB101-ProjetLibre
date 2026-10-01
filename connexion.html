@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Connectez-vous pour enregistrer vos scores.">
+  <title>Connexion — Auto Quiz</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/outfit-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <a href="#contenu" class="lien-evitement">Aller au contenu</a>
+
+  <header class="site-header">
+    <nav class="conteneur nav-contenu" aria-label="Navigation principale">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true">🏎️</span>
+        <span class="logo-text">Auto Quiz</span>
+      </a>
+      <ul class="nav-links" id="menu-principal">
+          <li><a href="index.html">Jouer</a></li>
+          <li><a href="classement.html">Classement</a></li>
+          <li id="nav-profil" hidden><a href="profil.html">Mes stats</a></li>
+          <li id="nav-admin" hidden><a href="admin.html">Admin</a></li>
+          <li id="nav-connexion"><a href="connexion.html" aria-current="page">Connexion</a></li>
+          <li id="nav-inscription"><a href="inscription.html">Créer un compte</a></li>
+          <li id="nav-deconnexion" hidden><a href="#" id="lien-deconnexion">Déconnexion</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button type="button" class="bouton-icone" id="bascule-theme"
+                aria-label="Changer de thème">☀️</button>
+        <button type="button" class="bouton-icone bouton-menu" id="bouton-menu"
+                aria-label="Ouvrir le menu" aria-expanded="false"
+                aria-controls="menu-principal">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <div class="conteneur page-auth">
+      <div class="bloc-auth">
+        <div class="entete-auth">
+          <h1>Content de vous revoir</h1>
+          <p>Connectez-vous pour enregistrer vos scores et apparaître au classement.</p>
+        </div>
+        <div class="carte">
+          <form id="form-connexion" class="formulaire">
+            <label for="courriel">Courriel</label>
+            <input type="email" id="courriel" name="courriel" required
+                   autocomplete="email" maxlength="254" placeholder="vous@exemple.com">
+
+            <label for="mot-de-passe">Mot de passe</label>
+            <input type="password" id="mot-de-passe" name="mot-de-passe" required
+                   autocomplete="current-password" maxlength="128">
+
+            <p id="message-erreur" role="alert" hidden></p>
+            <button type="submit">Se connecter</button>
+          </form>
+        </div>
+        <p class="lien-bas">Pas encore de compte ?
+           <a href="inscription.html">Créer un compte</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="conteneur footer-contenu">
+      <p>Auto Quiz — projet libre 8WEB101, Automne 2026</p>
+      <p>Images issues de Wikimedia Commons, sous licence libre.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
