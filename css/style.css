@@ -599,6 +599,40 @@ main {
 .retour-texte.gagne { color: var(--vert-500); }
 .retour-texte.perdu { color: var(--rouge-500); }
 .retour-points { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--or-500); }
+.retour-bonus { font-family: inherit; font-size: 0.8rem; font-weight: 500; color: var(--texte-doux); }
+
+.chrono {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.chrono-texte {
+  min-width: 3ch;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--texte);
+}
+
+.chrono-jauge {
+  flex: 1;
+  height: 8px;
+  border-radius: var(--r-pilule);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.chrono-remplissage {
+  height: 100%;
+  border-radius: var(--r-pilule);
+  background: var(--vert-500);
+}
+
+.chrono.urgent .chrono-texte { color: var(--rouge-500); }
+.chrono.urgent .chrono-remplissage { background: var(--rouge-500); }
+.chrono.fige { opacity: 0.5; }
 
 @keyframes apparition {
   from { opacity: 0; transform: translateY(6px); }
