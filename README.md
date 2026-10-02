@@ -42,8 +42,7 @@ d'ajuster sa difficulté.
 | Modèles de voitures | à importer (images libres disponibles sur Commons) |
 | Pièces automobiles | à importer (images libres disponibles sur Commons) |
 
-Autres pistes : chronomètre visible pendant la question, mode « série »
-sans limite de questions, badges, questions à saisie libre.
+Autres pistes : mode « série » sans limite de questions, badges, questions à saisie libre.
 
 ## Comment marche une partie
 
@@ -57,6 +56,10 @@ sans limite de questions, badges, questions à saisie libre.
    l'indication de la bonne réponse**.
 4. À chaque réponse (`POST /api/parties/<id>/reponse`), le serveur compare,
    calcule les points et n'envoie qu'ensuite la solution.
+5. La question suivante n'est envoyée que lorsque le joueur clique sur
+   « Question suivante » (`POST /api/parties/<id>/question`), ce qui démarre
+   son chrono. Le temps passé à lire la correction ne compte donc pas, et
+   l'image n'est pas visible avant le départ du compte à rebours.
 
 C'est le point de conception le plus important : si le navigateur
 connaissait la réponse à l'avance, n'importe qui pourrait la lire dans
@@ -97,7 +100,10 @@ aucune lettre.
 ### Barème
 
 - 100 points par bonne réponse, multipliés par la difficulté (1 à 3)
-- jusqu'à 50 points de bonus selon la rapidité (20 secondes de référence)
+- jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
+- 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
+  réseau), la réponse compte comme fausse. Un chrono visible décompte le temps
+  restant ; il n'est qu'indicatif, le temps compté est mesuré par le serveur.
 
 ## API
 
@@ -109,6 +115,7 @@ aucune lettre.
 | GET | `/api/moi` | Utilisateur connecté |
 | GET | `/api/modes` | Épreuves et nombre de questions disponibles |
 | POST | `/api/parties` | Lancer une partie |
+| POST | `/api/parties/<id>/question` | Afficher la question en cours et démarrer son chrono |
 | POST | `/api/parties/<id>/reponse` | Répondre à la question en cours |
 | GET | `/api/classement?mode=` | Meilleurs scores |
 | GET | `/api/mes-statistiques` | Statistiques personnelles |

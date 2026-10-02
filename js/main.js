@@ -199,6 +199,43 @@ async function initAccueil() {
 
 const partie = { id: null, mode: null, score: 0, bonnes: 0, total: 0, verrou: false };
 
+// Le chrono affiché n'est qu'indicatif : c'est le serveur qui mesure le temps
+// réellement compté. Celui-ci part au moment où la question s'affiche.
+const chrono = { minuterie: null };
+
+function arreterChrono() {
+  clearInterval(chrono.minuterie);
+  chrono.minuterie = null;
+}
+
+function construireChrono(limiteMs, quandEcoule) {
+  const bloc = el("div", "chrono");
+  bloc.setAttribute("role", "timer");
+  const texte = el("span", "chrono-texte");
+  const jauge = el("div", "chrono-jauge");
+  const remplissage = el("div", "chrono-remplissage");
+  jauge.appendChild(remplissage);
+  bloc.append(texte, jauge);
+
+  const depart = performance.now();
+  const rafraichir = () => {
+    const restant = Math.max(0, limiteMs - (performance.now() - depart));
+    const fraction = restant / limiteMs;
+    texte.textContent = `${Math.ceil(restant / 1000)} s`;
+    remplissage.style.width = `${fraction * 100}%`;
+    bloc.classList.toggle("urgent", fraction <= 0.25);
+    if (restant === 0) {
+      arreterChrono();
+      quandEcoule();
+    }
+  };
+
+  arreterChrono();
+  rafraichir();
+  chrono.minuterie = setInterval(rafraichir, 100);
+  return bloc;
+}
+
 function construireCadreImage(question) {
   const cadre = el("div", "cadre-image");
   const image = el("img");
@@ -250,6 +287,11 @@ function afficherQuestion(question) {
   });
   carte.appendChild(propositions);
 
+  carte.insertBefore(
+    construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
+    carte.firstChild,
+  );
+
   // Le crédit est gardé de côté : le nom de l'auteur est souvent celui de la
   // marque, l'afficher avant la réponse donnerait la solution.
   carte.dataset.credit = JSON.stringify(question.credit || {});
@@ -260,6 +302,7 @@ function afficherQuestion(question) {
 async function repondre(choix, zonePropositions, carte) {
   if (partie.verrou) return;
   partie.verrou = true;
+  arreterChrono();
 
   let resultat;
   try {
@@ -282,21 +325,40 @@ async function repondre(choix, zonePropositions, carte) {
     else if (bouton.textContent === choix) bouton.classList.add("incorrecte");
   });
 
+  carte.querySelector(".chrono")?.classList.add("fige");
+
+  let message = "Bonne réponse !";
+  if (resultat.tempsEcoule) message = `Temps écoulé — c'était ${resultat.bonneReponse}`;
+  else if (!resultat.correcte) message = `Raté — c'était ${resultat.bonneReponse}`;
+
   const retour = el("div", "retour-reponse");
-  const texte = el("span", `retour-texte ${resultat.correcte ? "gagne" : "perdu"}`,
-    resultat.correcte ? "Bonne réponse !" : `Raté — c'était ${resultat.bonneReponse}`);
+  const texte = el("span", `retour-texte ${resultat.correcte ? "gagne" : "perdu"}`, message);
   retour.appendChild(texte);
 
   if (resultat.correcte) {
-    retour.appendChild(el("span", "retour-points", `+${resultat.points} pts`));
+    const secondes = (resultat.dureeMs / 1000).toFixed(1).replace(".", ",");
+    const points = el("span", "retour-points", `+${resultat.points} pts`);
+    points.appendChild(el("span", "retour-bonus",
+      ` dont +${resultat.bonusRapidite} rapidité (${secondes} s)`));
+    retour.appendChild(points);
   }
 
   const suite = el("button", "btn btn-primary",
     resultat.terminee ? "Voir le résultat" : "Question suivante");
   suite.type = "button";
-  suite.addEventListener("click", () => {
-    if (resultat.terminee) afficherResultat();
-    else afficherQuestion(resultat.question);
+  suite.addEventListener("click", async () => {
+    if (resultat.terminee) {
+      afficherResultat();
+      return;
+    }
+    suite.disabled = true;
+    try {
+      const { question } = await api(`/parties/${partie.id}/question`, { method: "POST" });
+      afficherQuestion(question);
+    } catch (erreur) {
+      toast(erreur.message, "erreur");
+      suite.disabled = false;
+    }
   });
   retour.appendChild(suite);
 

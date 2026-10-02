@@ -28,8 +28,11 @@ DIFFICULTES = {"toutes": None, "facile": 1, "moyen": 2, "difficile": 3}
 NB_QUESTIONS = 10
 NB_PROPOSITIONS = 4
 POINTS_BASE = 100
-BONUS_RAPIDITE_MAX = 50
+BONUS_RAPIDITE_MAX = 100
 DUREE_MAX_QUESTION_MS = 20000
+# Marge pour le trajet réseau et le chargement de l'image : le chrono serveur
+# démarre avant que la question ne s'affiche dans le navigateur.
+TOLERANCE_RESEAU_MS = 1500
 
 MAX_LONGUEUR_NOM = 40
 MAX_LONGUEUR_COURRIEL = 254
@@ -210,7 +213,9 @@ def securiser_reponse(reponse):
     elif request.path.startswith("/assets/"):
         reponse.headers["Cache-Control"] = "public, max-age=604800"
     elif request.path.startswith(("/css/", "/js/")):
-        reponse.headers["Cache-Control"] = "public, max-age=3600"
+        # Revalidation à chaque chargement (304 si inchangé) : avec un max-age,
+        # un ancien main.js resterait en cache face à une API mise à jour.
+        reponse.headers["Cache-Control"] = "no-cache"
 
     return compresser(reponse)
 
@@ -356,6 +361,7 @@ def question_publique(ligne, propositions, position, total):
         "propositions": propositions,
         "indice": ligne["indice"],
         "difficulte": ligne["difficulte"],
+        "tempsLimiteMs": DUREE_MAX_QUESTION_MS,
         "credit": {
             "licence": ligne["licence"],
             "auteur": ligne["auteur"],
@@ -437,6 +443,7 @@ def creer_partie():
 @app.post("/api/parties/<int:partie_id>/reponse")
 def repondre(partie_id):
     donnees = request.get_json(silent=True) or {}
+    # Une réponse vide signifie que le temps est écoulé côté navigateur.
     choix = (donnees.get("choix") or "").strip()
 
     connexion_bd = get_connection()
@@ -468,21 +475,27 @@ def repondre(partie_id):
         return jsonify(erreur="Plus aucune question en attente."), 409
 
     propositions = json.loads(courante["propositions"])
-    if choix not in propositions:
+    if choix and choix not in propositions:
         connexion_bd.close()
         return jsonify(erreur="Cette réponse ne fait pas partie des propositions."), 400
 
-    correcte = choix == courante["reponse"]
-
     # Le temps est mesuré côté serveur : une horloge envoyée par le navigateur
     # serait trivialement falsifiable pour gonfler le bonus de rapidité.
+    # Sans chrono démarré, la question n'a jamais été demandée : hors délai.
     debut = session.pop(f"debut_{partie_id}", None)
-    duree_ms = int((time.time() - debut) * 1000) if debut else DUREE_MAX_QUESTION_MS
+    duree_ms = int((time.time() - debut) * 1000) if debut else None
+    temps_ecoule = duree_ms is None or duree_ms > DUREE_MAX_QUESTION_MS + TOLERANCE_RESEAU_MS
+    if duree_ms is None:
+        duree_ms = DUREE_MAX_QUESTION_MS
+
+    correcte = not temps_ecoule and choix == courante["reponse"]
 
     points = 0
+    bonus = 0
     if correcte:
         rapidite = max(0, DUREE_MAX_QUESTION_MS - duree_ms) / DUREE_MAX_QUESTION_MS
-        points = POINTS_BASE * courante["difficulte"] + int(BONUS_RAPIDITE_MAX * rapidite)
+        bonus = int(BONUS_RAPIDITE_MAX * rapidite)
+        points = POINTS_BASE * courante["difficulte"] + bonus
 
     connexion_bd.execute(
         "UPDATE questions_partie SET reponse_donnee = ?, correcte = ?, duree_ms = ? WHERE id = ?",
@@ -514,23 +527,57 @@ def repondre(partie_id):
     ).fetchone()
     connexion_bd.close()
 
-    resultat = {
-        "correcte": correcte,
-        "bonneReponse": courante["reponse"],
-        "points": points,
-        "score": etat["score"],
-        "bonnesReponses": etat["bonnes_reponses"],
-        "terminee": suivante is None,
-    }
+    return jsonify(
+        correcte=correcte,
+        tempsEcoule=temps_ecoule,
+        bonneReponse=courante["reponse"],
+        points=points,
+        bonusRapidite=bonus,
+        dureeMs=duree_ms,
+        score=etat["score"],
+        bonnesReponses=etat["bonnes_reponses"],
+        terminee=suivante is None,
+    )
 
-    if suivante:
-        session[f"debut_{partie_id}"] = time.time()
-        resultat["question"] = question_publique(
-            suivante, json.loads(suivante["propositions"]),
-            suivante["position"], etat["nb_questions"],
-        )
 
-    return jsonify(resultat)
+@app.post("/api/parties/<int:partie_id>/question")
+def question_suivante(partie_id):
+    """Envoie la question en cours et démarre son chrono.
+
+    La question n'est plus jointe à la réponse précédente : le chrono
+    démarrerait alors pendant que le joueur lit la correction, et un tricheur
+    pourrait étudier l'image avant de lancer le compte à rebours."""
+    connexion_bd = get_connection()
+    partie = connexion_bd.execute("SELECT * FROM parties WHERE id = ?", (partie_id,)).fetchone()
+    if not partie:
+        connexion_bd.close()
+        return jsonify(erreur="Partie introuvable."), 404
+
+    utilisateur = utilisateur_courant()
+    proprietaire = partie["utilisateur_id"]
+    if proprietaire is not None and (not utilisateur or utilisateur["id"] != proprietaire):
+        connexion_bd.close()
+        return jsonify(erreur="Cette partie ne vous appartient pas."), 403
+
+    courante = connexion_bd.execute(
+        "SELECT qp.propositions, qp.position, q.mode, q.fichier, q.indice, q.difficulte, "
+        "q.licence, q.auteur, q.source "
+        "FROM questions_partie qp JOIN questions q ON q.id = qp.question_id "
+        "WHERE qp.partie_id = ? AND qp.reponse_donnee IS NULL "
+        "ORDER BY qp.position LIMIT 1",
+        (partie_id,),
+    ).fetchone()
+    connexion_bd.close()
+
+    if partie["terminee"] or not courante:
+        return jsonify(erreur="Plus aucune question en attente."), 409
+
+    # Redemander la question ne remet pas le chrono à zéro.
+    session.setdefault(f"debut_{partie_id}", time.time())
+    return jsonify(question=question_publique(
+        courante, json.loads(courante["propositions"]),
+        courante["position"], partie["nb_questions"],
+    ))
 
 
 # ---- Classement et statistiques --------------------------------------------
