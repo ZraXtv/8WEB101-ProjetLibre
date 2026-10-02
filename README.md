@@ -160,6 +160,16 @@ cabré, Maybach un M simple au lieu du double M. Ces cas sont corrigés à la
 main dans `REMPLACEMENTS` (Ferrari, Maybach, Aston Martin, McLaren, Bentley,
 Renault, BMW, Mercedes-Benz).
 
+Wikidata donne aussi souvent la version monochrome du logo, alors que le
+joueur connaît la version en couleur vue sur les voitures. Treize marques
+(Audi, Chevrolet, Citroën, DS, Lexus, Maserati, Mazda, McLaren, Opel, Renault,
+Toyota, Volvo, Zastava) pointent donc vers une version en couleur choisie sur
+Commons. Pour Lincoln, Chery, SsangYong, Oldsmobile et Horch, aucune version
+en couleur sous licence libre n'a été trouvée.
+
+`python3 importer_marques.py Mazda Opel` ne retélécharge que les marques
+nommées ; il faut ensuite relancer `recadrer_logos.py` sur ces mêmes logos.
+
 Le cheval cabré de Ferrari n'existe pas en vectoriel sous licence libre — le
 dessin est protégé, seules des photographies du blason sont réutilisables.
 Le script recadre donc automatiquement la photo sur le jaune de Modène.

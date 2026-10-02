@@ -44,6 +44,7 @@ PASSES_MAX = 3             # le nom peut tenir sur deux lignes
 DECOUPES = {
     "alpine": "haut",        # le A au-dessus de « ALPINE »
     "amc": "haut",
+    "audi": "haut",          # les anneaux au-dessus de « Audi »
     "buick": "haut",         # le blason au-dessus de « BUICK »
     "aston-martin": "haut",  # les ailes au-dessus du nom
     "chery": "haut",
@@ -59,18 +60,13 @@ DECOUPES = {
     "hyundai": "gauche",     # l'ovale à gauche du nom
     "koenigsegg": "gauche",
     "lada": "haut",
-    "lexus": "gauche",       # le L dans son ovale, à gauche du nom
-    "maserati": "haut",      # le trident au-dessus du nom
     "maybach": "haut",       # le double M au-dessus de « MAYBACH »
-    "mazda": "haut",
     "mitsubishi": "haut",
     "moskvitch": "gauche",
     "nio": "gauche",
     "oldsmobile": "haut",
-    "opel": "haut",          # l'éclair au-dessus de « OPEL »
     "perodua": "haut",
     "proton": "haut",        # le tigre au-dessus de « PROTON »
-    "renault": "haut",       # le losange au-dessus de « RENAULT »
     "rimac": "gauche",
     "simca": "haut",
     "skoda": "haut",
@@ -79,7 +75,6 @@ DECOUPES = {
     "suzuki": "haut",
     "tesla": "haut",
     "togg": "gauche",
-    "toyota": "gauche",
     "xpeng": "gauche",
     "zastava": "haut",
 }
@@ -97,10 +92,14 @@ TOLERANCE_COULEUR = 62
 CADRES = {
     "horch": (0.0, 0.36, 1.0, 1.0),      # le bas de la couronne et le H
     "lincoln": (0.0, 0.0, 0.12, 1.0),
+    "mclaren": (0.79, 0.0, 1.0, 0.44),   # le speedmark au-dessus du « n »
     "moskvitch": (0.0, 0.0, 0.13, 1.0),  # le trait relie le M au nom
+    "opel": (0.105, 0.105, 0.895, 0.70), # le carré jaune, sans le cadre ni « OPEL »
+    "renault": (0.0, 0.0, 1.0, 0.875),   # le losange, au-dessus de « RENAULT »
 }
 
 FOND = (255, 255, 255, 0)
+BLEU_MASERATI = (11, 14, 71, 255)
 
 # Effacement du nom quand il fait partie du dessin. Coordonnées en fractions
 # de l'image, mesurées sur une grille et vérifiées sur l'aperçu :
@@ -114,7 +113,9 @@ FOND = (255, 255, 255, 0)
 MASQUES = {
     "bmw": [("anneau", 0.5, 0.5, 0.65, 0.95)],
     "alfa-romeo": [("anneau", 0.5, 0.487, 0.44, 0.62)],
-    "volvo": [("zone", 0.105, 0.42, 0.89, 0.57, FOND)],
+    "volvo": [("zone", 0.13, 0.425, 0.87, 0.565)],     # la barre argentée
+    "maserati": [("zone", 0.18, 0.635, 0.80, 0.68, BLEU_MASERATI),   # le bandeau bleu,
+                 ("zone", 0.20, 0.68, 0.76, 0.73, BLEU_MASERATI)],  # qui se resserre
     "mini": [("anneau", 0.5, 0.5, 0.0, 0.76, FOND)],
     "aston-martin": [("zone", 0.30, 0.19, 0.70, 0.39, FOND)],
     "borgward": [("zone", 0.10, 0.47, 0.90, 0.545, FOND)],
