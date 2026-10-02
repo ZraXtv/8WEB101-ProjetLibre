@@ -14,6 +14,7 @@ from flask import Flask, g, jsonify, request, send_from_directory, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db import get_connection, init_db
+from regions import difficulte_pour, lister_regions, region_valide
 
 RACINE_PROJET = Path(__file__).parent.parent
 DOSSIER_DONNEES = Path(__file__).parent / "data"
@@ -134,7 +135,7 @@ def utilisateur_courant():
     connexion_bd = get_connection()
     try:
         ligne = connexion_bd.execute(
-            "SELECT id, nom, role FROM utilisateurs WHERE id = ?", (utilisateur_id,)
+            "SELECT id, nom, role, region FROM utilisateurs WHERE id = ?", (utilisateur_id,)
         ).fetchone()
     finally:
         connexion_bd.close()
@@ -144,8 +145,20 @@ def utilisateur_courant():
         g.utilisateur = None
         return None
 
-    g.utilisateur = {"id": ligne["id"], "nom": ligne["nom"], "role": ligne["role"]}
+    g.utilisateur = {"id": ligne["id"], "nom": ligne["nom"], "role": ligne["role"],
+                     "region": ligne["region"]}
     return g.utilisateur
+
+
+def lire_region(donnees):
+    """Région envoyée par le navigateur : un code connu, ou None si non précisée.
+    Lève ValueError pour une valeur inconnue."""
+    region = (donnees.get("region") or "").strip().lower()
+    if not region:
+        return None
+    if not region_valide(region):
+        raise ValueError
+    return region
 
 
 def demarrer_session(utilisateur_id):
@@ -281,14 +294,19 @@ def inscription():
     probleme = mot_de_passe_refuse(mot_de_passe, courriel, nom)
     if probleme:
         return jsonify(erreur=probleme), 400
+    try:
+        region = lire_region(donnees)
+    except ValueError:
+        return jsonify(erreur="Région inconnue."), 400
 
     enregistrer_action(f"inscription:{client_ip()}")
 
     connexion_bd = get_connection()
     try:
         curseur = connexion_bd.execute(
-            "INSERT INTO utilisateurs (nom, courriel, mot_de_passe_hash) VALUES (?, ?, ?)",
-            (nom, courriel, generate_password_hash(mot_de_passe)),
+            "INSERT INTO utilisateurs (nom, courriel, mot_de_passe_hash, region) "
+            "VALUES (?, ?, ?, ?)",
+            (nom, courriel, generate_password_hash(mot_de_passe), region),
         )
         connexion_bd.commit()
         utilisateur_id = curseur.lastrowid
@@ -298,7 +316,7 @@ def inscription():
         connexion_bd.close()
 
     demarrer_session(utilisateur_id)
-    return jsonify(id=utilisateur_id, nom=nom, role="membre"), 201
+    return jsonify(id=utilisateur_id, nom=nom, role="membre", region=region), 201
 
 
 @app.post("/api/connexion")
@@ -314,7 +332,7 @@ def connexion_route():
 
     connexion_bd = get_connection()
     ligne = connexion_bd.execute(
-        "SELECT id, nom, role, mot_de_passe_hash FROM utilisateurs WHERE courriel = ?",
+        "SELECT id, nom, role, region, mot_de_passe_hash FROM utilisateurs WHERE courriel = ?",
         (courriel,),
     ).fetchone()
     connexion_bd.close()
@@ -332,7 +350,7 @@ def connexion_route():
     oublier_actions(cle_ip)
     oublier_actions(cle_compte)
     demarrer_session(ligne["id"])
-    return jsonify(id=ligne["id"], nom=ligne["nom"], role=ligne["role"])
+    return jsonify(id=ligne["id"], nom=ligne["nom"], role=ligne["role"], region=ligne["region"])
 
 
 @app.post("/api/deconnexion")
@@ -347,6 +365,32 @@ def moi():
     if not utilisateur:
         return jsonify(erreur="Non connecté."), 401
     return jsonify(utilisateur)
+
+
+@app.patch("/api/moi")
+def modifier_profil():
+    utilisateur = utilisateur_courant()
+    if not utilisateur:
+        return jsonify(erreur="Non connecté."), 401
+
+    donnees = request.get_json(silent=True) or {}
+    try:
+        region = lire_region(donnees)
+    except ValueError:
+        return jsonify(erreur="Région inconnue."), 400
+
+    connexion_bd = get_connection()
+    connexion_bd.execute(
+        "UPDATE utilisateurs SET region = ? WHERE id = ?", (region, utilisateur["id"])
+    )
+    connexion_bd.commit()
+    connexion_bd.close()
+    return jsonify({**utilisateur, "region": region})
+
+
+@app.get("/api/regions")
+def regions():
+    return jsonify(lister_regions())
 
 
 # ---- Parties ---------------------------------------------------------------
@@ -384,17 +428,23 @@ def creer_partie():
     if difficulte not in DIFFICULTES:
         return jsonify(erreur="Difficulté inconnue."), 400
 
-    connexion_bd = get_connection()
-    conditions = "mode = ? AND actif = 1"
-    parametres = [mode]
-    if DIFFICULTES[difficulte] is not None:
-        conditions += " AND difficulte = ?"
-        parametres.append(DIFFICULTES[difficulte])
+    utilisateur = utilisateur_courant()
+    region = utilisateur["region"] if utilisateur else None
 
-    disponibles = connexion_bd.execute(
-        f"SELECT id, mode, reponse, fichier, indice, difficulte, licence, auteur, source "
-        f"FROM questions WHERE {conditions}", parametres
+    connexion_bd = get_connection()
+    lignes = connexion_bd.execute(
+        "SELECT id, mode, reponse, fichier, indice, difficulte, licence, auteur, source "
+        "FROM questions WHERE mode = ? AND actif = 1", (mode,)
     ).fetchall()
+
+    # La difficulté dépend de la région du joueur : le filtre se fait donc
+    # ici plutôt qu'en SQL.
+    questions = [
+        {**dict(ligne), "difficulte": difficulte_pour(ligne["reponse"], ligne["difficulte"], region)}
+        for ligne in lignes
+    ]
+    voulue = DIFFICULTES[difficulte]
+    disponibles = [q for q in questions if voulue is None or q["difficulte"] == voulue]
 
     if len(disponibles) < NB_PROPOSITIONS:
         connexion_bd.close()
@@ -405,7 +455,6 @@ def creer_partie():
     tirage = random.sample(disponibles, min(NB_QUESTIONS, len(disponibles)))
     toutes_reponses = list({ligne["reponse"] for ligne in disponibles})
 
-    utilisateur = utilisateur_courant()
     curseur = connexion_bd.execute(
         "INSERT INTO parties (utilisateur_id, mode, difficulte, nb_questions) "
         "VALUES (?, ?, ?, ?)",
@@ -419,9 +468,10 @@ def creer_partie():
         propositions.append(ligne["reponse"])
         random.shuffle(propositions)
         connexion_bd.execute(
-            "INSERT INTO questions_partie (partie_id, position, question_id, propositions) "
-            "VALUES (?, ?, ?, ?)",
-            (partie_id, position, ligne["id"], json.dumps(propositions, ensure_ascii=False)),
+            "INSERT INTO questions_partie "
+            "(partie_id, position, question_id, propositions, difficulte) VALUES (?, ?, ?, ?, ?)",
+            (partie_id, position, ligne["id"], json.dumps(propositions, ensure_ascii=False),
+             ligne["difficulte"]),
         )
 
     connexion_bd.commit()
@@ -461,8 +511,10 @@ def repondre(partie_id):
         connexion_bd.close()
         return jsonify(erreur="Cette partie est déjà terminée."), 409
 
+    # Les parties lancées avant l'ajout des régions n'ont pas de difficulté figée.
     courante = connexion_bd.execute(
-        "SELECT qp.*, q.reponse, q.fichier, q.mode, q.indice, q.difficulte, "
+        "SELECT qp.*, q.reponse, q.fichier, q.mode, q.indice, "
+        "COALESCE(qp.difficulte, q.difficulte) AS difficulte_effective, "
         "q.licence, q.auteur, q.source "
         "FROM questions_partie qp JOIN questions q ON q.id = qp.question_id "
         "WHERE qp.partie_id = ? AND qp.reponse_donnee IS NULL "
@@ -495,7 +547,7 @@ def repondre(partie_id):
     if correcte:
         rapidite = max(0, DUREE_MAX_QUESTION_MS - duree_ms) / DUREE_MAX_QUESTION_MS
         bonus = int(BONUS_RAPIDITE_MAX * rapidite)
-        points = POINTS_BASE * courante["difficulte"] + bonus
+        points = POINTS_BASE * courante["difficulte_effective"] + bonus
 
     connexion_bd.execute(
         "UPDATE questions_partie SET reponse_donnee = ?, correcte = ?, duree_ms = ? WHERE id = ?",
@@ -560,7 +612,8 @@ def question_suivante(partie_id):
         return jsonify(erreur="Cette partie ne vous appartient pas."), 403
 
     courante = connexion_bd.execute(
-        "SELECT qp.propositions, qp.position, q.mode, q.fichier, q.indice, q.difficulte, "
+        "SELECT qp.propositions, qp.position, q.mode, q.fichier, q.indice, "
+        "COALESCE(qp.difficulte, q.difficulte) AS difficulte, "
         "q.licence, q.auteur, q.source "
         "FROM questions_partie qp JOIN questions q ON q.id = qp.question_id "
         "WHERE qp.partie_id = ? AND qp.reponse_donnee IS NULL "
@@ -596,7 +649,7 @@ def classement():
 
     connexion_bd = get_connection()
     lignes = connexion_bd.execute(
-        f"SELECT utilisateurs.nom, MAX(parties.score) AS meilleur_score, "
+        f"SELECT utilisateurs.nom, utilisateurs.region, MAX(parties.score) AS meilleur_score, "
         f"COUNT(*) AS parties_jouees, "
         f"SUM(parties.bonnes_reponses) AS total_bonnes "
         f"FROM parties JOIN utilisateurs ON utilisateurs.id = parties.utilisateur_id "

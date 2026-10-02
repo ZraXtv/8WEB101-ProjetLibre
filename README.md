@@ -108,9 +108,35 @@ notoriété du symbole.
 | Moyen (17) | Alfa Romeo, Aston Martin, Lexus, Maserati, Škoda |
 | Difficile (27) | Borgward, Horch, Moskvitch, Perodua, Zastava |
 
+### Difficulté selon la région
+
+Chaque joueur peut renseigner sa région à l'inscription ou sur sa page
+« Mes stats ». Son drapeau s'affiche alors dans l'en-tête et devant son
+pseudonyme au classement.
+
+La difficulté ci-dessus est une notoriété « moyenne ». Elle ne vaut pas
+partout : une Subaru est banale au Canada et rare en France, une Dacia
+l'inverse. `backend/regions.py` recalcule donc la difficulté d'un logo pour la
+région du joueur : d'abord les marques nationales ou omniprésentes dans le
+pays (Renault en France, Subaru au Canada), puis les écarts propres à tout un
+marché (Europe, Amérique du Nord, Asie), sinon la difficulté de base.
+
+| Exemple | France | Canada |
+|---|---|---|
+| Subaru | Moyen | Facile |
+| Renault | Facile | Difficile |
+| Buick | Difficile | Facile |
+
+La difficulté recalculée sert au filtre de l'accueil et au barème : elle est
+figée au tirage dans `questions_partie.difficulte`, pour qu'un changement de
+région en cours de partie ne modifie pas les points. Sans région renseignée
+(ou sans compte), la difficulté de base s'applique. Les colonnes `region` et
+`difficulte` sont ajoutées automatiquement aux bases existantes au démarrage.
+
 ### Barème
 
-- 100 points par bonne réponse, multipliés par la difficulté (1 à 3)
+- 100 points par bonne réponse, multipliés par la difficulté (1 à 3), celle
+  de la région du joueur
 - jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
 - 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
   réseau), la réponse compte comme fausse. Un chrono visible décompte le temps
@@ -124,6 +150,8 @@ notoriété du symbole.
 | POST | `/api/connexion` | Se connecter |
 | POST | `/api/deconnexion` | Fermer la session |
 | GET | `/api/moi` | Utilisateur connecté |
+| PATCH | `/api/moi` | Modifier sa région |
+| GET | `/api/regions` | Régions proposées |
 | GET | `/api/modes` | Épreuves et nombre de questions disponibles |
 | POST | `/api/parties` | Lancer une partie |
 | POST | `/api/parties/<id>/question` | Afficher la question en cours et démarrer son chrono |
@@ -185,6 +213,10 @@ contenir du script, un PNG non.
 Les logos restent des marques déposées. Leur usage ici est pédagogique et
 non commercial, sans lien ni approbation des constructeurs.
 
+Les drapeaux (`assets/drapeaux/`) viennent aussi de Commons (« Flag of
+Canada.svg », etc.), dans le domaine public. Ce sont des images et non des
+émojis : Windows affiche les émojis de drapeaux comme deux lettres.
+
 ## Sécurité
 
 - Mots de passe hachés avec *scrypt*, jamais stockés en clair.
@@ -231,17 +263,19 @@ projet/
 ├── index.html          choix de l'épreuve et de la difficulté
 ├── jeu.html            écran de jeu
 ├── classement.html     meilleurs scores
-├── profil.html         statistiques personnelles
+├── profil.html         statistiques personnelles et région
 ├── connexion.html / inscription.html
 ├── admin.html          gestion des questions
 ├── css/style.css
 ├── js/main.js, js/theme.js
 ├── assets/
 │   ├── fonts/          polices hébergées localement
+│   ├── drapeaux/       drapeaux des régions des joueurs
 │   └── images/logos/   images des questions
 └── backend/
     ├── app.py              serveur Flask (API + pages)
     ├── db.py, schema.sql
+    ├── regions.py          régions et difficulté des logos selon la région
     ├── importer_marques.py téléchargement des logos depuis Commons
     ├── recadrer_logos.py   retire le nom de la marque des logos
     ├── charger_questions.py
