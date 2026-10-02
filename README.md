@@ -207,8 +207,9 @@ serveur de développement Flask ne doit pas être exposé tel quel.
 
 ## Performances
 
-- Polices hébergées localement (79 Ko, versions variables, sous-ensemble
-  latin) : aucune connexion externe, et le rendu n'attend pas un tiers.
+- Police hébergée localement (Archivo variable, 88 Ko, la même que
+  l'explorateur 3D) : aucune connexion externe, et le rendu n'attend pas
+  un tiers.
 - Index SQL sur les colonnes utilisées par le tirage et le classement.
 - Compression gzip des réponses texte, cache navigateur sur les images.
 - Session et contenu demandés en parallèle au chargement.
