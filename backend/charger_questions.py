@@ -15,39 +15,53 @@ DOSSIER_BACKEND = Path(__file__).parent
 FICHIER_SOURCES = DOSSIER_BACKEND / "sources_images.json"
 RACINE_IMAGES = DOSSIER_BACKEND.parent / "assets" / "images"
 
-# Classement établi image par image après recadrage (recadrer_logos.py retire
-# le nom quand il est séparable du symbole). Ce qui reste :
-#   - un logo purement textuel se lit : c'est une question facile ;
-#   - un logo dont le nom est intégré au dessin (le « BMW » du rondel) donne un
-#     indice partiel ;
-#   - un symbole nu ne se devine que si on connaît la marque.
+# Logos qui *sont* le nom de la marque : aucun recadrage ni masque ne peut
+# l'enlever (recadrer_logos.py traite ceux où le nom est séparable ou peut être
+# effacé). Les afficher donnerait la réponse : ils sont retirés du quiz.
 LOGOS_TEXTUELS = {
-    "Austin", "BYD", "Bugatti", "Buick", "Caterham", "Dodge", "Fiat", "Ford",
+    "Austin", "Auto Union", "BYD", "Bugatti", "Caterham", "DKW", "Fiat", "Ford",
     "Geely", "Holden", "Isuzu", "Jeep", "Kia", "Lamborghini", "Lancia",
-    "Land Rover", "Lincoln", "NSU", "Nissan", "Opel", "Packard", "Pagani",
-    "Proton", "Saab", "Spyker", "TVR", "Tata", "Volvo",
+    "Land Rover", "NSU", "Nissan", "Packard", "Pagani", "Saab", "Spyker",
+    "TVR", "Tata",
 }
 
-LOGOS_TEXTE_INTEGRE = {
-    "Auto Union", "BMW", "Bentley", "Borgward", "DKW", "DeLorean", "Horch",
-    "MINI", "Moskvitch", "Rolls-Royce",
+# Plus aucun logo ne montre le nom : la difficulté dépend seulement de la
+# notoriété du symbole.
+LOGOS_CONNUS = {
+    "Audi", "BMW", "Chevrolet", "Citroën", "Ferrari", "Honda", "Hyundai",
+    "MINI", "Mazda", "Mercedes-Benz", "Mitsubishi", "Opel", "Porsche",
+    "Renault", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo",
+}
+
+LOGOS_ASSEZ_CONNUS = {
+    "Alfa Romeo", "Alpine", "Aston Martin", "Bentley", "Buick", "DS Automobiles",
+    "Dacia", "Dodge", "Koenigsegg", "Lada", "Lexus", "Lincoln", "Maserati",
+    "McLaren", "Polestar", "Rolls-Royce", "Škoda",
 }
 
 
 def difficulte_logo(marque):
-    if marque in LOGOS_TEXTUELS:
+    if marque in LOGOS_CONNUS:
         return 1
-    if marque in LOGOS_TEXTE_INTEGRE:
+    if marque in LOGOS_ASSEZ_CONNUS:
         return 2
     return 3
 
 
 def charger(connexion_bd, mode, entrees, difficulte):
     dossier = RACINE_IMAGES / f"{mode}s"
-    ajoutees = mises_a_jour = ignorees = 0
+    ajoutees = mises_a_jour = ignorees = retirees = 0
 
     for reponse, infos in entrees.items():
         fichier = infos["fichier"]
+        if mode == "logo" and reponse in LOGOS_TEXTUELS:
+            # Une base chargée avant ce tri contient encore la question.
+            connexion_bd.execute(
+                "UPDATE questions SET actif = 0 WHERE mode = ? AND fichier = ?", (mode, fichier)
+            )
+            retirees += 1
+            continue
+
         if not (dossier / fichier).is_file():
             ignorees += 1
             continue
@@ -74,7 +88,7 @@ def charger(connexion_bd, mode, entrees, difficulte):
             )
             ajoutees += 1
 
-    return ajoutees, mises_a_jour, ignorees
+    return ajoutees, mises_a_jour, ignorees, retirees
 
 
 def main():
@@ -93,9 +107,10 @@ def main():
     total = 0
     for mode, entrees in sources.items():
         difficulte = difficulte_logo if mode == "logo" else 2
-        ajoutees, majs, ignorees = charger(connexion_bd, mode, entrees, difficulte)
+        ajoutees, majs, ignorees, retirees = charger(connexion_bd, mode, entrees, difficulte)
         total += ajoutees
         print(f"  {mode:8} {ajoutees:3} ajoutées, {majs:3} mises à jour"
+              + (f", {retirees} retirée(s) (nom écrit sur le logo)" if retirees else "")
               + (f", {ignorees} image(s) manquante(s)" if ignorees else ""))
 
     connexion_bd.commit()
