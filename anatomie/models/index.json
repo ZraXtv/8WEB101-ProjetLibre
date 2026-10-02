@@ -8,10 +8,5 @@
   "id": "moteur",
   "label": "Moteur",
   "config": "models/moteur-911sc.json"
- },
- {
-  "id": "concept",
-  "label": "Concept Car",
-  "config": "models/concept-car.json"
  }
 ]

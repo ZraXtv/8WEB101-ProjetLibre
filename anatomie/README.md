@@ -1,6 +1,6 @@
 # Anatomie mécanique
 
-Explorateur 3D d'une Porsche 911 avec son moteur, du moteur seul et d'une voiture concept : vue éclatée, ouverture des portes et du capot, fiche par composant, peintures, vue transparente. Tout est servi en local : aucun CDN, aucun compte, aucune requête externe.
+Explorateur 3D d'une Porsche 911 avec son moteur et du moteur seul : vue éclatée, ouverture du coffre avant, fiche par composant, peintures, vue transparente. Tout est servi en local : aucun CDN, aucun compte, aucune requête externe.
 
 ## Lancer
 
@@ -14,7 +14,7 @@ toujours passer par un serveur HTTP.
 
 ## Utilisation
 
-- Sélecteur « Porsche 911 », « Moteur », « Concept Car » en haut à droite. Liens directs : `?model=porsche`, `?model=moteur`, `?model=concept`.
+- Sélecteur « Porsche 911 », « Moteur » en haut à droite. Liens directs : `?model=porsche`, `?model=moteur`.
 - Sur la Porsche, la fiche du moteur propose « Explorer le moteur pièce par pièce ».
 - Glisser pour tourner, molette ou pincement pour zoomer.
 - Curseur « Vue éclatée » (ou touche `E`) pour écarter les pièces.
@@ -28,21 +28,20 @@ toujours passer par un serveur HTTP.
 index.html                 interface
 style.css                  styles (fichier séparé : la CSP du site interdit les styles inline)
 app.js                     logique (Three.js r170)
-models/porsche-911.glb     Porsche 911 série G avec le moteur 911 SC monté dans sa baie
+models/porsche-911.glb     Porsche 911 série G avec le moteur 911 SC monté dans sa baie (moteur allégé, voir Performances)
 models/porsche-911.json    composants, ouverture du coffre avant, quatre teintes
-models/concept-car.glb     voiture concept
-models/concept-car.json    composants, textes, ouvertures, peintures
 models/moteur-911sc.glb    moteur Porsche 911 SC, 266 pièces assemblées
 models/moteur-911sc.json   114 composants en 13 systèmes, avec références Porsche
 models/index.json          liste des modèles proposés dans le sélecteur
-vendor/                    Three.js, addons, décodeurs Draco/Meshopt, police Archivo
+vendor/                    Three.js, addons, décodeurs Draco/Meshopt, three-mesh-bvh, police Archivo
+outils/simplifier.mjs      script d'allègement d'une partie d'un .glb (Node.js)
 ```
 
 ## Ajouter une voiture avec ses fiches
 
 1. Copier le `.glb` dans `models/`.
 2. Le charger une première fois avec « Charger un .glb » : la liste affiche les noms des objets du modèle.
-3. Créer `models/ma-voiture.json` sur le modèle de `concept-car.json`, puis l'ajouter dans `models/index.json` pour qu'il apparaisse dans le sélecteur.
+3. Créer `models/ma-voiture.json` sur le modèle de `porsche-911.json`, puis l'ajouter dans `models/index.json` pour qu'il apparaisse dans le sélecteur.
 
 Champs d'un composant :
 
@@ -60,6 +59,24 @@ Au niveau racine : `scale` multiplie toutes les distances, `dolly` règle le rec
 
 Pour que portes et capot s'ouvrent correctement, leur origine doit être placée sur la charnière dans Blender avant l'export.
 
+## Performances
+
+- **Moteur de la Porsche allégé** : il représentait 87 % des triangles de la
+  voiture (1,68 million sur 1,92). Il est simplifié à 383 000 triangles dans
+  `porsche-911.glb` avec `outils/simplifier.mjs` (part visée 15 %, erreur
+  tolérée 2 % de la taille de chaque pièce), et les normales sont recalculées
+  avec des arêtes vives au-delà de 30°. Le modèle « Moteur » seul garde tous
+  ses détails. Le fichier d'origine reste dans l'historique git (commit
+  `d850bad`) pour relancer le script avec d'autres réglages.
+- **Survol et clic** : une BVH (three-mesh-bvh) évite de tester chaque
+  triangle ; elle se construit en tâche de fond après le chargement.
+- **Rendu à la demande** : une image n'est dessinée que si la caméra, une
+  pièce ou un matériau change ; l'ombre au sol n'est recalculée que lorsqu'une
+  pièce bouge.
+- **Verre** : les matériaux à transmission (réfraction) sont remplacés par une
+  simple transparence, qui évite un second rendu complet de la scène.
+- Résolution plafonnée à 1,5× sur les écrans haute densité.
+
 ## Crédits
 
-Porsche « Free 1975 Porsche 911 (930) Turbo » de Lionsharp Studios, licence CC BY 4.0 (github.com/BigSmoke4/3D-Porsche-911), textures réduites et pièces renommées. Modèle « Car Concept » du Khronos Group, d'après un modèle de Unity Fan, licence CC BY 4.0 (l'attribution doit rester affichée). Moteur Porsche 911 SC 3.0 (type 930/03) de Joseph Schneider (github.com/josephschneider77-sys/porsche-911sc-engine), licence ISC ; textes traduits et regroupés en français. Three.js sous licence MIT. Police Archivo sous licence SIL OFL.
+Porsche « Free 1975 Porsche 911 (930) Turbo » de Lionsharp Studios, licence CC BY 4.0 (github.com/BigSmoke4/3D-Porsche-911), textures réduites et pièces renommées. Moteur Porsche 911 SC 3.0 (type 930/03) de Joseph Schneider (github.com/josephschneider77-sys/porsche-911sc-engine), licence ISC ; textes traduits et regroupés en français. Three.js et three-mesh-bvh sous licence MIT. Police Archivo sous licence SIL OFL.

@@ -4,6 +4,15 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from './vendor/three-mesh-bvh/index.module.js';
+
+/* Survol et clic : sans index spatial, le rayon de la souris était testé
+   contre chacun des centaines de milliers de triangles du modèle. La BVH
+   (hiérarchie de boîtes) ramène ça à quelques dizaines de tests. Une
+   géométrie sans BVH, le temps qu'elle se construise, garde le test classique. */
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 /* Modèles proposés : models/index.json. Choix par l'URL : ?model=moteur, ou ?config=models/autre.json */
 const CATALOG_URL = 'models/index.json';
@@ -19,13 +28,25 @@ const DOLLY = 0.35;
 /* ---------- Scène ---------- */
 const canvas = $('#scene');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+// 1,5 au lieu de 2 : sur un écran haute densité, c'est près de deux fois moins
+// de pixels à calculer, pour une différence à peine visible avec l'antialiasing.
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// L'ombre au sol ne dépend que de la position des pièces, pas de la caméra :
+// elle n'est recalculée que lorsqu'une pièce bouge (voir frame()).
+renderer.shadowMap.autoUpdate = false;
+
+/* Rendu à la demande : une image n'est dessinée que si quelque chose a changé
+   (caméra, pièce, matériau, taille de fenêtre). À l'arrêt, la carte graphique
+   ne travaille plus. */
+let dirty = true, shadowDirty = true;
+const redraw = () => { dirty = true; };
+const moved = () => { dirty = shadowDirty = true; };
 
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
@@ -39,6 +60,7 @@ controls.dampingFactor = 0.08;
 controls.maxPolarAngle = Math.PI * 0.495;
 controls.minDistance = 1.5;
 controls.maxDistance = 22;
+controls.addEventListener('change', redraw);
 
 const sun = new THREE.DirectionalLight(0xffffff, 1.7);
 sun.position.set(4, 9, 3);
@@ -90,7 +112,7 @@ async function boot() {
   } catch { /* pas de catalogue : un seul modèle */ }
   const wanted = catalog.find((m) => m.id === query.get('model')) || catalog[0];
   buildChooser(wanted?.id);
-  await loadConfig(query.get('config') || wanted?.config || 'models/concept-car.json');
+  await loadConfig(query.get('config') || wanted?.config || 'models/porsche-911.json');
 }
 
 function buildChooser(current) {
@@ -135,6 +157,7 @@ async function loadConfig(url) {
 }
 
 function disposeCar() {
+  bvhRun++;
   for (const m of S.meshes) { m.material.dispose(); }
   carGroup.clear();
   S.parts = []; S.byId.clear(); S.meshes = []; S.owner.clear(); S.openings.clear();
@@ -187,10 +210,38 @@ async function mountCar(gltf, config, title) {
   if (camera.aspect < 1) camera.position.sub(controls.target).multiplyScalar(Math.min(2.2, 0.9 / camera.aspect)).add(controls.target);
   controls.update();
   applyMaterials();
+  moved();
   $('#loader').classList.add('done');
+  buildBoundsTrees(S.meshes);
+}
+
+/* Construit les BVH par petits lots entre deux images, pour que la page reste
+   fluide pendant ce temps. Un changement de modèle interrompt la construction. */
+let bvhRun = 0;
+async function buildBoundsTrees(meshes) {
+  const run = ++bvhRun;
+  const geometries = [...new Set(meshes.map((m) => m.geometry))];
+  let budget = performance.now() + 8;
+  for (const g of geometries) {
+    if (run !== bvhRun) return;
+    if (!g.boundsTree) g.computeBoundsTree();
+    if (performance.now() > budget) {
+      await new Promise((r) => setTimeout(r, 0));
+      budget = performance.now() + 8;
+    }
+  }
 }
 
 function prepMaterial(m) {
+  // La transmission (verre réfractant) oblige three.js à dessiner toute la
+  // scène une seconde fois à chaque image. Un verre simplement transparent
+  // rend presque pareil pour une fraction du coût.
+  if (m.transmission > 0) {
+    m.opacity = Math.min(m.opacity, 0.35);
+    m.transparent = true;
+    m.depthWrite = false;
+    m.transmission = 0;
+  }
   m.userData.base = {
     opacity: m.opacity, transparent: m.transparent, depthWrite: m.depthWrite,
     emissive: m.emissive ? m.emissive.clone() : null, emissiveIntensity: m.emissiveIntensity ?? 1,
@@ -363,9 +414,11 @@ function setAccent(hex) {
 
 /* ---------- Apparence (sélection, transparence, isolement) ---------- */
 function applyMaterials() {
+  let shown = false;
   for (const m of S.meshes) {
     const p = S.owner.get(m), mat = m.material, base = mat.userData.base;
-    m.visible = !((S.view === 'pieces' && p.shell) || (S.isolated && S.selected && p !== S.selected));
+    const visible = !((S.view === 'pieces' && p.shell) || (S.isolated && S.selected && p !== S.selected));
+    if (visible !== m.visible) { m.visible = visible; shown = true; }
     const ghost = S.view === 'transparent' && p.shell && p !== S.selected;
     const wasT = mat.transparent;
     mat.transparent = ghost || base.transparent;
@@ -379,6 +432,8 @@ function applyMaterials() {
     }
     if (wasT !== mat.transparent) mat.needsUpdate = true;
   }
+  // Une pièce masquée ou réaffichée change l'ombre ; un simple surlignage non.
+  if (shown) moved(); else redraw();
 }
 
 function setView(v) {
@@ -544,6 +599,8 @@ function setExplode(v) {
 slider.addEventListener('input', () => setExplode(slider.value / 100));
 document.querySelectorAll('[data-view]').forEach((b) => (b.onclick = () => setView(b.dataset.view)));
 $('#sheet .close').onclick = () => select(null);
+// Le trait qui relie la fiche à la pièce suit la fiche pendant qu'elle glisse.
+$('#sheet').addEventListener('transitionend', redraw);
 $('#search').addEventListener('input', renderIndex);
 $('#toggleIndex').onclick = () => toggleIndex();
 
@@ -582,7 +639,9 @@ addEventListener('drop', (e) => { e.preventDefault(); dragDepth = 0; $('#drop').
 
 /* ---------- Pointeur ---------- */
 const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
-let down = null, lastMove = null;
+// Avec la BVH, chaque pièce ne renvoie que son impact le plus proche.
+ray.firstHitOnly = true;
+let down = null, lastMove = null, movedSincePick = false;
 function pick(x, y) {
   ptr.set((x / innerWidth) * 2 - 1, -(y / innerHeight) * 2 + 1);
   ray.setFromCamera(ptr, camera);
@@ -598,7 +657,7 @@ canvas.addEventListener('pointerup', (e) => {
   if (moved > 5) return;
   select(pick(e.clientX, e.clientY));
 });
-canvas.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') lastMove = [e.clientX, e.clientY]; });
+canvas.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') { lastMove = [e.clientX, e.clientY]; movedSincePick = true; } });
 canvas.addEventListener('pointerleave', () => { lastMove = null; hover(null); $('#tag').style.display = 'none'; });
 
 /* ---------- Animation ---------- */
@@ -618,23 +677,32 @@ function frame() {
     camera.position.sub(controls.target).multiplyScalar(f).add(controls.target);
   }
 
+  // Les pièces ne sont replacées que pendant un éclatement ou une ouverture.
+  let animating = S.t !== tPrev;
   for (const p of S.parts) {
-    const k = easeInOut(THREE.MathUtils.clamp((S.t - p.delay) / (1 - STAGGER), 0, 1));
-    let ang = 0;
-    if (p.open) {
-      const step = reduceMotion ? 1 : dt / 1.1;
-      p.open.v += THREE.MathUtils.clamp(p.open.target - p.open.v, -step, step);
-      ang = p.open.rad * easeInOut(p.open.v);
+    if (p.open && p.open.v !== p.open.target) animating = true;
+  }
+  if (animating) {
+    moved();
+    for (const p of S.parts) {
+      const k = easeInOut(THREE.MathUtils.clamp((S.t - p.delay) / (1 - STAGGER), 0, 1));
+      let ang = 0;
+      if (p.open) {
+        const step = reduceMotion ? 1 : dt / 1.1;
+        p.open.v += THREE.MathUtils.clamp(p.open.target - p.open.v, -step, step);
+        ang = p.open.rad * easeInOut(p.open.v);
+      }
+      p.nodeData.forEach((d, i) => {
+        d.node.position.copy(d.pos).addScaledVector(d.local, k);
+        if (p.open && i === 0) d.node.quaternion.copy(d.quat).multiply(qOpen.setFromAxisAngle(p.open.axisVec, ang));
+      });
     }
-    p.nodeData.forEach((d, i) => {
-      d.node.position.copy(d.pos).addScaledVector(d.local, k);
-      if (p.open && i === 0) d.node.quaternion.copy(d.quat).multiply(qOpen.setFromAxisAngle(p.open.axisVec, ang));
-    });
   }
 
-  // Survol, limité pour rester fluide.
-  if (lastMove && performance.now() - hoverTick > 70) {
+  // Survol : seulement si la souris a bougé, et jamais pendant une rotation.
+  if (lastMove && movedSincePick && !down && performance.now() - hoverTick > 70) {
     hoverTick = performance.now();
+    movedSincePick = false;
     const p = pick(lastMove[0], lastMove[1]);
     hover(p);
     const tag = $('#tag');
@@ -652,12 +720,17 @@ function frame() {
       tmpBox.getCenter(tmpV);
       controls.target.lerp(tmpV, reduceMotion ? 1 : 0.08);
       if (controls.target.distanceTo(tmpV) < 0.01) S.focus = null;
+      redraw();
     } else S.focus = null;
   }
 
   controls.update();
-  renderer.render(scene, camera);
-  drawLeader();
+  if (dirty) {
+    if (shadowDirty) renderer.shadowMap.needsUpdate = true;
+    renderer.render(scene, camera);
+    drawLeader();
+    dirty = shadowDirty = false;
+  }
   requestAnimationFrame(frame);
 }
 
@@ -688,6 +761,7 @@ addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  redraw();
 });
 
 setExplode(0);
@@ -695,4 +769,4 @@ boot();
 frame();
 
 // Accès console pour le débogage et les captures automatiques.
-window.__car = { S, loadBuffer, setExplode, setView, select: (id) => select(S.byId.get(id) || null), camera, controls };
+window.__car = { S, loadBuffer, setExplode, setView, select: (id) => select(S.byId.get(id) || null), camera, controls, renderer, pick };

@@ -44,9 +44,8 @@ d'ajuster sa difficulté.
 
 ## Anatomie 3D
 
-`anatomie/` contient un explorateur 3D (Three.js) d'une Porsche 911, de son
-moteur et d'une voiture concept : vue éclatée, fiche par composant,
-peintures. Il est accessible depuis le menu « Anatomie 3D », ou directement
+`anatomie/` contient un explorateur 3D (Three.js) d'une Porsche 911 et de son
+moteur : vue éclatée, fiche par composant, peintures. Il est accessible depuis le menu « Anatomie 3D », ou directement
 sur http://127.0.0.1:5000/anatomie/index.html. Détails et crédits des
 modèles dans [anatomie/README.md](anatomie/README.md).
 
