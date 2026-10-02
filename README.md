@@ -42,6 +42,14 @@ d'ajuster sa difficulté.
 | Modèles de voitures | à importer (images libres disponibles sur Commons) |
 | Pièces automobiles | à importer (images libres disponibles sur Commons) |
 
+## Anatomie 3D
+
+`anatomie/` contient un explorateur 3D (Three.js) d'une Porsche 911, de son
+moteur et d'une voiture concept : vue éclatée, fiche par composant,
+peintures. Il est accessible depuis le menu « Anatomie 3D », ou directement
+sur http://127.0.0.1:5000/anatomie/index.html. Détails et crédits des
+modèles dans [anatomie/README.md](anatomie/README.md).
+
 Autres pistes : mode « série » sans limite de questions, badges, questions à saisie libre.
 
 ## Comment marche une partie
@@ -180,10 +188,13 @@ non commercial, sans lien ni approbation des constructeurs.
 - Requêtes SQL paramétrées ; le tri et les filtres viennent de listes fermées.
 - Aucune donnée serveur insérée en HTML : le JavaScript construit le DOM
   avec `textContent`, ce qui neutralise le XSS stocké.
+- `anatomie/` a sa propre CSP, un peu plus large : importmap autorisé par
+  son empreinte SHA-256 (recalculée au démarrage), WebAssembly et workers
+  `blob:` pour les décodeurs 3D. Le reste du site garde la CSP stricte.
 - En-têtes : CSP, `X-Content-Type-Options`, `X-Frame-Options`,
   `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`.
 - Le serveur ne sert que les pages `.html` de la racine et les dossiers
-  `css/`, `js/`, `assets/` : sans cette liste blanche, la base et le code
+  `css/`, `js/`, `assets/`, `anatomie/` : sans cette liste blanche, la base et le code
   source seraient téléchargeables.
 - Base de données remise en permissions `600` au démarrage.
 - Réponses de l'API en `Cache-Control: no-store`.

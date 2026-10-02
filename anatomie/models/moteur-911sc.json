@@ -1,0 +1,3519 @@
+{
+ "title": "Moteur 911 SC",
+ "model": "models/moteur-911sc.glb",
+ "unit": "mm",
+ "accent": "#c2410c",
+ "credit": "Moteur Porsche 911 SC 3.0 (type 930/03) de Joseph Schneider, licence ISC.",
+ "creditUrl": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+ "camera": {
+  "position": [
+   1.45,
+   0.95,
+   1.6
+  ],
+  "target": [
+   0,
+   0.3,
+   0
+  ]
+ },
+ "dolly": 0.8,
+ "systems": [
+  "Carter moteur",
+  "Vilebrequin et bielles",
+  "Pistons et cylindres",
+  "Culasses et carters d’arbre à cames",
+  "Distribution",
+  "Soupapes et culbuteurs",
+  "Lubrification",
+  "Refroidissement et alternateur",
+  "Injection et admission",
+  "Allumage",
+  "Échappement",
+  "Volant moteur et embrayage",
+  "Visserie et joints"
+ ],
+ "openings": [],
+ "paints": [],
+ "parts": [
+  {
+   "id": "crankcase-right",
+   "name": "Carter moteur, demi-carter droit (cyl. 1-3)",
+   "system": "Carter moteur",
+   "shell": true,
+   "nodes": [
+    "crankcase-right"
+   ],
+   "offset": [
+    0.0595,
+    0,
+    0
+   ],
+   "desc": "Moitié droite du carter en aluminium coulé sous pression, séparé verticalement (la 3.0 SC revient à l’aluminium après le magnésium de la 2.7). Le logement du vilebrequin est creux, avec sept paliers alésés en ligne plus le palier avant côté poulie. Les cylindres 1 à 3 se centrent dans les alésages du plan de joint.",
+   "points": [
+    "Matériau : Aluminium coulé sous pression",
+    "Paliers de vilebrequin : 8 (7 + palier avant)",
+    "Fixation : Boulons traversants + périphérie M8",
+    "Lubrification : Carter sec",
+    "Référence Porsche : 930 101 915 00"
+   ]
+  },
+  {
+   "id": "crankcase-left",
+   "name": "Carter moteur, demi-carter gauche (cyl. 4-6)",
+   "system": "Carter moteur",
+   "shell": true,
+   "nodes": [
+    "crankcase-left"
+   ],
+   "offset": [
+    -0.153,
+    0,
+    0
+   ],
+   "desc": "Moitié gauche du carter en aluminium, qui porte les cylindres 4 à 6. Même logement creux et mêmes voiles de paliers que la moitié droite. Les deux moitiés sont assemblées sur le plan de joint usiné avec de la pâte d’étanchéité, des boulons traversants et des goujons périphériques.",
+   "points": [
+    "Matériau : Aluminium coulé sous pression",
+    "Goujons de culasse : Acier en haut, Dilavar en bas",
+    "Serrage des boulons de carter : 3,5 mkg (34 N·m), M8",
+    "Référence Porsche : 930 101 915 00"
+   ]
+  },
+  {
+   "id": "main-bearings",
+   "name": "Coussinets de paliers (1 à 8)",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "main-bearings"
+   ],
+   "offset": [
+    0,
+    -0.051,
+    0
+   ],
+   "desc": "Coussinets en deux parties à dos acier pour les paliers 1 à 7, chacun avec un ergot de positionnement, plus la bague d’une seule pièce du palier 8 côté poulie. Le palier 1, côté volant, encaisse la poussée axiale.",
+   "points": [
+    "Nombre : 7 en deux parties + 1 bague",
+    "Palier de butée : N° 1",
+    "Référence Porsche : 930 101 901 00"
+   ]
+  },
+  {
+   "id": "crankshaft",
+   "name": "Vilebrequin",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "crankshaft"
+   ],
+   "offset": [
+    0,
+    -0.0255,
+    0
+   ],
+   "desc": "Vilebrequin forgé à contrepoids, avec six manetons indépendants et huit paliers (paliers 1 à 7 de 60 mm, palier avant agrandi). Les flasques épais sont tantôt presque ronds, tantôt en forme de poire à l’opposé du maneton.",
+   "points": [
+    "Course : 70,4 mm",
+    "Tourillons : Ø 60 mm",
+    "Manetons : Ø 53 mm",
+    "Calage des manetons : 6 à 120°",
+    "Ordre d’allumage : 1-6-2-4-3-5",
+    "Référence Porsche : 930 102 015 01"
+   ]
+  },
+  {
+   "id": "crank-gears",
+   "name": "Pignon de distribution et pignon d’entraînement d’allumeur",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "crank-gears"
+   ],
+   "offset": [
+    0,
+    -0.0255,
+    0.0765
+   ],
+   "desc": "Pignon en bout de vilebrequin qui entraîne l’arbre intermédiaire, plus le pignon hélicoïdal qui entraîne l’axe de l’allumeur.",
+   "points": [
+    "Entraînement : Vilebrequin vers arbre intermédiaire (pignons)",
+    "Dentures : 35 : 60",
+    "Référence Porsche : 901 102 111 00"
+   ]
+  },
+  {
+   "id": "intermediate-shaft",
+   "name": "Arbre intermédiaire",
+   "system": "Distribution",
+   "nodes": [
+    "intermediate-shaft"
+   ],
+   "offset": [
+    0,
+    -0.153,
+    0.051
+   ],
+   "desc": "Arbre placé sous le vilebrequin et entraîné par lui (pignon hélicoïdal de 60 dents, rapport 35:60). Ses deux pignons doubles de 24 dents entraînent les chaînes de distribution, si bien que les arbres à cames tournent à la moitié du régime moteur. Côté volant, il entraîne aussi la pompe à huile.",
+   "points": [
+    "Paliers : 2 lisses",
+    "Entraîne : Chaînes de distribution + pompe à huile",
+    "Pignons : 2 × 24 dents, doubles",
+    "Pignon menant : 60 dents hélicoïdal",
+    "Référence Porsche : 930 105 013 01"
+   ]
+  },
+  {
+   "id": "oil-pump",
+   "name": "Pompe à huile (pression et récupération)",
+   "system": "Lubrification",
+   "nodes": [
+    "oil-pump"
+   ],
+   "offset": [
+    0,
+    -0.17,
+    -0.119
+   ],
+   "desc": "Pompe à engrenages coulée en deux étages, logée côté volant : un grand étage de récupération et un petit étage de pression, comme l’exige le carter sec. Elle est fixée par trois écrous M8 et entraînée par l’arbre intermédiaire via un arbre cannelé.",
+   "points": [
+    "Type : À engrenages, 2 étages",
+    "Circuit : Carter sec, environ 13 L au total",
+    "Référence Porsche : 911 107 008 01"
+   ]
+  },
+  {
+   "id": "sump-plate",
+   "name": "Tôle de fond de carter et crépine",
+   "system": "Lubrification",
+   "nodes": [
+    "sump-plate"
+   ],
+   "offset": [
+    0,
+    -0.255,
+    0
+   ],
+   "desc": "Couvercle de fond en tôle emboutie, avec un rebord et un canal en fer à cheval où se trouve le bouchon de vidange. La crépine et ses deux joints sont montés derrière la tôle.",
+   "points": [
+    "Fixation : 12 écrous M6",
+    "Bouchon de vidange : 911 107 176 03",
+    "Référence Porsche : 930 107 314 00"
+   ]
+  },
+  {
+   "id": "oil-thermostat",
+   "name": "Thermostat d’huile",
+   "system": "Lubrification",
+   "nodes": [
+    "oil-thermostat"
+   ],
+   "offset": [
+    0.034,
+    0.153,
+    0.034
+   ],
+   "desc": "Cartouche à élément de cire placée en haut du demi-carter droit, côté poulie, à côté du mano-contact de pression. Elle envoie l’huile vers le radiateur seulement une fois le moteur chaud.",
+   "points": [
+    "Emplacement : Haut du demi-carter droit, côté poulie",
+    "Fixation : 3 écrous M6 autobloquants",
+    "Référence Porsche : 930 107 765 00"
+   ]
+  },
+  {
+   "id": "oil-cooler",
+   "name": "Radiateur d’huile",
+   "system": "Lubrification",
+   "nodes": [
+    "oil-cooler"
+   ],
+   "offset": [
+    -0.238,
+    0.221,
+    0
+   ],
+   "desc": "Radiateur à ailettes en aluminium placé sous le guide d’air supérieur, refroidi par l’air de la turbine avant que celui-ci n’atteigne les cylindres.",
+   "points": [
+    "Emplacement : À gauche, sous le carénage",
+    "Type : Tubes et ailettes",
+    "Référence Porsche : 911 107 041 00"
+   ]
+  },
+  {
+   "id": "breather-lid",
+   "name": "Couvercle de reniflard",
+   "system": "Lubrification",
+   "nodes": [
+    "breather-lid"
+   ],
+   "offset": [
+    0,
+    0.221,
+    0.051
+   ],
+   "desc": "Tour de reniflard en aluminium coulé sur le demi-carter gauche, côté poulie. Elle renvoie les vapeurs d’huile du carter vers le réservoir d’huile.",
+   "points": [
+    "Fixation : 2 écrous M6",
+    "Référence Porsche : 901 107 073 02"
+   ]
+  },
+  {
+   "id": "fan-housing",
+   "name": "Carter de turbine",
+   "system": "Refroidissement et alternateur",
+   "shell": true,
+   "nodes": [
+    "fan-housing"
+   ],
+   "offset": [
+    0,
+    0.068,
+    0.544
+   ],
+   "desc": "Tambour en magnésium brut qui guide l’air de la turbine, avec cinq aubes fixes et un berceau pour l’alternateur. Turbine et alternateur sortent d’un seul bloc par le collier du carénage.",
+   "points": [
+    "Matériau : Magnésium coulé, non peint",
+    "Montage : Alternateur bridé par collier",
+    "Diamètre d’entrée : environ 234 mm",
+    "Référence Porsche : 930 106 005 00"
+   ]
+  },
+  {
+   "id": "fan-impeller",
+   "name": "Turbine de refroidissement (11 pales)",
+   "system": "Refroidissement et alternateur",
+   "nodes": [
+    "fan-impeller"
+   ],
+   "offset": [
+    0,
+    0.085,
+    0.595
+   ],
+   "desc": "Onze pales larges et vrillées sur un grand moyeu coulé. C’est elle qui refroidit tout le moteur : sur ce flat-six, il n’y a pas de circuit d’eau.",
+   "points": [
+    "Pales : 11",
+    "Rapport d’entraînement : environ 1,67 : 1",
+    "Diamètre : 226 mm",
+    "Référence Porsche : 930 106 011 01"
+   ]
+  },
+  {
+   "id": "alternator",
+   "name": "Alternateur",
+   "system": "Refroidissement et alternateur",
+   "nodes": [
+    "alternator"
+   ],
+   "offset": [
+    0,
+    0.0595,
+    0.476
+   ],
+   "desc": "Alternateur Bosch 14 V logé dans le berceau du carter de turbine. La turbine est montée sur son axe : la courroie entraîne les deux à la fois depuis la poulie de vilebrequin. Le régulateur est externe sur le modèle 1978.",
+   "points": [
+    "Sortie : 14 V, environ 70 A",
+    "Régulateur : Externe (1978)",
+    "Référence Porsche : 911 603 120 02"
+   ]
+  },
+  {
+   "id": "fan-pulley",
+   "name": "Poulie de turbine et d’alternateur",
+   "system": "Refroidissement et alternateur",
+   "nodes": [
+    "fan-pulley"
+   ],
+   "offset": [
+    0,
+    0.068,
+    0.646
+   ],
+   "desc": "Demi-poulie extérieure démontable de la poulie de 82 mm en deux parties. Les six cales de 0,5 mm servent à régler la tension de courroie : en retirer une entre les demi-poulies tend la courroie.",
+   "points": [
+    "Réglage : 6 cales de 0,5 mm",
+    "Diamètre extérieur : environ 82 mm",
+    "Référence Porsche : 911 106 208 00"
+   ]
+  },
+  {
+   "id": "fan-belt",
+   "name": "Courroie trapézoïdale",
+   "system": "Refroidissement et alternateur",
+   "nodes": [
+    "fan-belt"
+   ],
+   "offset": [
+    0,
+    0.1275,
+    0.476
+   ],
+   "desc": "Courroie étroite entre la poulie de vilebrequin et la poulie de turbine. Si elle casse, le moteur n’est plus refroidi.",
+   "points": [
+    "Dimensions : 9,5 × 725 mm",
+    "Référence Porsche : 999 192 097 50"
+   ]
+  },
+  {
+   "id": "crank-pulley",
+   "name": "Poulie de vilebrequin",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "crank-pulley"
+   ],
+   "offset": [
+    0,
+    0,
+    0.357
+   ],
+   "desc": "Poulie en acier embouti à une gorge, avec un repère Z1 qui indique le point mort haut du cylindre 1. La version à deux gorges était réservée à l’option climatisation.",
+   "points": [
+    "Gorges : 1",
+    "Diamètre extérieur : environ 134 mm",
+    "Repère : Z1 (PMH du cylindre 1)",
+    "Finition : Zingage jaune",
+    "Référence Porsche : 930 102 028 09"
+   ]
+  },
+  {
+   "id": "upper-air-guide",
+   "name": "Guide d’air supérieur (carénage)",
+   "system": "Refroidissement et alternateur",
+   "shell": true,
+   "nodes": [
+    "upper-air-guide"
+   ],
+   "offset": [
+    0,
+    0.255,
+    0
+   ],
+   "desc": "Coque moulée rouge orangé de 1978 qui répartit l’air de la turbine sur les cylindres et les culasses. Chaque aile comporte trois fenêtres pour les injecteurs.",
+   "points": [
+    "Matériau : Polyester renforcé de verre",
+    "Couleur : Rouge 1978 (930 106 041 00)",
+    "Référence Porsche : 930 106 041 00"
+   ]
+  },
+  {
+   "id": "plenum",
+   "name": "Répartiteur d’air et boîtier de filtre",
+   "system": "Injection et admission",
+   "shell": true,
+   "nodes": [
+    "plenum"
+   ],
+   "offset": [
+    0,
+    0.442,
+    0
+   ],
+   "desc": "Répartiteur d’air coulé avec six sorties horizontales de 38 mm, une par cylindre, le papillon côté poulie et le départ de démarrage à froid côté volant. La moitié basse du boîtier de filtre ovale repose dessus.",
+   "points": [
+    "Diamètre des sorties : 38 mm",
+    "Boîtier : 155 × 190 × 78 mm",
+    "Référence Porsche : 911 110 106 13"
+   ]
+  },
+  {
+   "id": "air-filter",
+   "name": "Élément de filtre à air",
+   "system": "Injection et admission",
+   "nodes": [
+    "air-filter"
+   ],
+   "offset": [
+    0,
+    0.544,
+    0
+   ],
+   "desc": "Élément plat rectangulaire Mahle LX 261 : cadre en uréthane orange et papier plissé.",
+   "points": [
+    "Longueur : 402 mm",
+    "Largeur : 181 mm",
+    "Hauteur : 41,4 mm",
+    "Référence Porsche : 911 110 185 02"
+   ]
+  },
+  {
+   "id": "air-cleaner-lid",
+   "name": "Couvercle de filtre à air",
+   "system": "Injection et admission",
+   "shell": true,
+   "nodes": [
+    "air-cleaner-lid"
+   ],
+   "offset": [
+    0,
+    0.646,
+    0
+   ],
+   "desc": "Moitié haute du boîtier de filtre ovale, maintenue par quatre agrafes métalliques. La prise d’air part de l’extrémité gauche de la moitié basse.",
+   "points": [
+    "Fixation : 4 agrafes",
+    "Référence Porsche : 930 110 184 00"
+   ]
+  },
+  {
+   "id": "mixture-control-unit",
+   "name": "Doseur-distributeur (débitmètre et distributeur de carburant)",
+   "system": "Injection et admission",
+   "nodes": [
+    "mixture-control-unit"
+   ],
+   "offset": [
+    -0.272,
+    0.51,
+    0
+   ],
+   "desc": "Cœur de l’injection mécanique Bosch K-Jetronic. Le débitmètre mesure l’air aspiré grâce à un plateau-sonde, et le distributeur envoie en proportion le carburant vers les six injecteurs.",
+   "points": [
+    "Système : Bosch K-Jetronic (CIS)",
+    "Pression du circuit : environ 4,5 à 5,2 bar",
+    "Référence Porsche : 911 110 967 00"
+   ]
+  },
+  {
+   "id": "fuel-lines",
+   "name": "Conduites d’injection",
+   "system": "Injection et admission",
+   "nodes": [
+    "fuel-lines"
+   ],
+   "offset": [
+    -0.136,
+    0.476,
+    0
+   ],
+   "desc": "Conduites en acier : six vers les injecteurs, une d’alimentation, un retour et une vers l’injecteur de démarrage à froid.",
+   "points": [
+    "Conduites : 6 injecteurs + alimentation + retour + départ à froid",
+    "Référence Porsche : 911 110 093 11 / 12"
+   ]
+  },
+  {
+   "id": "distributor-clamp",
+   "name": "Bride d’allumeur",
+   "system": "Allumage",
+   "nodes": [
+    "distributor-clamp"
+   ],
+   "offset": [
+    -0.136,
+    0.306,
+    0.085
+   ],
+   "desc": "Bride qui serre le corps de l’allumeur, montée sur un goujon du demi-carter gauche.",
+   "points": [
+    "Fixation : 1 écrou + rondelles",
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "ignition-leads",
+   "name": "Faisceau de bougies",
+   "system": "Allumage",
+   "nodes": [
+    "ignition-leads"
+   ],
+   "offset": [
+    -0.051,
+    0.391,
+    0.051
+   ],
+   "desc": "Six fils qui partent de la tête d’allumeur, passent au-dessus du répartiteur puis descendent le long des carters d’arbre à cames jusqu’aux bougies.",
+   "points": [
+    "Fils : 6",
+    "Référence Porsche : 930 602 021 04"
+   ]
+  },
+  {
+   "id": "fan-hub",
+   "name": "Moyeu de turbine",
+   "system": "Refroidissement et alternateur",
+   "nodes": [
+    "fan-hub"
+   ],
+   "offset": [
+    0,
+    0.085,
+    0.578
+   ],
+   "desc": "Plateau zingué jaune riveté sur la turbine. Il porte la demi-poulie intérieure et se fixe au moyeu par six goujons.",
+   "points": [
+    "Goujons : 6",
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "airbox-struts",
+   "name": "Supports de filtre à air",
+   "system": "Injection et admission",
+   "nodes": [
+    "airbox-struts"
+   ],
+   "offset": [
+    0,
+    0.544,
+    0
+   ],
+   "desc": "Deux supports à tampons en caoutchouc qui tiennent le boîtier de filtre sur le répartiteur d’air.",
+   "points": [
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "warm-up-regulator",
+   "name": "Régulateur de réchauffage",
+   "system": "Injection et admission",
+   "nodes": [
+    "warm-up-regulator"
+   ],
+   "offset": [
+    -0.17,
+    0.255,
+    -0.17
+   ],
+   "desc": "Régulateur de pression de commande Bosch vissé sur le demi-carter gauche pour sentir la température du moteur. Il enrichit le mélange tant que le moteur est froid.",
+   "points": [
+    "Fixation : 2 vis",
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "distributor",
+   "name": "Allumeur",
+   "system": "Allumage",
+   "nodes": [
+    "distributor"
+   ],
+   "offset": [
+    -0.136,
+    0.357,
+    0.085
+   ],
+   "desc": "Allumeur Bosch entraîné par le pignon du vilebrequin. La SC inaugure l’allumage électronique à décharge capacitive, sans rupteur.",
+   "points": [
+    "Ordre d’allumage : 1-6-2-4-3-5",
+    "Allumage : Décharge capacitive, sans rupteur",
+    "Référence Porsche : 930 602 021 04"
+   ]
+  },
+  {
+   "id": "muffler",
+   "name": "Silencieux d’échappement",
+   "system": "Échappement",
+   "shell": true,
+   "nodes": [
+    "muffler"
+   ],
+   "offset": [
+    0,
+    -0.221,
+    0.442
+   ],
+   "desc": "Silencieux arrière transversal alimenté par les deux échangeurs de chaleur, avec une sortie unique à gauche.",
+   "points": [
+    "Référence Porsche : 930 111 022 00"
+   ]
+  },
+  {
+   "id": "flywheel",
+   "name": "Volant moteur et couronne de démarreur",
+   "system": "Volant moteur et embrayage",
+   "nodes": [
+    "flywheel"
+   ],
+   "offset": [
+    0,
+    0,
+    -0.272
+   ],
+   "desc": "Volant en acier boulonné sur la bride du vilebrequin. Il porte la couronne dentée du démarreur, montée à chaud, et la surface de friction de l’embrayage.",
+   "points": [
+    "Boulons : 9",
+    "Référence Porsche : 930 102 204 00"
+   ]
+  },
+  {
+   "id": "clutch-disc",
+   "name": "Disque d’embrayage",
+   "system": "Volant moteur et embrayage",
+   "nodes": [
+    "clutch-disc"
+   ],
+   "offset": [
+    0,
+    0,
+    -0.374
+   ],
+   "desc": "Disque à moyeu amorti, cannelé sur l’arbre d’entrée de la boîte de vitesses 915.",
+   "points": [
+    "Diamètre : 225 mm",
+    "Référence Porsche : 915 116 011 19"
+   ]
+  },
+  {
+   "id": "pressure-plate",
+   "name": "Mécanisme d’embrayage",
+   "system": "Volant moteur et embrayage",
+   "nodes": [
+    "pressure-plate"
+   ],
+   "offset": [
+    0,
+    0,
+    -0.476
+   ],
+   "desc": "Plateau de pression à diaphragme boulonné sur le volant. Il serre le disque contre le volant tant que la pédale n’est pas enfoncée.",
+   "points": [
+    "Diamètre : 225 mm",
+    "Référence Porsche : 915 116 001 27"
+   ]
+  },
+  {
+   "id": "cam-housing-right",
+   "name": "Carter d’arbre à cames, côté droit (cyl. 1-3)",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "cam-housing-right"
+   ],
+   "offset": [
+    0.442,
+    0,
+    0
+   ],
+   "desc": "Tour d’arbre à cames en aluminium coulé, boulonnée sur les trois culasses d’une rangée. L’arbre tourne dans quatre paliers alésés en ligne, avec un axe de culbuteur de chaque côté de chaque cylindre. Elle est fermée par deux couvre-culbuteurs.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Paliers d’arbre : 4",
+    "Axes de culbuteurs : 6",
+    "Référence Porsche : 930 105 021 00"
+   ]
+  },
+  {
+   "id": "valve-cover-upper-right",
+   "name": "Couvre-culbuteurs supérieur, côté droit",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "valve-cover-upper-right"
+   ],
+   "offset": [
+    0.476,
+    0.136,
+    0
+   ],
+   "desc": "Couvercle nervuré côté admission qui ferme le logement des culbuteurs du carter d’arbre à cames.",
+   "points": [
+    "Matériau : Alliage coulé",
+    "Fixation : Écrous sur goujons",
+    "Référence Porsche : 901 105 115 03"
+   ]
+  },
+  {
+   "id": "valve-cover-lower-right",
+   "name": "Couvre-culbuteurs inférieur, côté droit",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "valve-cover-lower-right"
+   ],
+   "offset": [
+    0.476,
+    -0.136,
+    0
+   ],
+   "desc": "Couvercle nervuré côté échappement qui ferme le logement des culbuteurs du carter d’arbre à cames.",
+   "points": [
+    "Matériau : Alliage coulé",
+    "Fixation : Écrous sur goujons",
+    "Référence Porsche : 930 105 116 00"
+   ]
+  },
+  {
+   "id": "camshaft-right",
+   "name": "Arbre à cames, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "camshaft-right"
+   ],
+   "offset": [
+    0.544,
+    0.051,
+    0
+   ],
+   "desc": "Arbre à cames en fonte trempée avec une came d’admission et une came d’échappement par cylindre. Il tourne à la moitié du régime du vilebrequin et se glisse dans son carter par le côté chaîne.",
+   "points": [
+    "Vitesse : Moitié du vilebrequin",
+    "Cames : 6",
+    "Tourillons : 4",
+    "Référence Porsche : 930 105 148 08"
+   ]
+  },
+  {
+   "id": "rockers-right",
+   "name": "Culbuteurs et axes, côté droit",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "rockers-right"
+   ],
+   "offset": [
+    0.51,
+    0.0255,
+    0.051
+   ],
+   "desc": "Culbuteurs forgés montés sur des axes creux expansibles. Le patin appuie sur la came et la vis de réglage pousse la soupape. Le jeu se règle à 0,10 mm à froid entre la vis et la queue de soupape.",
+   "points": [
+    "Nombre : 6 par rangée",
+    "Axe : Ø 18 mm, creux",
+    "Jeu aux soupapes : 0,10 mm à froid",
+    "Référence Porsche : 930 105 043 00"
+   ]
+  },
+  {
+   "id": "timing-chain-right",
+   "name": "Chaîne de distribution, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "timing-chain-right"
+   ],
+   "offset": [
+    0.323,
+    -0.034,
+    0.204
+   ],
+   "desc": "Chaîne double à rouleaux qui va du pignon de 24 dents de l’arbre intermédiaire au pignon d’arbre à cames de 28 dents. Le brin mou passe sur le galet tendeur.",
+   "points": [
+    "Pas : 9,525 mm (3/8 de pouce)",
+    "Type : Double",
+    "Maillons : 92",
+    "Référence Porsche : 901 105 529 00"
+   ]
+  },
+  {
+   "id": "cam-sprocket-right",
+   "name": "Pignon d’arbre à cames, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "cam-sprocket-right"
+   ],
+   "offset": [
+    0.442,
+    0.034,
+    0.272
+   ],
+   "desc": "Pignon double tenu sur le nez de l’arbre par un écrou M22. Une goupille passée dans l’un de ses 17 trous le relie à la bride clavetée : c’est le réglage fin du calage de distribution.",
+   "points": [
+    "Réglage : Goupille en vernier",
+    "Dents : 28",
+    "Vitesse : Moitié du vilebrequin",
+    "Référence Porsche : 901 105 546 02"
+   ]
+  },
+  {
+   "id": "cam-flange-right",
+   "name": "Bride de pignon d’arbre à cames, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "cam-flange-right"
+   ],
+   "offset": [
+    0.493,
+    0.0425,
+    0.204
+   ],
+   "desc": "Moyeu claveté sur le nez de l’arbre à cames. Ses 16 encoches, face aux 17 trous du pignon, permettent un calage très fin de la distribution.",
+   "points": [
+    "Entraînement : Clavette demi-lune",
+    "Encoches : 16",
+    "Référence Porsche : 901 105 583 01"
+   ]
+  },
+  {
+   "id": "adjuster-cover-right",
+   "name": "Couvercle de tendeur, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "adjuster-cover-right"
+   ],
+   "offset": [
+    0.255,
+    -0.051,
+    0.357
+   ],
+   "desc": "Couvercle rond qui ferme l’ouverture du tendeur de chaîne dans le couvercle du carter de chaîne, avec un joint plat et un joint torique.",
+   "points": [
+    "Vis : 3 + rondelles élastiques",
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "chain-tensioner-right",
+   "name": "Tendeur et guides de chaîne, côté droit",
+   "system": "Distribution",
+   "nodes": [
+    "chain-tensioner-right"
+   ],
+   "offset": [
+    0.306,
+    -0.102,
+    0.272
+   ],
+   "desc": "Bras de galet forgé avec un pignon fou de 19 dents qui tend le brin mou de la chaîne. Le tendeur hydraulique scellé appuie sur la queue du bras. Des patins moulés guident les deux brins.",
+   "points": [
+    "Type : Tendeur hydraulique scellé à ressort (930/03)",
+    "Galet : 19 dents",
+    "Référence Porsche : 930 105 049 00"
+   ]
+  },
+  {
+   "id": "chain-housing-right",
+   "name": "Carter de chaîne, côté droit",
+   "system": "Distribution",
+   "shell": true,
+   "nodes": [
+    "chain-housing-right"
+   ],
+   "offset": [
+    0.289,
+    -0.017,
+    0.1445
+   ],
+   "desc": "Boîtier de chaîne profond en aluminium coulé, boulonné sur la face du carter côté poulie. Le carter d’arbre à cames vient s’y emboîter avec un joint.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Joint : 930 105 193 00",
+    "Référence Porsche : 930 105 062 01"
+   ]
+  },
+  {
+   "id": "chain-housing-lid-right",
+   "name": "Couvercle de carter de chaîne, côté droit",
+   "system": "Distribution",
+   "shell": true,
+   "nodes": [
+    "chain-housing-lid-right"
+   ],
+   "offset": [
+    0.323,
+    -0.017,
+    0.323
+   ],
+   "desc": "Couvercle plat en fonte d’aluminium avec nervures de renfort, fixé par environ 13 écrous en périphérie.",
+   "points": [
+    "Joint : 930 105 192 01",
+    "Référence Porsche : 930 105 064 01"
+   ]
+  },
+  {
+   "id": "heat-exchanger-right",
+   "name": "Échangeur de chaleur, côté droit (cyl. 1-3)",
+   "system": "Échappement",
+   "shell": true,
+   "nodes": [
+    "heat-exchanger-right"
+   ],
+   "offset": [
+    0.2805,
+    -0.272,
+    0
+   ],
+   "desc": "Collecteur d’échappement et chauffage de l’habitacle en un seul élément : les trois tubes primaires traversent un caisson à ailettes enfermé dans une coque en acier. L’air frais soufflé dans la coque se réchauffe puis part vers l’habitacle.",
+   "points": [
+    "Matériau : Acier aluminié",
+    "Tubes primaires : 3 par côté",
+    "Référence Porsche : 930 211 025 01"
+   ]
+  },
+  {
+   "id": "cam-housing-left",
+   "name": "Carter d’arbre à cames, côté gauche (cyl. 4-6)",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "cam-housing-left"
+   ],
+   "offset": [
+    -0.442,
+    0,
+    0
+   ],
+   "desc": "Tour d’arbre à cames en aluminium coulé, boulonnée sur les trois culasses d’une rangée. L’arbre tourne dans quatre paliers alésés en ligne, avec un axe de culbuteur de chaque côté de chaque cylindre. Elle est fermée par deux couvre-culbuteurs.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Paliers d’arbre : 4",
+    "Axes de culbuteurs : 6",
+    "Référence Porsche : 930 105 021 00"
+   ]
+  },
+  {
+   "id": "valve-cover-upper-left",
+   "name": "Couvre-culbuteurs supérieur, côté gauche",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "valve-cover-upper-left"
+   ],
+   "offset": [
+    -0.476,
+    0.136,
+    0
+   ],
+   "desc": "Couvercle nervuré côté admission qui ferme le logement des culbuteurs du carter d’arbre à cames.",
+   "points": [
+    "Matériau : Alliage coulé",
+    "Fixation : Écrous sur goujons",
+    "Référence Porsche : 901 105 115 03"
+   ]
+  },
+  {
+   "id": "valve-cover-lower-left",
+   "name": "Couvre-culbuteurs inférieur, côté gauche",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "valve-cover-lower-left"
+   ],
+   "offset": [
+    -0.476,
+    -0.136,
+    0
+   ],
+   "desc": "Couvercle nervuré côté échappement qui ferme le logement des culbuteurs du carter d’arbre à cames.",
+   "points": [
+    "Matériau : Alliage coulé",
+    "Fixation : Écrous sur goujons",
+    "Référence Porsche : 930 105 116 00"
+   ]
+  },
+  {
+   "id": "camshaft-left",
+   "name": "Arbre à cames, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "camshaft-left"
+   ],
+   "offset": [
+    -0.544,
+    0.051,
+    0
+   ],
+   "desc": "Arbre à cames en fonte trempée avec une came d’admission et une came d’échappement par cylindre. Il tourne à la moitié du régime du vilebrequin et se glisse dans son carter par le côté chaîne.",
+   "points": [
+    "Vitesse : Moitié du vilebrequin",
+    "Cames : 6",
+    "Tourillons : 4",
+    "Référence Porsche : 930 105 147 08"
+   ]
+  },
+  {
+   "id": "rockers-left",
+   "name": "Culbuteurs et axes, côté gauche",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "rockers-left"
+   ],
+   "offset": [
+    -0.51,
+    0.0255,
+    0.051
+   ],
+   "desc": "Culbuteurs forgés montés sur des axes creux expansibles. Le patin appuie sur la came et la vis de réglage pousse la soupape. Le jeu se règle à 0,10 mm à froid entre la vis et la queue de soupape.",
+   "points": [
+    "Nombre : 6 par rangée",
+    "Axe : Ø 18 mm, creux",
+    "Jeu aux soupapes : 0,10 mm à froid",
+    "Référence Porsche : 930 105 043 00"
+   ]
+  },
+  {
+   "id": "timing-chain-left",
+   "name": "Chaîne de distribution, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "timing-chain-left"
+   ],
+   "offset": [
+    -0.323,
+    -0.034,
+    0.204
+   ],
+   "desc": "Chaîne double à rouleaux qui va du pignon de 24 dents de l’arbre intermédiaire au pignon d’arbre à cames de 28 dents. Le brin mou passe sur le galet tendeur.",
+   "points": [
+    "Pas : 9,525 mm (3/8 de pouce)",
+    "Type : Double",
+    "Maillons : 92",
+    "Référence Porsche : 901 105 529 00"
+   ]
+  },
+  {
+   "id": "cam-sprocket-left",
+   "name": "Pignon d’arbre à cames, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "cam-sprocket-left"
+   ],
+   "offset": [
+    -0.442,
+    0.034,
+    0.272
+   ],
+   "desc": "Pignon double tenu sur le nez de l’arbre par un écrou M22. Une goupille passée dans l’un de ses 17 trous le relie à la bride clavetée : c’est le réglage fin du calage de distribution.",
+   "points": [
+    "Réglage : Goupille en vernier",
+    "Dents : 28",
+    "Vitesse : Moitié du vilebrequin",
+    "Référence Porsche : 901 105 546 02"
+   ]
+  },
+  {
+   "id": "cam-flange-left",
+   "name": "Bride de pignon d’arbre à cames, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "cam-flange-left"
+   ],
+   "offset": [
+    -0.493,
+    0.0425,
+    0.204
+   ],
+   "desc": "Moyeu claveté sur le nez de l’arbre à cames. Ses 16 encoches, face aux 17 trous du pignon, permettent un calage très fin de la distribution.",
+   "points": [
+    "Entraînement : Clavette demi-lune",
+    "Encoches : 16",
+    "Référence Porsche : 901 105 583 01"
+   ]
+  },
+  {
+   "id": "adjuster-cover-left",
+   "name": "Couvercle de tendeur, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "adjuster-cover-left"
+   ],
+   "offset": [
+    -0.255,
+    -0.051,
+    0.357
+   ],
+   "desc": "Couvercle rond qui ferme l’ouverture du tendeur de chaîne dans le couvercle du carter de chaîne, avec un joint plat et un joint torique.",
+   "points": [
+    "Vis : 3 + rondelles élastiques",
+    "Référence Porsche : —"
+   ]
+  },
+  {
+   "id": "chain-tensioner-left",
+   "name": "Tendeur et guides de chaîne, côté gauche",
+   "system": "Distribution",
+   "nodes": [
+    "chain-tensioner-left"
+   ],
+   "offset": [
+    -0.306,
+    -0.102,
+    0.272
+   ],
+   "desc": "Bras de galet forgé avec un pignon fou de 19 dents qui tend le brin mou de la chaîne. Le tendeur hydraulique scellé appuie sur la queue du bras. Des patins moulés guident les deux brins.",
+   "points": [
+    "Type : Tendeur hydraulique scellé à ressort (930/03)",
+    "Galet : 19 dents",
+    "Référence Porsche : 930 105 049 00"
+   ]
+  },
+  {
+   "id": "chain-housing-left",
+   "name": "Carter de chaîne, côté gauche",
+   "system": "Distribution",
+   "shell": true,
+   "nodes": [
+    "chain-housing-left"
+   ],
+   "offset": [
+    -0.289,
+    -0.017,
+    0.1445
+   ],
+   "desc": "Boîtier de chaîne profond en aluminium coulé, boulonné sur la face du carter côté poulie. Le carter d’arbre à cames vient s’y emboîter avec un joint.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Joint : 930 105 193 00",
+    "Référence Porsche : 930 105 061 02"
+   ]
+  },
+  {
+   "id": "chain-housing-lid-left",
+   "name": "Couvercle de carter de chaîne, côté gauche",
+   "system": "Distribution",
+   "shell": true,
+   "nodes": [
+    "chain-housing-lid-left"
+   ],
+   "offset": [
+    -0.323,
+    -0.017,
+    0.323
+   ],
+   "desc": "Couvercle plat en fonte d’aluminium avec nervures de renfort, fixé par environ 13 écrous en périphérie.",
+   "points": [
+    "Joint : 930 105 192 01",
+    "Référence Porsche : 930 105 063 01"
+   ]
+  },
+  {
+   "id": "heat-exchanger-left",
+   "name": "Échangeur de chaleur, côté gauche (cyl. 4-6)",
+   "system": "Échappement",
+   "shell": true,
+   "nodes": [
+    "heat-exchanger-left"
+   ],
+   "offset": [
+    -0.2805,
+    -0.272,
+    0
+   ],
+   "desc": "Collecteur d’échappement et chauffage de l’habitacle en un seul élément : les trois tubes primaires traversent un caisson à ailettes enfermé dans une coque en acier. L’air frais soufflé dans la coque se réchauffe puis part vers l’habitacle.",
+   "points": [
+    "Matériau : Acier aluminié",
+    "Tubes primaires : 3 par côté",
+    "Référence Porsche : 930 211 025 01"
+   ]
+  },
+  {
+   "id": "conrod-1",
+   "name": "Bielle, cylindre 1",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-1"
+   ],
+   "offset": [
+    0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-1",
+   "name": "Piston, cylindre 1",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-1"
+   ],
+   "offset": [
+    0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-1",
+   "name": "Cylindre 1 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-1"
+   ],
+   "offset": [
+    0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-1",
+   "name": "Culasse, cylindre 1",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-1"
+   ],
+   "offset": [
+    0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-1",
+   "name": "Soupapes et ressorts, cylindre 1",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-1"
+   ],
+   "offset": [
+    0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-1",
+   "name": "Bougie, cylindre 1",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-1"
+   ],
+   "offset": [
+    0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-1",
+   "name": "Pipe d’admission, cylindre 1",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-1"
+   ],
+   "offset": [
+    0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 420 06"
+   ]
+  },
+  {
+   "id": "injector-1",
+   "name": "Injecteur, cylindre 1",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-1"
+   ],
+   "offset": [
+    0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "conrod-2",
+   "name": "Bielle, cylindre 2",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-2"
+   ],
+   "offset": [
+    0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-2",
+   "name": "Piston, cylindre 2",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-2"
+   ],
+   "offset": [
+    0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-2",
+   "name": "Cylindre 2 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-2"
+   ],
+   "offset": [
+    0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-2",
+   "name": "Culasse, cylindre 2",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-2"
+   ],
+   "offset": [
+    0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-2",
+   "name": "Soupapes et ressorts, cylindre 2",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-2"
+   ],
+   "offset": [
+    0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-2",
+   "name": "Bougie, cylindre 2",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-2"
+   ],
+   "offset": [
+    0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-2",
+   "name": "Pipe d’admission, cylindre 2",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-2"
+   ],
+   "offset": [
+    0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 470 06"
+   ]
+  },
+  {
+   "id": "injector-2",
+   "name": "Injecteur, cylindre 2",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-2"
+   ],
+   "offset": [
+    0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "conrod-3",
+   "name": "Bielle, cylindre 3",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-3"
+   ],
+   "offset": [
+    0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-3",
+   "name": "Piston, cylindre 3",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-3"
+   ],
+   "offset": [
+    0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-3",
+   "name": "Cylindre 3 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-3"
+   ],
+   "offset": [
+    0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-3",
+   "name": "Culasse, cylindre 3",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-3"
+   ],
+   "offset": [
+    0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-3",
+   "name": "Soupapes et ressorts, cylindre 3",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-3"
+   ],
+   "offset": [
+    0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-3",
+   "name": "Bougie, cylindre 3",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-3"
+   ],
+   "offset": [
+    0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-3",
+   "name": "Pipe d’admission, cylindre 3",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-3"
+   ],
+   "offset": [
+    0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 480 06"
+   ]
+  },
+  {
+   "id": "injector-3",
+   "name": "Injecteur, cylindre 3",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-3"
+   ],
+   "offset": [
+    0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "conrod-4",
+   "name": "Bielle, cylindre 4",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-4"
+   ],
+   "offset": [
+    -0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-4",
+   "name": "Piston, cylindre 4",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-4"
+   ],
+   "offset": [
+    -0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-4",
+   "name": "Cylindre 4 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-4"
+   ],
+   "offset": [
+    -0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-4",
+   "name": "Culasse, cylindre 4",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-4"
+   ],
+   "offset": [
+    -0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-4",
+   "name": "Soupapes et ressorts, cylindre 4",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-4"
+   ],
+   "offset": [
+    -0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-4",
+   "name": "Bougie, cylindre 4",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-4"
+   ],
+   "offset": [
+    -0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-4",
+   "name": "Pipe d’admission, cylindre 4",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-4"
+   ],
+   "offset": [
+    -0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 440 06"
+   ]
+  },
+  {
+   "id": "injector-4",
+   "name": "Injecteur, cylindre 4",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-4"
+   ],
+   "offset": [
+    -0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "conrod-5",
+   "name": "Bielle, cylindre 5",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-5"
+   ],
+   "offset": [
+    -0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-5",
+   "name": "Piston, cylindre 5",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-5"
+   ],
+   "offset": [
+    -0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-5",
+   "name": "Cylindre 5 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-5"
+   ],
+   "offset": [
+    -0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-5",
+   "name": "Culasse, cylindre 5",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-5"
+   ],
+   "offset": [
+    -0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-5",
+   "name": "Soupapes et ressorts, cylindre 5",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-5"
+   ],
+   "offset": [
+    -0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-5",
+   "name": "Bougie, cylindre 5",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-5"
+   ],
+   "offset": [
+    -0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-5",
+   "name": "Pipe d’admission, cylindre 5",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-5"
+   ],
+   "offset": [
+    -0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 450 06"
+   ]
+  },
+  {
+   "id": "injector-5",
+   "name": "Injecteur, cylindre 5",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-5"
+   ],
+   "offset": [
+    -0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "conrod-6",
+   "name": "Bielle, cylindre 6",
+   "system": "Vilebrequin et bielles",
+   "nodes": [
+    "conrod-6"
+   ],
+   "offset": [
+    -0.0595,
+    0,
+    0
+   ],
+   "desc": "Bielle forgée en acier à section en H, avec tête en deux parties boulonnées et bague de pied en bronze. Les six bielles sont appairées par classe de poids.",
+   "points": [
+    "Entraxe : environ 127 mm",
+    "Tête de bielle : Ø 53 mm",
+    "Axe de piston : Ø 22 mm",
+    "Matériau : Acier forgé",
+    "Référence Porsche : 930 103 015 5x"
+   ]
+  },
+  {
+   "id": "piston-6",
+   "name": "Piston, cylindre 6",
+   "system": "Pistons et cylindres",
+   "nodes": [
+    "piston-6"
+   ],
+   "offset": [
+    -0.1445,
+    0,
+    0
+   ],
+   "desc": "Piston bombé en alliage léger pour un taux de compression de 8,5:1, avec trois segments (deux de compression, un racleur) et un axe flottant tenu par des circlips. Des encoches de soupapes sont usinées dans le dôme.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Course : 70,4 mm",
+    "Compression : 8,5 : 1",
+    "Segments : 3",
+    "Axe : Ø 22 mm flottant",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "cylinder-6",
+   "name": "Cylindre 6 (Nikasil)",
+   "system": "Pistons et cylindres",
+   "shell": true,
+   "nodes": [
+    "cylinder-6"
+   ],
+   "offset": [
+    -0.2465,
+    0,
+    0
+   ],
+   "desc": "Fût en aluminium à ailettes avec un revêtement Nikasil (nickel et carbure de silicium) dans l’alésage, nouveau sur les 3.0. Chaque cylindre est serré entre carter et culasse par de longs goujons, sans joint de culasse, seulement une bague d’étanchéité.",
+   "points": [
+    "Alésage : 95,0 mm",
+    "Matériau : Aluminium, alésage Nikasil",
+    "Cylindrée unitaire : 499 cm³",
+    "Référence Porsche : 930 103 962 03"
+   ]
+  },
+  {
+   "id": "head-6",
+   "name": "Culasse, cylindre 6",
+   "system": "Culasses et carters d’arbre à cames",
+   "shell": true,
+   "nodes": [
+    "head-6"
+   ],
+   "offset": [
+    -0.34,
+    0,
+    0
+   ],
+   "desc": "Culasse individuelle en aluminium coulé avec chambre hémisphérique et deux soupapes en V. L’admission arrive par le haut, l’échappement sort par le bas, et la bougie est placée bas, côté échappement.",
+   "points": [
+    "Soupapes : 2 (1 admission, 1 échappement)",
+    "Soupape d’admission : Ø 49 mm",
+    "Soupape d’échappement : Ø 41,5 mm",
+    "Référence Porsche : 930 104 029 08"
+   ]
+  },
+  {
+   "id": "valves-6",
+   "name": "Soupapes et ressorts, cylindre 6",
+   "system": "Soupapes et culbuteurs",
+   "nodes": [
+    "valves-6"
+   ],
+   "offset": [
+    -0.3995,
+    0,
+    0
+   ],
+   "desc": "Soupapes d’admission (Ø 49 mm) et d’échappement (Ø 41,5 mm) avec double ressort, coupelle et clavettes. Selon la position du vilebrequin, certaines soupapes sont légèrement ouvertes sur le modèle.",
+   "points": [
+    "Jeu : 0,10 mm à froid",
+    "Ressorts : Doubles",
+    "Diamètre de queue : 9 mm",
+    "Hauteur montée : 34,5 mm",
+    "Référence Porsche : 930 105 409 01"
+   ]
+  },
+  {
+   "id": "spark-plug-6",
+   "name": "Bougie, cylindre 6",
+   "system": "Allumage",
+   "nodes": [
+    "spark-plug-6"
+   ],
+   "offset": [
+    -0.323,
+    -0.187,
+    0
+   ],
+   "desc": "Bougie avec capuchon blindé, montée par le dessous, côté échappement de chaque culasse.",
+   "points": [
+    "Filetage : M14 × 1,25",
+    "Écartement : environ 0,7 mm",
+    "Référence Porsche : 999 170 162 90"
+   ]
+  },
+  {
+   "id": "intake-runner-6",
+   "name": "Pipe d’admission, cylindre 6",
+   "system": "Injection et admission",
+   "nodes": [
+    "intake-runner-6"
+   ],
+   "offset": [
+    -0.204,
+    0.357,
+    0
+   ],
+   "desc": "Pipe en aluminium coulé qui monte de la culasse puis tourne pour s’aligner sur une sortie du répartiteur, avec un manchon en caoutchouc et deux colliers. L’injecteur est logé près de l’entrée de la culasse.",
+   "points": [
+    "Matériau : Aluminium coulé",
+    "Embout : Ø 44 mm",
+    "Étanchéité : Manchon caoutchouc, 2 colliers",
+    "Référence Porsche : 911 110 490 06"
+   ]
+  },
+  {
+   "id": "injector-6",
+   "name": "Injecteur, cylindre 6",
+   "system": "Injection et admission",
+   "nodes": [
+    "injector-6"
+   ],
+   "offset": [
+    -0.255,
+    0.408,
+    0
+   ],
+   "desc": "Injecteur Bosch K-Jetronic à injection continue : il s’ouvre vers 3,3 bar et pulvérise en permanence dans la pipe. La quantité est dosée par le distributeur, pas par l’injecteur.",
+   "points": [
+    "Type : Bosch CIS, mécanique",
+    "Pression d’ouverture : environ 3,3 bar",
+    "Référence Porsche : 911 110 225 01"
+   ]
+  },
+  {
+   "id": "hw-joints",
+   "name": "Joints et bagues d’étanchéité",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "chain-housing-gasket-right",
+     "offset": [
+      0.3194,
+      -0.0188,
+      0.1597
+     ]
+    },
+    {
+     "name": "chain-housing-gasket-left",
+     "offset": [
+      -0.3194,
+      -0.0188,
+      0.1597
+     ]
+    },
+    {
+     "name": "chain-lid-gasket-right",
+     "offset": [
+      0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "chain-lid-gasket-left",
+     "offset": [
+      -0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "valve-cover-gasket-upper-right",
+     "offset": [
+      0.5087,
+      0.1453,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-gasket-upper-left",
+     "offset": [
+      -0.5087,
+      0.1453,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-gasket-lower-right",
+     "offset": [
+      0.5087,
+      -0.1453,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-gasket-lower-left",
+     "offset": [
+      -0.5087,
+      -0.1453,
+      0
+     ]
+    },
+    {
+     "name": "flywheel-seal",
+     "offset": [
+      0,
+      0,
+      -0.306
+     ]
+    },
+    {
+     "name": "flywheel-oring",
+     "offset": [
+      0,
+      0,
+      -0.306
+     ]
+    },
+    {
+     "name": "crank-seal-rear",
+     "offset": [
+      0,
+      -0.0595,
+      0
+     ]
+    },
+    {
+     "name": "thermostat-oring",
+     "offset": [
+      0.0412,
+      0.1854,
+      0.0412
+     ]
+    },
+    {
+     "name": "sump-drain-ring",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "case-through-orings",
+     "offset": [
+      -0.187,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "oil-return-tubes",
+     "offset": [
+      0.2805,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "oil-pump-seals",
+     "offset": [
+      0,
+      -0.1979,
+      -0.1385
+     ]
+    },
+    {
+     "name": "oil-cooler-seals",
+     "offset": [
+      -0.2629,
+      0.2441,
+      0
+     ]
+    },
+    {
+     "name": "cyl-base-gaskets",
+     "offset": [
+      0.2805,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "head-seals",
+     "offset": [
+      0.2805,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "exhaust-gaskets",
+     "offset": [
+      0.3049,
+      -0.2957,
+      0
+     ]
+    },
+    {
+     "name": "intake-gaskets",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "injector-orings-a",
+     "offset": [
+      0.273,
+      0.4368,
+      0
+     ]
+    },
+    {
+     "name": "injector-orings-b",
+     "offset": [
+      0.273,
+      0.4368,
+      0
+     ]
+    },
+    {
+     "name": "injector-orings-c",
+     "offset": [
+      0.273,
+      0.4368,
+      0
+     ]
+    },
+    {
+     "name": "distributor-oring",
+     "offset": [
+      -0.1478,
+      0.388,
+      0.0924
+     ]
+    },
+    {
+     "name": "injection-line-rings",
+     "offset": [
+      -0.288,
+      0.54,
+      0
+     ]
+    },
+    {
+     "name": "airbox-fittings",
+     "offset": [
+      0,
+      0.68,
+      0
+     ]
+    },
+    {
+     "name": "muffler-hardware",
+     "offset": [
+      0,
+      -0.2362,
+      0.4724
+     ]
+    }
+   ],
+   "desc": "Joints plats, joints toriques et bagues qui assurent l’étanchéité à l’huile, à l’air et aux gaz d’échappement entre les pièces du moteur.",
+   "points": [
+    "28 références regroupées",
+    "Remplacement : Systématique à chaque démontage"
+   ]
+  },
+  {
+   "id": "hw-visserie",
+   "name": "Écrous, vis et goujons",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "head-nuts-right",
+     "offset": [
+      0.493,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "head-nuts-left",
+     "offset": [
+      -0.493,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "cam-housing-nuts-right",
+     "offset": [
+      0.493,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "cam-housing-nuts-left",
+     "offset": [
+      -0.493,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-nuts-upper-right",
+     "offset": [
+      0.525,
+      0.15,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-nuts-upper-left",
+     "offset": [
+      -0.525,
+      0.15,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-nuts-lower-right",
+     "offset": [
+      0.525,
+      -0.15,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-nuts-lower-left",
+     "offset": [
+      -0.525,
+      -0.15,
+      0
+     ]
+    },
+    {
+     "name": "chain-cover-nuts-right",
+     "offset": [
+      0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "chain-cover-nuts-left",
+     "offset": [
+      -0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "chain-housing-nuts-right",
+     "offset": [
+      0.3346,
+      -0.0197,
+      0.1673
+     ]
+    },
+    {
+     "name": "chain-housing-nuts-left",
+     "offset": [
+      -0.3346,
+      -0.0197,
+      0.1673
+     ]
+    },
+    {
+     "name": "intake-nuts-right",
+     "offset": [
+      0.2293,
+      0.4013,
+      0
+     ]
+    },
+    {
+     "name": "intake-nuts-left",
+     "offset": [
+      -0.2293,
+      0.4013,
+      0
+     ]
+    },
+    {
+     "name": "exhaust-nuts-right",
+     "offset": [
+      0.3171,
+      -0.3075,
+      0
+     ]
+    },
+    {
+     "name": "exhaust-nuts-left",
+     "offset": [
+      -0.3171,
+      -0.3075,
+      0
+     ]
+    },
+    {
+     "name": "exhaust-socket-nuts-right",
+     "offset": [
+      0.3171,
+      -0.3075,
+      0
+     ]
+    },
+    {
+     "name": "exhaust-socket-nuts-left",
+     "offset": [
+      -0.3171,
+      -0.3075,
+      0
+     ]
+    },
+    {
+     "name": "case-through-bolts",
+     "offset": [
+      -0.204,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "case-through-nuts",
+     "offset": [
+      -0.204,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "case-through-stud-nut",
+     "offset": [
+      -0.204,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "case-perimeter-nuts",
+     "offset": [
+      -0.204,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "flywheel-bolts",
+     "offset": [
+      0,
+      0,
+      -0.323
+     ]
+    },
+    {
+     "name": "clutch-bolts",
+     "offset": [
+      0,
+      0,
+      -0.527
+     ]
+    },
+    {
+     "name": "pulley-bolt",
+     "offset": [
+      0,
+      0,
+      0.408
+     ]
+    },
+    {
+     "name": "fan-pulley-nut",
+     "offset": [
+      0,
+      0.0733,
+      0.6967
+     ]
+    },
+    {
+     "name": "oil-pump-nuts",
+     "offset": [
+      0,
+      -0.2118,
+      -0.1482
+     ]
+    },
+    {
+     "name": "sump-nuts",
+     "offset": [
+      0,
+      -0.306,
+      0
+     ]
+    },
+    {
+     "name": "thermostat-nuts",
+     "offset": [
+      0.0448,
+      0.2017,
+      0.0448
+     ]
+    },
+    {
+     "name": "breather-nuts",
+     "offset": [
+      0,
+      0.2707,
+      0.0625
+     ]
+    },
+    {
+     "name": "rocker-shaft-screws-right",
+     "offset": [
+      0.5607,
+      0.028,
+      0.0561
+     ]
+    },
+    {
+     "name": "rocker-shaft-screws-left",
+     "offset": [
+      -0.5607,
+      0.028,
+      0.0561
+     ]
+    },
+    {
+     "name": "rocker-shaft-nuts-right",
+     "offset": [
+      0.5607,
+      0.028,
+      0.0561
+     ]
+    },
+    {
+     "name": "rocker-shaft-nuts-left",
+     "offset": [
+      -0.5607,
+      0.028,
+      0.0561
+     ]
+    },
+    {
+     "name": "cam-nut-right",
+     "offset": [
+      0.4853,
+      0.0373,
+      0.2987
+     ]
+    },
+    {
+     "name": "cam-nut-left",
+     "offset": [
+      -0.4853,
+      0.0373,
+      0.2987
+     ]
+    },
+    {
+     "name": "chain-end-nuts-right",
+     "offset": [
+      0.3346,
+      -0.0197,
+      0.1673
+     ]
+    },
+    {
+     "name": "chain-end-nuts-left",
+     "offset": [
+      -0.3346,
+      -0.0197,
+      0.1673
+     ]
+    },
+    {
+     "name": "valve-cover-special-right",
+     "offset": [
+      0.525,
+      -0.15,
+      0
+     ]
+    },
+    {
+     "name": "valve-cover-special-left",
+     "offset": [
+      -0.525,
+      -0.15,
+      0
+     ]
+    },
+    {
+     "name": "chain-lid-nuts-right",
+     "offset": [
+      0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "chain-lid-nuts-left",
+     "offset": [
+      -0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "rail-bolts-right",
+     "offset": [
+      0.343,
+      -0.1143,
+      0.3049
+     ]
+    },
+    {
+     "name": "rail-bolts-left",
+     "offset": [
+      -0.343,
+      -0.1143,
+      0.3049
+     ]
+    },
+    {
+     "name": "adjuster-cover-screws-right",
+     "offset": [
+      0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "adjuster-cover-screws-left",
+     "offset": [
+      -0.359,
+      -0.0189,
+      0.359
+     ]
+    },
+    {
+     "name": "oil-cooler-nuts",
+     "offset": [
+      -0.2754,
+      0.2557,
+      0
+     ]
+    },
+    {
+     "name": "distributor-nut",
+     "offset": [
+      -0.1561,
+      0.3512,
+      0.0975
+     ]
+    },
+    {
+     "name": "fan-nuts",
+     "offset": [
+      0,
+      0.0922,
+      0.6455
+     ]
+    },
+    {
+     "name": "shroud-screws",
+     "offset": [
+      0,
+      0.306,
+      0
+     ]
+    },
+    {
+     "name": "shroud-end-screws",
+     "offset": [
+      0,
+      0.306,
+      0
+     ]
+    },
+    {
+     "name": "shroud-socket-screws",
+     "offset": [
+      0,
+      0.306,
+      0
+     ]
+    },
+    {
+     "name": "shroud-collar-bolts-a",
+     "offset": [
+      0,
+      0.0743,
+      0.5946
+     ]
+    },
+    {
+     "name": "shroud-collar-bolts-b",
+     "offset": [
+      0,
+      0.0743,
+      0.5946
+     ]
+    },
+    {
+     "name": "airbox-strut-nuts",
+     "offset": [
+      0,
+      0.697,
+      0
+     ]
+    },
+    {
+     "name": "wur-screws",
+     "offset": [
+      -0.1947,
+      0.2921,
+      -0.1947
+     ]
+    },
+    {
+     "name": "case-right-bolt",
+     "offset": [
+      0,
+      -0.102,
+      0
+     ]
+    },
+    {
+     "name": "case-right-nut",
+     "offset": [
+      0,
+      -0.102,
+      0
+     ]
+    },
+    {
+     "name": "case-m10-nut",
+     "offset": [
+      0,
+      -0.306,
+      0
+     ]
+    },
+    {
+     "name": "cam-oil-banjo-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-oil-banjo-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "oil-pressure-fitting",
+     "offset": [
+      0,
+      0.2541,
+      0.0586
+     ]
+    },
+    {
+     "name": "shroud-speed-nuts",
+     "offset": [
+      0,
+      0.289,
+      0
+     ]
+    },
+    {
+     "name": "injection-banjos",
+     "offset": [
+      -0.288,
+      0.54,
+      0
+     ]
+    }
+   ],
+   "desc": "Écrous de culasse, boulons traversants du carter, vis de volant et de mécanisme d’embrayage, écrous de couvercles : toute la visserie qui assemble le moteur.",
+   "points": [
+    "64 références regroupées",
+    "Exemple : Boulons de carter M8 serrés à 3,5 mkg (34 N·m)"
+   ]
+  },
+  {
+   "id": "hw-huile",
+   "name": "Capteurs et raccords d’huile",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "cam-splash-tube-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-splash-tube-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-temp-switch",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "spray-jets",
+     "offset": [
+      0,
+      -0.085,
+      0
+     ]
+    },
+    {
+     "name": "relief-plugs",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "relief-pistons",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "case-oil-fittings",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "oil-temp-sensor",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "oil-pressure-sender",
+     "offset": [
+      0,
+      0.2541,
+      0.0586
+     ]
+    },
+    {
+     "name": "oil-pressure-switch",
+     "offset": [
+      0,
+      0.2541,
+      0.0586
+     ]
+    }
+   ],
+   "desc": "Sondes de température et de pression, gicleurs de refroidissement des pistons, clapets de décharge et raccords du circuit d’huile.",
+   "points": [
+    "10 références regroupées"
+   ]
+  },
+  {
+   "id": "hw-injection",
+   "name": "Accessoires d’injection et d’admission",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "intake-boots",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "intake-boot-clamps",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "cold-start-valve",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "aux-air-valve",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "aux-air-plumbing",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "vacuum-limiter",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "vacuum-fittings",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "airbox-clamps",
+     "offset": [
+      0,
+      0.68,
+      0
+     ]
+    },
+    {
+     "name": "injection-line-bracket",
+     "offset": [
+      -0.288,
+      0.54,
+      0
+     ]
+    },
+    {
+     "name": "wur-lines",
+     "offset": [
+      -0.1865,
+      0.2797,
+      -0.1865
+     ]
+    },
+    {
+     "name": "throttle-linkage",
+     "offset": [
+      0,
+      0.476,
+      0
+     ]
+    },
+    {
+     "name": "airbox-straps",
+     "offset": [
+      0,
+      0.68,
+      0
+     ]
+    }
+   ],
+   "desc": "Injecteur de démarrage à froid, régulateur d’air additionnel, durites, colliers, raccords banjo et timonerie d’accélérateur.",
+   "points": [
+    "12 références regroupées"
+   ]
+  },
+  {
+   "id": "hw-echappement",
+   "name": "Fixations d’échappement et de chauffage",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "heater-adapters",
+     "offset": [
+      0.3049,
+      -0.2957,
+      0
+     ]
+    },
+    {
+     "name": "heater-hose",
+     "offset": [
+      -0.3049,
+      -0.2957,
+      0
+     ]
+    },
+    {
+     "name": "muffler-bracket",
+     "offset": [
+      0,
+      -0.2362,
+      0.4724
+     ]
+    },
+    {
+     "name": "pre-muffler",
+     "offset": [
+      0,
+      -0.2362,
+      0.4724
+     ]
+    }
+   ],
+   "desc": "Pré-silencieux, adaptateurs de chauffage, gaine souple et fixations de la ligne d’échappement.",
+   "points": [
+    "4 références regroupées"
+   ]
+  },
+  {
+   "id": "hw-refroidissement",
+   "name": "Fixations de turbine et de carénage",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "shroud-cover-plate",
+     "offset": [
+      0,
+      0.289,
+      0
+     ]
+    },
+    {
+     "name": "shroud-stopper",
+     "offset": [
+      0,
+      0.289,
+      0
+     ]
+    },
+    {
+     "name": "alternator-strap",
+     "offset": [
+      0,
+      0.0637,
+      0.5097
+     ]
+    }
+   ],
+   "desc": "Vis, écrous rapides, plaques et tresse de masse qui tiennent la turbine, l’alternateur et le carénage d’air.",
+   "points": [
+    "3 références regroupées"
+   ]
+  },
+  {
+   "id": "hw-goupilles",
+   "name": "Clavettes, goupilles et circlips",
+   "system": "Visserie et joints",
+   "nodes": [
+    {
+     "name": "cam-key-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-key-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-pin-right",
+     "offset": [
+      0.4709,
+      0.0362,
+      0.2898
+     ]
+    },
+    {
+     "name": "cam-pin-left",
+     "offset": [
+      -0.4709,
+      0.0362,
+      0.2898
+     ]
+    },
+    {
+     "name": "cam-shim-right",
+     "offset": [
+      0.4709,
+      0.0362,
+      0.2898
+     ]
+    },
+    {
+     "name": "cam-shim-left",
+     "offset": [
+      -0.4709,
+      0.0362,
+      0.2898
+     ]
+    },
+    {
+     "name": "cam-thrust-washer-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-thrust-washer-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "idler-circlip-right",
+     "offset": [
+      0.3307,
+      -0.1102,
+      0.2939
+     ]
+    },
+    {
+     "name": "idler-circlip-left",
+     "offset": [
+      -0.3307,
+      -0.1102,
+      0.2939
+     ]
+    },
+    {
+     "name": "idler-sleeve-right",
+     "offset": [
+      0.3307,
+      -0.1102,
+      0.2939
+     ]
+    },
+    {
+     "name": "idler-sleeve-left",
+     "offset": [
+      -0.3307,
+      -0.1102,
+      0.2939
+     ]
+    },
+    {
+     "name": "chain-lid-plug-right",
+     "offset": [
+      0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "chain-lid-plug-left",
+     "offset": [
+      -0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "chain-lid-plug2-right",
+     "offset": [
+      0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "chain-lid-plug2-left",
+     "offset": [
+      -0.347,
+      -0.0183,
+      0.347
+     ]
+    },
+    {
+     "name": "cam-housing-plug-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-housing-plug-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "chain-case-plug-right",
+     "offset": [
+      0.3194,
+      -0.0188,
+      0.1597
+     ]
+    },
+    {
+     "name": "chain-case-plug-left",
+     "offset": [
+      -0.3194,
+      -0.0188,
+      0.1597
+     ]
+    },
+    {
+     "name": "cam-end-cover-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-end-cover-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-housing-stoppers-right",
+     "offset": [
+      0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "cam-housing-stoppers-left",
+     "offset": [
+      -0.5779,
+      0.0542,
+      0
+     ]
+    },
+    {
+     "name": "ishaft-bearings",
+     "offset": [
+      0,
+      -0.1853,
+      0.0618
+     ]
+    },
+    {
+     "name": "ishaft-thrust",
+     "offset": [
+      0,
+      -0.1853,
+      0.0618
+     ]
+    },
+    {
+     "name": "ishaft-circlips",
+     "offset": [
+      0,
+      -0.1853,
+      0.0618
+     ]
+    },
+    {
+     "name": "ishaft-stopper",
+     "offset": [
+      0,
+      -0.1853,
+      0.0618
+     ]
+    },
+    {
+     "name": "crank-key",
+     "offset": [
+      0,
+      -0.0595,
+      0
+     ]
+    },
+    {
+     "name": "crank-gear-ring",
+     "offset": [
+      0,
+      -0.0595,
+      0
+     ]
+    },
+    {
+     "name": "crank-circlip",
+     "offset": [
+      0,
+      -0.0595,
+      0
+     ]
+    },
+    {
+     "name": "pulley-pin",
+     "offset": [
+      0,
+      0,
+      0.391
+     ]
+    },
+    {
+     "name": "crank-pilot-bush",
+     "offset": [
+      0,
+      -0.0595,
+      0
+     ]
+    },
+    {
+     "name": "case-dowels",
+     "offset": [
+      -0.187,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "case-roll-pin",
+     "offset": [
+      -0.187,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "case-connection-left",
+     "offset": [
+      0,
+      -0.289,
+      0
+     ]
+    },
+    {
+     "name": "head-dowels",
+     "offset": [
+      0.476,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "ignition-lead-holders",
+     "offset": [
+      -0.1478,
+      0.388,
+      0.0924
+     ]
+    }
+   ],
+   "desc": "Petites pièces de positionnement et d’arrêt : clavettes demi-lune, goupilles, circlips, cales, rondelles de butée et bouchons.",
+   "points": [
+    "38 références regroupées"
+   ]
+  }
+ ]
+}

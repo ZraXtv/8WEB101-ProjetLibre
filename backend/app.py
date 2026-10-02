@@ -1,4 +1,6 @@
+import base64
 import gzip
+import hashlib
 import json
 import os
 import random
@@ -50,7 +52,26 @@ MOTS_DE_PASSE_INTERDITS = {
 
 # Seuls ces dossiers et les pages .html de la racine sont servis : sans liste
 # blanche, la base et le code source seraient téléchargeables.
-DOSSIERS_PUBLICS = {"css", "js", "assets"}
+DOSSIERS_PUBLICS = {"css", "js", "assets", "anatomie"}
+
+
+def calculer_csp_anatomie():
+    # L'explorateur 3D a besoin d'une CSP à part : son importmap est forcément
+    # inline (autorisé par son empreinte, recalculée au démarrage), les
+    # décodeurs Draco et Meshopt compilent du WebAssembly dans des workers
+    # blob:, et les textures du .glb sont chargées en blob:.
+    page = (RACINE_PROJET / "anatomie" / "index.html").read_text(encoding="utf-8")
+    importmap = re.search(r'<script type="importmap">(.*?)</script>', page, re.S).group(1)
+    empreinte = base64.b64encode(hashlib.sha256(importmap.encode()).digest()).decode()
+    return (
+        f"default-src 'self'; script-src 'self' 'sha256-{empreinte}' 'wasm-unsafe-eval'; "
+        "style-src 'self'; font-src 'self'; img-src 'self' data: blob:; "
+        "connect-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; "
+        "base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    )
+
+
+CSP_ANATOMIE = calculer_csp_anatomie()
 
 FENETRE_TENTATIVES = 900
 MAX_ECHECS_COMPTE = 5
@@ -195,11 +216,14 @@ def securiser_reponse(reponse):
             max_age=60 * 60 * 24 * 7,
         )
 
-    reponse.headers["Content-Security-Policy"] = (
-        "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; "
-        "img-src 'self' data:; connect-src 'self'; object-src 'none'; "
-        "base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
-    )
+    if request.path.startswith("/anatomie/"):
+        reponse.headers["Content-Security-Policy"] = CSP_ANATOMIE
+    else:
+        reponse.headers["Content-Security-Policy"] = (
+            "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; "
+            "img-src 'self' data:; connect-src 'self'; object-src 'none'; "
+            "base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+        )
     reponse.headers["X-Content-Type-Options"] = "nosniff"
     reponse.headers["X-Frame-Options"] = "DENY"
     reponse.headers["Referrer-Policy"] = "same-origin"
