@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anatomie mécanique</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+</head>
+<body>
+<canvas id="scene" aria-label="Vue 3D de la voiture. Glisser pour tourner, molette pour zoomer."></canvas>
+<svg id="leader" aria-hidden="true"><path d=""/><circle r="3.5"/><circle class="halo" r="9"/></svg>
+
+<header>
+  <a class="retour" href="../index.html">← Retour au quiz</a>
+  <h1 id="title">Porsche 911</h1>
+  <p class="sub"><b id="count">0 composants</b> <span class="hint">Glisser pour tourner. Cliquer sur une pièce pour l'inspecter.</span></p>
+</header>
+
+<div class="tools">
+  <div class="cluster" id="models" role="group" aria-label="Modèle"></div>
+  <div class="cluster" id="paints" role="group" aria-label="Peinture"></div>
+  <div class="cluster" role="group" aria-label="Affichage">
+    <button class="seg" data-view="complet" aria-pressed="true">Complet</button>
+    <button class="seg" data-view="transparent" aria-pressed="false">Transparent</button>
+    <button class="seg" data-view="pieces" aria-pressed="false">Pièces seules</button>
+  </div>
+  <button class="tour-btn" id="tourBtn" aria-pressed="false" hidden>Visite guidée</button>
+  <label class="file-btn" tabindex="0">Charger un .glb<input type="file" id="file" accept=".glb,.gltf" hidden></label>
+</div>
+
+<button class="btn solid" id="toggleIndex" aria-expanded="false" aria-controls="index">Composants</button>
+<nav id="index" aria-label="Composants">
+  <input id="search" type="search" placeholder="Rechercher une pièce" autocomplete="off">
+  <div id="parts"></div>
+</nav>
+
+<aside id="sheet" aria-live="polite">
+  <button class="close" aria-label="Fermer la fiche">×</button>
+  <p class="s-sys"></p>
+  <h2 class="s-name"></h2>
+  <p class="s-desc"></p>
+  <ul class="s-points"></ul>
+  <dl class="s-measure"></dl>
+  <p class="s-mesh"></p>
+  <div class="s-actions"></div>
+</aside>
+
+<div id="dock">
+  <div class="openings" id="openings"></div>
+  <div class="explode">
+    <label for="explode">Vue éclatée</label>
+    <div class="track"><div class="ticks" aria-hidden="true"></div><input type="range" id="explode" min="0" max="100" step="1" value="0"></div>
+    <output class="pct" id="pct" for="explode">0&nbsp;%</output>
+  </div>
+</div>
+
+<!-- Visite guidée : la piste donne sa hauteur à la page, le défilement pilote la scène. -->
+<nav id="tour" aria-label="Étapes de la visite" hidden>
+  <p class="tour-count"><span id="tourNum"></span> <span id="tourName"></span></p>
+  <ol id="tourSteps"></ol>
+</nav>
+<p id="tourHint" hidden>Faire défiler pour démarrer la visite <span aria-hidden="true">↓</span></p>
+<div id="tourTrack" aria-hidden="true"></div>
+
+<div id="tag"></div>
+<p class="credit" id="credit"></p>
+<div id="drop">Déposer le fichier .glb pour l'explorer</div>
+<div id="loader"><div class="load-box"><p id="loadText">Chargement du modèle</p><div class="load-bar"><span id="loadBar"></span></div></div></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

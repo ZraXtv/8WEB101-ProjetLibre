@@ -801,9 +801,9 @@ function initTheme() {
     if (valeur) racine.setAttribute("data-theme", valeur);
     else racine.removeAttribute("data-theme");
     if (bouton) {
-      const clair = valeur === "clair";
-      bouton.textContent = clair ? "🌙" : "☀️";
-      bouton.setAttribute("aria-label", clair ? "Passer au thème sombre" : "Passer au thème clair");
+      const sombre = valeur === "sombre";
+      bouton.textContent = sombre ? "☀️" : "🌙";
+      bouton.setAttribute("aria-label", sombre ? "Passer au thème clair" : "Passer au thème sombre");
     }
   };
 
@@ -813,7 +813,7 @@ function initTheme() {
 
   if (bouton) {
     bouton.addEventListener("click", () => {
-      const nouveau = racine.getAttribute("data-theme") === "clair" ? "" : "clair";
+      const nouveau = racine.getAttribute("data-theme") === "sombre" ? "" : "sombre";
       try {
         if (nouveau) localStorage.setItem("theme", nouveau);
         else localStorage.removeItem("theme");

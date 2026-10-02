@@ -1,0 +1,414 @@
+{
+ "title": "Porsche 911",
+ "model": "models/porsche-911.glb",
+ "credit": "Carrosserie « Free 1975 Porsche 911 (930) Turbo » de Lionsharp Studios (CC BY 4.0). Moteur 911 SC de Joseph Schneider (ISC).",
+ "creditUrl": "https://github.com/BigSmoke4/3D-Porsche-911",
+ "camera": {
+  "position": [
+   4.8,
+   2.2,
+   4.9
+  ],
+  "target": [
+   0,
+   0.5,
+   -0.2
+  ]
+ },
+ "dolly": 0.45,
+ "tour": [
+  "caisse",
+  "avant",
+  "optiques",
+  "coffre",
+  "vitrages",
+  "habitacle",
+  "antenne",
+  {
+   "id": "aileron",
+   "hide": [
+    "moteur"
+   ]
+  },
+  "moteur",
+  "echappement",
+  "arriere",
+  "roue-avg"
+ ],
+ "paintMaterials": [
+  "paint"
+ ],
+ "paints": [
+  {
+   "label": "Rouge Indien",
+   "color": "#8c0f12",
+   "accent": "#a3161b"
+  },
+  {
+   "label": "Blanc Grand Prix",
+   "color": "#e9e6dc",
+   "accent": "#55616e"
+  },
+  {
+   "label": "Bleu Minerva",
+   "color": "#16264a",
+   "accent": "#2a4f8f"
+  },
+  {
+   "label": "Noir",
+   "color": "#0a0a0b",
+   "accent": "#b5651d"
+  }
+ ],
+ "systems": [
+  "Carrosserie",
+  "Ouvrants",
+  "Éclairage",
+  "Habitacle",
+  "Moteur",
+  "Roues"
+ ],
+ "openings": [
+  {
+   "id": "coffre",
+   "label": "le coffre avant",
+   "parts": [
+    "coffre"
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "id": "caisse",
+   "name": "Caisse et garnitures",
+   "system": "Carrosserie",
+   "shell": true,
+   "nodes": [
+    "Circle_001",
+    "Circle_000",
+    "Cube_004",
+    "Circle_026"
+   ],
+   "dir": [
+    0,
+    0,
+    0
+   ],
+   "dist": 0,
+   "desc": "La caisse monocoque en acier galvanisé de la série G, avec ses ailes, portes, capot avant, joints et garnitures. Sur ce modèle 3D, portes et capot avant font partie de la caisse et ne s'ouvrent pas.",
+   "points": [
+    "Série G produite de 1974 à 1989, base commune des 911 SC, Carrera 3.2 et Turbo.",
+    "Caisse entièrement galvanisée dès 1976, une première pour une voiture de série.",
+    "Ce modèle est une Turbo : ailes arrière élargies et aileron « queue de baleine ». Une SC a les ailes étroites et un becquet plus discret."
+   ],
+   "fallback": true
+  },
+  {
+   "id": "vitrages",
+   "name": "Vitrages",
+   "system": "Carrosserie",
+   "shell": true,
+   "nodes": [
+    "Circle_018",
+    "Circle_012",
+    "Circle_041"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 0.9,
+   "desc": "Pare-brise, vitres latérales et lunette arrière.",
+   "points": [
+    "Pare-brise en verre feuilleté collé, lunette arrière chauffante.",
+    "Les vitres de custode arrière s'entrouvrent sur la plupart des coupés."
+   ]
+  },
+  {
+   "id": "coffre",
+   "name": "Capot de coffre avant",
+   "system": "Ouvrants",
+   "shell": true,
+   "nodes": [
+    "CoffrePivot"
+   ],
+   "dir": [
+    0,
+    1,
+    0.6
+   ],
+   "dist": 1.2,
+   "open": {
+    "axis": "x",
+    "angle": -50
+   },
+   "desc": "Sur une 911, le moteur est à l'arrière : c'est donc à l'avant que se trouve le coffre. Sous ce capot logent la roue de secours, le réservoir d'essence et la batterie.",
+   "points": [
+    "Charnière côté pare-brise, le capot se lève par l'avant.",
+    "Réservoir de 80 litres sur la 911 SC."
+   ]
+  },
+  {
+   "id": "aileron",
+   "name": "Aileron « queue de baleine »",
+   "system": "Carrosserie",
+   "shell": true,
+   "nodes": [
+    "Circle_027"
+   ],
+   "dir": [
+    0,
+    1,
+    -0.4
+   ],
+   "dist": 1.0,
+   "desc": "L'aileron arrière avec sa grille d'aération, posé sur le capot moteur. Il réduit la portance à haute vitesse et laisse entrer l'air de refroidissement du moteur.",
+   "points": [
+    "Équipement de série de la 930 Turbo, proposé en option sur certaines 911 SC.",
+    "L'air aspiré par la grille alimente directement la turbine du moteur refroidi par air."
+   ]
+  },
+  {
+   "id": "avant",
+   "name": "Pare-chocs avant",
+   "system": "Carrosserie",
+   "shell": true,
+   "nodes": [
+    "Cube_007",
+    "Circle_006",
+    "Circle_056",
+    "Circle_035",
+    "Circle_033",
+    "Circle_030",
+    "Plane_013",
+    "Plane_010",
+    "Circle_014"
+   ],
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "dist": 1.0,
+   "desc": "Le bouclier avant avec ses soufflets, ses clignotants et la plaque.",
+   "points": [
+    "Pare-chocs à absorbeurs d'énergie imposés par les normes américaines de 1974 : ils encaissent un choc à 8 km/h sans dommage.",
+    "Les soufflets en accordéon de chaque côté laissent le pare-chocs reculer."
+   ]
+  },
+  {
+   "id": "optiques",
+   "name": "Phares avant",
+   "system": "Éclairage",
+   "shell": true,
+   "nodes": [
+    "Circle_060",
+    "Circle_036",
+    "Circle_005",
+    "Circle_017",
+    "Circle_011"
+   ],
+   "dir": [
+    0,
+    0.25,
+    1
+   ],
+   "dist": 1.5,
+   "desc": "Les deux phares ronds intégrés aux ailes, avec leurs cerclages chromés.",
+   "points": [
+    "Phares ronds de 7 pouces, signature de la 911 depuis 1963."
+   ]
+  },
+  {
+   "id": "arriere",
+   "name": "Pare-chocs et feux arrière",
+   "system": "Éclairage",
+   "shell": true,
+   "nodes": [
+    "Circle_008",
+    "Cube_003",
+    "Cube_009",
+    "Cube_010",
+    "Circle_025",
+    "Circle_007",
+    "Plane_011",
+    "Circle_003",
+    "Circle_061",
+    "Circle_009",
+    "Circle_010",
+    "Plane_003",
+    "Circle_004",
+    "Circle_013"
+   ],
+   "dir": [
+    0,
+    0.1,
+    -1
+   ],
+   "dist": 1.1,
+   "desc": "Le bouclier arrière, le bandeau réfléchissant qui relie les deux blocs de feux, et la plaque.",
+   "points": [
+    "Le bandeau rouge entre les feux est une signature de la 911 série G.",
+    "Feux stop, clignotants, recul et antibrouillard sont regroupés dans les deux blocs."
+   ]
+  },
+  {
+   "id": "habitacle",
+   "name": "Équipements d'habitacle",
+   "system": "Habitacle",
+   "nodes": [
+    "Cylinder_002",
+    "Cylinder_003",
+    "Cylinder_000",
+    "Plane_002",
+    "Plane_001",
+    "Cube",
+    "Plane_005"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 0.55,
+   "desc": "Rétroviseur intérieur, commandes et éléments de garniture. Le modèle 3D ne détaille pas les sièges ni la planche de bord.",
+   "points": [
+    "Le petit sapin désodorisant pendu au rétroviseur est d'origine… sur le modèle 3D."
+   ]
+  },
+  {
+   "id": "antenne",
+   "name": "Antenne",
+   "system": "Habitacle",
+   "nodes": [
+    "Cylinder_006"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 0.4,
+   "desc": "Antenne radio télescopique sur l'aile avant droite.",
+   "points": []
+  },
+  {
+   "id": "moteur",
+   "name": "Moteur flat-six 3.0",
+   "system": "Moteur",
+   "nodes": [
+    "Moteur911SC"
+   ],
+   "dir": [
+    0,
+    1,
+    -0.55
+   ],
+   "dist": 1.9,
+   "link": {
+    "model": "moteur",
+    "label": "Explorer le moteur pièce par pièce"
+   },
+   "desc": "Le six-cylindres à plat refroidi par air de la 911 SC, monté en porte-à-faux derrière l'essieu arrière. C'est ce placement qui donne à la 911 sa motricité et son comportement si particulier.",
+   "points": [
+    "Cylindrée : 2 994 cm³ (95 × 70,4 mm)",
+    "Puissance : 180 à 204 ch selon les années (1978 à 1983)",
+    "Injection mécanique Bosch K-Jetronic, carter sec",
+    "Moteur de la 911 SC : la vraie 930 Turbo reçoit une version turbocompressée de 3,0 puis 3,3 L"
+   ]
+  },
+  {
+   "id": "echappement",
+   "name": "Sortie d'échappement",
+   "system": "Moteur",
+   "shell": true,
+   "nodes": [
+    "Cylinder_009"
+   ],
+   "dir": [
+    0,
+    -0.3,
+    -1
+   ],
+   "dist": 0.8,
+   "desc": "La sortie d'échappement visible sous le pare-chocs arrière. Sur la 911 SC, elle prolonge le silencieux transversal du moteur.",
+   "points": []
+  },
+  {
+   "id": "roue-avg",
+   "name": "Roue avant gauche",
+   "system": "Roues",
+   "nodes": [
+    "Circle_051",
+    "Circle_048"
+   ],
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "dist": 1.1,
+   "desc": "Jante Fuchs forgée en aluminium et son pneu. Les roues avant sont braquées sur ce modèle.",
+   "points": [
+    "Les jantes Fuchs à cinq branches, forgées, sont apparues sur la 911 S de 1967.",
+    "La Turbo monte des jantes plus larges à l'arrière qu'à l'avant."
+   ]
+  },
+  {
+   "id": "roue-avd",
+   "name": "Roue avant droite",
+   "system": "Roues",
+   "nodes": [
+    "Circle_037"
+   ],
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "dist": 1.1,
+   "desc": "Jante Fuchs forgée en aluminium et son pneu. Les roues avant sont braquées sur ce modèle.",
+   "points": [
+    "Les jantes Fuchs à cinq branches, forgées, sont apparues sur la 911 S de 1967.",
+    "La Turbo monte des jantes plus larges à l'arrière qu'à l'avant."
+   ]
+  },
+  {
+   "id": "roue-arg",
+   "name": "Roue arrière gauche",
+   "system": "Roues",
+   "nodes": [
+    "Circle_050"
+   ],
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "dist": 1.1,
+   "desc": "Roue motrice : jante Fuchs forgée et pneu large.",
+   "points": [
+    "Le moteur en porte-à-faux charge les roues arrière : environ 60 % du poids repose sur elles."
+   ]
+  },
+  {
+   "id": "roue-ard",
+   "name": "Roue arrière droite",
+   "system": "Roues",
+   "nodes": [
+    "Circle_038"
+   ],
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "dist": 1.1,
+   "desc": "Roue motrice : jante Fuchs forgée et pneu large.",
+   "points": [
+    "Le moteur en porte-à-faux charge les roues arrière : environ 60 % du poids repose sur elles."
+   ]
+  }
+ ]
+}

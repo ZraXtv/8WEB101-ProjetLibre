@@ -1,0 +1,12 @@
+[
+ {
+  "id": "porsche",
+  "label": "Porsche 911",
+  "config": "models/porsche-911.json"
+ },
+ {
+  "id": "moteur",
+  "label": "Moteur",
+  "config": "models/moteur-911sc.json"
+ }
+]
