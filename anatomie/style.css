@@ -106,6 +106,40 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 #drop.on{display:grid}
 #toggleIndex{display:none}
 
+/* Visite guidée : la page défile, la scène 3D reste fixe derrière */
+.tour-btn{border:1px solid rgba(23,32,42,.08);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px;padding:9px 15px;font-size:var(--fs-s);font-weight:600;font-stretch:108%}
+.tour-btn[aria-pressed="true"]{background:var(--ink);color:#fff}
+html.tour,html.tour body{height:auto;overflow:visible}
+html.tour{overflow-y:auto;scroll-snap-type:y proximity;scrollbar-width:none}
+html.tour::-webkit-scrollbar{display:none}
+html.tour body{background-attachment:fixed}
+html.tour #scene{pointer-events:none}
+#tourTrack{display:none;pointer-events:none}
+html.tour #tourTrack{display:block}
+#tourTrack div{scroll-snap-align:start}
+html.tour #index,html.tour #toggleIndex,html.tour #dock,html.tour .file-btn,html.tour #models,html.tour .cluster[aria-label="Affichage"],html.tour #sheet .close,html.tour #sheet .s-actions,html.tour .sub .hint{display:none!important}
+#tour{position:fixed;left:28px;top:calc(150px + env(safe-area-inset-top,0px));width:250px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(23,32,42,.08);border-radius:var(--r-m);padding:16px 14px 12px;box-shadow:0 18px 40px -24px rgba(23,32,42,.45)}
+.tour-count{margin:0 0 12px;font-size:var(--fs-xs);font-weight:640;font-stretch:112%;color:var(--ink-2)}
+#tourNum{display:block;font-size:var(--fs-l);font-weight:800;font-stretch:125%;color:var(--ink);font-variant-numeric:tabular-nums}
+#tourName{display:none}
+#tourSteps{list-style:none;margin:0;padding:0}
+#tourSteps button{display:block;width:100%;text-align:left;border:0;background:none;padding:5px 8px 5px 12px;border-radius:var(--r-s);font-size:var(--fs-s);color:var(--ink-2);position:relative;transition:color .2s}
+#tourSteps button::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:2px;background:var(--rule);border-radius:2px;transition:background .2s,width .2s}
+#tourSteps button:hover{color:var(--ink)}
+#tourSteps .done button::before{background:var(--ink-2)}
+#tourSteps [aria-current="step"] button{color:var(--ink);font-weight:620}
+#tourSteps [aria-current="step"] button::before{background:var(--accent);width:3px}
+#tourHint{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);margin:0;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(23,32,42,.08);border-radius:999px;padding:9px 18px;font-size:var(--fs-s);font-weight:600;font-stretch:108%;transition:opacity .4s}
+#tourHint span{display:inline-block;animation:nudge 1.6s ease-in-out infinite}
+#tourHint.gone{opacity:0}
+@keyframes nudge{50%{transform:translateY(3px)}}
+/* Changement de pièce : le contenu de la fiche entre en léger décalé. */
+#sheet.swap :is(.s-sys,.s-name,.s-desc,.s-points,.s-measure,.s-mesh){animation:sheetIn .5s cubic-bezier(.2,.8,.2,1) both}
+#sheet.swap .s-name{animation-delay:.04s}
+#sheet.swap .s-desc{animation-delay:.08s}
+#sheet.swap :is(.s-points,.s-measure,.s-mesh){animation-delay:.12s}
+@keyframes sheetIn{from{opacity:0;transform:translateY(10px)}}
+
 /* Mobile */
 @media (max-width:860px){
   header{left:18px;top:calc(16px + env(safe-area-inset-top,0px));max-width:60vw}
@@ -122,5 +156,13 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   #dock{flex-direction:column;align-items:stretch;gap:10px;padding:12px 14px}
   .openings{justify-content:center}
   .credit{display:none}
+  .tour-btn{padding:6px 12px}
+  #tour{left:12px;right:12px;width:auto;top:calc(130px + env(safe-area-inset-top,0px));padding:9px 14px}
+  #tour .tour-count{margin:0}
+  html.tour #sheet{bottom:calc(14px + env(safe-area-inset-bottom,0px));max-height:44vh}
+  #tourHint{white-space:nowrap}
+  #tourSteps{display:none}
+  #tourNum{display:inline;font-size:var(--fs-m)}
+  #tourName{display:inline;font-size:var(--fs-s);color:var(--ink)}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

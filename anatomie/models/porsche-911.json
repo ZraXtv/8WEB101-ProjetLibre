@@ -16,6 +16,25 @@
   ]
  },
  "dolly": 0.45,
+ "tour": [
+  "caisse",
+  "avant",
+  "optiques",
+  "coffre",
+  "vitrages",
+  "habitacle",
+  "antenne",
+  {
+   "id": "aileron",
+   "hide": [
+    "moteur"
+   ]
+  },
+  "moteur",
+  "echappement",
+  "arriere",
+  "roue-avg"
+ ],
  "paintMaterials": [
   "paint"
  ],

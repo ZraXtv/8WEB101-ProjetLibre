@@ -20,6 +20,7 @@ toujours passer par un serveur HTTP.
 - Curseur « Vue éclatée » (ou touche `E`) pour écarter les pièces.
 - Clic sur une pièce, ou dans la liste, pour ouvrir sa fiche. `Échap` pour fermer.
 - « Isoler la pièce » masque tout le reste.
+- « Visite guidée » : la page défile, la voiture s'éclate pendant le premier écran puis chaque écran suivant cadre une pièce et affiche sa fiche. `Échap` ou « Quitter la visite » pour revenir à l'exploration libre. Les étapes sont listées dans le champ `tour` du `.json` : un identifiant de composant (`"coffre"`), un composant avec des pièces à masquer pendant l'étape (`{ "id": "aileron", "hide": ["moteur"] }`), ou un système entier présenté d'un bloc, les autres pièces estompées (`{ "system": "Distribution", "desc": "…" }`, utilisé pour le moteur). Sans ce champ, toutes les pièces si le modèle en a 20 au plus, sinon le bouton est masqué.
 - « Charger un .glb » ou glisser-déposer un fichier : n'importe quel modèle est découpé automatiquement en composants (Draco et Meshopt pris en charge).
 
 ## Structure
@@ -30,7 +31,7 @@ style.css                  styles (fichier séparé : la CSP du site interdit le
 app.js                     logique (Three.js r170)
 models/porsche-911.glb     Porsche 911 série G avec le moteur 911 SC monté dans sa baie (moteur allégé, voir Performances)
 models/porsche-911.json    composants, ouverture du coffre avant, quatre teintes
-models/moteur-911sc.glb    moteur Porsche 911 SC, 266 pièces assemblées
+models/moteur-911sc.glb    moteur Porsche 911 SC, 266 pièces assemblées (allégé, voir Performances)
 models/moteur-911sc.json   114 composants en 13 systèmes, avec références Porsche
 models/index.json          liste des modèles proposés dans le sélecteur
 vendor/                    Three.js, addons, décodeurs Draco/Meshopt, three-mesh-bvh, police Archivo
@@ -65,14 +66,20 @@ Pour que portes et capot s'ouvrent correctement, leur origine doit être placée
   voiture (1,68 million sur 1,92). Il est simplifié à 383 000 triangles dans
   `porsche-911.glb` avec `outils/simplifier.mjs` (part visée 15 %, erreur
   tolérée 2 % de la taille de chaque pièce), et les normales sont recalculées
-  avec des arêtes vives au-delà de 30°. Le modèle « Moteur » seul garde tous
-  ses détails. Le fichier d'origine reste dans l'historique git (commit
-  `d850bad`) pour relancer le script avec d'autres réglages.
+  avec des arêtes vives au-delà de 30°.
+- **Modèle « Moteur » allégé** de 1,68 million à 627 000 triangles, avec un
+  réglage plus doux puisqu'on le regarde de près (part visée 30 %, erreur
+  tolérée 0,8 %) : `node simplifier.mjs moteur-911sc.glb sortie.glb Engine911SC 0.3 0.008`.
+  Les fichiers d'origine des deux modèles restent dans l'historique git
+  (commit `d850bad`) pour relancer le script avec d'autres réglages.
+- **Pièces estompées** (vue transparente, étapes de la visite) : un matériau
+  sans éclairage de la même couleur, au lieu du matériau réaliste recalculé
+  pour chaque couche transparente superposée.
 - **Survol et clic** : une BVH (three-mesh-bvh) évite de tester chaque
   triangle ; elle se construit en tâche de fond après le chargement.
 - **Rendu à la demande** : une image n'est dessinée que si la caméra, une
-  pièce ou un matériau change ; l'ombre au sol n'est recalculée que lorsqu'une
-  pièce bouge.
+  pièce ou un matériau change ; l'ombre au sol reste figée pendant les
+  mouvements et n'est recalculée qu'une fois les pièces arrêtées.
 - **Verre** : les matériaux à transmission (réfraction) sont remplacés par une
   simple transparence, qui évite un second rendu complet de la scène.
 - Résolution plafonnée à 1,5× sur les écrans haute densité.

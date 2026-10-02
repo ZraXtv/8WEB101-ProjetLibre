@@ -18,6 +18,56 @@
   ]
  },
  "dolly": 0.8,
+ "tour": [
+  {
+   "system": "Carter moteur",
+   "desc": "Le carter en aluminium, séparé verticalement en deux moitiés, porte le vilebrequin sur huit paliers. Chaque moitié reçoit une rangée de trois cylindres."
+  },
+  {
+   "system": "Vilebrequin et bielles",
+   "desc": "Le vilebrequin forgé tourne sur huit paliers et reçoit les six bielles en acier forgé, une par cylindre. À ses extrémités, la poulie entraîne la turbine et un pignon entraîne la distribution et l’allumeur."
+  },
+  {
+   "system": "Pistons et cylindres",
+   "desc": "Six cylindres individuels en aluminium à ailettes, au revêtement Nikasil, chacun avec son piston bombé à trois segments. Le taux de compression est de 8,5:1."
+  },
+  {
+   "system": "Culasses et carters d’arbre à cames",
+   "desc": "Une culasse en aluminium par cylindre, avec chambre hémisphérique et deux soupapes en V. Sur chaque rangée, un carter d’arbre à cames coiffe les trois culasses, fermé par des couvre-culbuteurs."
+  },
+  {
+   "system": "Distribution",
+   "desc": "L’arbre intermédiaire, entraîné par le vilebrequin, mène par deux chaînes doubles à rouleaux un arbre à cames en tête de chaque côté. Des tendeurs hydrauliques et des guides tiennent les chaînes."
+  },
+  {
+   "system": "Soupapes et culbuteurs",
+   "desc": "Les cames poussent des culbuteurs forgés qui ouvrent les soupapes d’admission et d’échappement, rappelées par des doubles ressorts. Le jeu se règle à la vis sur chaque culbuteur."
+  },
+  {
+   "system": "Lubrification",
+   "desc": "Moteur à carter sec : une pompe à deux étages récupère l’huile et la renvoie sous pression. Un thermostat envoie l’huile chaude vers le radiateur, et un reniflard évacue les vapeurs du carter."
+  },
+  {
+   "system": "Refroidissement et alternateur",
+   "desc": "Pas de circuit d’eau : une turbine entraînée par courroie souffle l’air sur les cylindres et les culasses, guidé par le carénage. L’alternateur est monté sur le même axe que la turbine."
+  },
+  {
+   "system": "Injection et admission",
+   "desc": "Injection mécanique Bosch K-Jetronic : le doseur-distributeur mesure l’air aspiré et envoie le carburant en proportion vers les injecteurs. L’air passe par le filtre, le répartiteur et une pipe par cylindre."
+  },
+  {
+   "system": "Allumage",
+   "desc": "Allumeur Bosch entraîné par le vilebrequin, à décharge capacitive et sans rupteur. Le faisceau rejoint les six bougies, montées par le dessous des culasses."
+  },
+  {
+   "system": "Échappement",
+   "desc": "Deux échangeurs de chaleur, un par rangée de cylindres, servent à la fois de collecteurs et de chauffage pour l’habitacle. Ils alimentent le silencieux arrière transversal."
+  },
+  {
+   "system": "Volant moteur et embrayage",
+   "desc": "Le volant en acier, boulonné sur le vilebrequin, porte la couronne du démarreur. Le mécanisme à diaphragme serre le disque d’embrayage qui transmet le couple à la boîte 915."
+  }
+ ],
  "systems": [
   "Carter moteur",
   "Vilebrequin et bielles",

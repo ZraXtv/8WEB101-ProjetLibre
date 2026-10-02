@@ -44,7 +44,7 @@ renderer.shadowMap.autoUpdate = false;
 /* Rendu à la demande : une image n'est dessinée que si quelque chose a changé
    (caméra, pièce, matériau, taille de fenêtre). À l'arrêt, la carte graphique
    ne travaille plus. */
-let dirty = true, shadowDirty = true;
+let dirty = true, shadowDirty = true, shadowPending = false;
 const redraw = () => { dirty = true; };
 const moved = () => { dirty = shadowDirty = true; };
 
@@ -87,7 +87,9 @@ const S = {
   config: null, gltf: null, parts: [], byId: new Map(), meshes: [], owner: new Map(),
   t: 0, tTarget: 0, selected: null, hovered: null, view: 'complet', isolated: false,
   openings: new Map(), accent: new THREE.Color('#a3162b'), variants: [], paint: null, size: new THREE.Vector3(),
-  focus: null
+  focus: null,
+  // Visite guidée : étapes, étape en cours (-1 = introduction), pièce cadrée.
+  tour: null
 };
 
 /* ---------- Chargement ---------- */
@@ -134,6 +136,7 @@ function buildChooser(current) {
 }
 
 async function loadConfig(url) {
+  exitTour();
   try {
     setLoad('Chargement de la configuration', 2);
     const res = await fetch(url);
@@ -158,7 +161,7 @@ async function loadConfig(url) {
 
 function disposeCar() {
   bvhRun++;
-  for (const m of S.meshes) { m.material.dispose(); }
+  for (const m of S.meshes) { m.userData.own.userData.ghost?.dispose(); m.userData.own.dispose(); }
   carGroup.clear();
   S.parts = []; S.byId.clear(); S.meshes = []; S.owner.clear(); S.openings.clear();
   S.selected = null; S.hovered = null; S.isolated = false; S.t = S.tTarget = 0; S.variants = [];
@@ -186,7 +189,7 @@ async function mountCar(gltf, config, title) {
   root.traverse((o) => {
     if (!o.isMesh) return;
     o.castShadow = o.receiveShadow = true;
-    o.material = prepMaterial(o.material.clone());
+    o.material = o.userData.own = prepMaterial(o.material.clone());
     S.meshes.push(o);
   });
 
@@ -384,7 +387,7 @@ async function setPaint(paint) {
   document.querySelectorAll('.swatch').forEach((b) => b.setAttribute('aria-pressed', b.dataset.variant === (paint.variant || paint.label)));
   if (paint.color) {
     const names = new Set(paint.materials || S.config.paintMaterials || []);
-    for (const m of S.meshes) if (names.has(m.material.name)) m.material.color.set(paint.color);
+    for (const m of S.meshes) if (names.has(m.userData.own.name)) m.userData.own.color.set(paint.color);
     applyMaterials();
     return;
   }
@@ -399,8 +402,9 @@ async function setPaint(paint) {
     const matIndex = hit ? hit.material : prim.material;
     if (m.userData.matIndex === matIndex) return;
     const mat = await parser.getDependency('material', matIndex);
-    const old = m.material;
-    m.material = prepMaterial(mat.clone());
+    const old = m.userData.own;
+    m.material = m.userData.own = prepMaterial(mat.clone());
+    old.userData.ghost?.dispose();
     m.userData.matIndex = matIndex;
     old.dispose();
   }));
@@ -415,25 +419,42 @@ function setAccent(hex) {
 /* ---------- Apparence (sélection, transparence, isolement) ---------- */
 function applyMaterials() {
   let shown = false;
+  // Une étape de visite peut masquer des pièces qui gêneraient la vue, ou
+  // estomper tout ce qui n'appartient pas au système présenté.
+  const step = S.tour?.steps[S.tour.index];
   for (const m of S.meshes) {
-    const p = S.owner.get(m), mat = m.material, base = mat.userData.base;
-    const visible = !((S.view === 'pieces' && p.shell) || (S.isolated && S.selected && p !== S.selected));
+    const p = S.owner.get(m), mat = m.userData.own, base = mat.userData.base;
+    const sel = isSelected(p);
+    const visible = !((S.view === 'pieces' && p.shell) || (S.isolated && S.selected && !sel) || step?.hide.has(p));
     if (visible !== m.visible) { m.visible = visible; shown = true; }
-    const ghost = S.view === 'transparent' && p.shell && p !== S.selected;
-    const wasT = mat.transparent;
-    mat.transparent = ghost || base.transparent;
-    mat.opacity = ghost ? Math.min(base.opacity, 0.13) : base.opacity;
-    mat.depthWrite = ghost ? false : base.depthWrite;
-    if ('transmission' in mat) mat.transmission = ghost ? 0 : base.transmission;
+    const ghost = !sel && ((S.view === 'transparent' && p.shell) || !!step?.ghost);
+    m.material = ghost ? ghostOf(mat) : mat;
     if (mat.emissive) {
-      if (p === S.selected) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.55; }
+      if (sel) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.55; }
       else if (p === S.hovered) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.22; }
       else { mat.emissive.copy(base.emissive); mat.emissiveIntensity = base.emissiveIntensity; }
     }
-    if (wasT !== mat.transparent) mat.needsUpdate = true;
   }
   // Une pièce masquée ou réaffichée change l'ombre ; un simple surlignage non.
   if (shown) moved(); else redraw();
+}
+
+// La sélection est une pièce, ou un groupe de pièces (un système, en visite).
+const isSelected = (p) => !!S.selected && (p === S.selected || !!S.selected.members?.has(p));
+
+/* Matériau d'une pièce estompée. Des centaines de pièces transparentes se
+   superposent sur chaque pixel : avec le matériau réaliste (reflets, lumière
+   d'environnement), la carte graphique refaisait ce calcul à chaque couche.
+   Un matériau sans éclairage, de la même couleur, rend presque pareil pour
+   un coût minime. Un par matériau d'origine, pour garder sa teinte. */
+function ghostOf(mat) {
+  const base = mat.userData.base;
+  if (!mat.userData.ghost) {
+    mat.userData.ghost = new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false, opacity: Math.min(base.opacity, 0.13) });
+  }
+  const g = mat.userData.ghost;
+  if (mat.color) g.color.copy(mat.color); // suit la peinture choisie
+  return g;
 }
 
 function setView(v) {
@@ -445,6 +466,7 @@ function setView(v) {
 /* ---------- Interface ---------- */
 function buildUI(config) {
   $('#title').textContent = config.title;
+  tourBtn.hidden = !tourSteps(config).length;
   document.title = `${config.title}, anatomie interactive`;
   const n = S.parts.length, sysCount = new Set(S.parts.map((p) => p.system)).size;
   $('#count').textContent = sysCount > 1 ? `${n} composants répartis en ${sysCount} systèmes.` : `${n} composants.`;
@@ -606,6 +628,7 @@ $('#toggleIndex').onclick = () => toggleIndex();
 
 addEventListener('keydown', (e) => {
   if (e.target.matches('input')) { if (e.key === 'Escape') e.target.blur(); return; }
+  if (S.tour) { if (e.key === 'Escape') exitTour(); return; }
   if (e.key === 'Escape') select(null);
   if (e.key === 'e' || e.key === 'E') setExplode(S.tTarget > 0.5 ? 0 : 1);
 });
@@ -618,6 +641,7 @@ async function loadFile(file) {
   await loadBuffer(await file.arrayBuffer(), file.name.replace(/\.glb$/i, ''));
 }
 async function loadBuffer(buf, title) {
+  exitTour();
   try {
     const gltf = await loader.parseAsync(buf, '');
     setLoad('Préparation des pièces', 80);
@@ -636,6 +660,188 @@ addEventListener('dragenter', (e) => { e.preventDefault(); dragDepth++; $('#drop
 addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; $('#drop').classList.remove('on'); } });
 addEventListener('dragover', (e) => e.preventDefault());
 addEventListener('drop', (e) => { e.preventDefault(); dragDepth = 0; $('#drop').classList.remove('on'); loadFile(e.dataTransfer.files[0]); });
+
+/* ---------- Visite guidée ----------
+   La page devient haute et défile pour de vrai (molette, doigt, clavier,
+   barre d'espace) ; la scène 3D reste fixe derrière. Le premier écran de
+   défilement éclate la voiture, puis chaque écran suivant cadre une pièce et
+   affiche sa fiche. Les étapes viennent de « tour » dans le .json du modèle,
+   à défaut de toutes les pièces quand il y en a peu. */
+const TOUR_EXPLODE = 0.75;
+const tourBtn = $('#tourBtn');
+
+/* Une étape de « tour » est :
+   - un identifiant de pièce : "coffre" ;
+   - une pièce avec des pièces à masquer pendant l'étape : { "id": "aileron", "hide": ["moteur"] } ;
+   - un système entier, présenté comme une seule pièce, les autres estompés :
+     { "system": "Distribution", "desc": "…" }. */
+function tourSteps(config) {
+  const defs = config.tour || (S.parts.length <= 20 ? S.parts.map((p) => p.id) : []);
+  return defs.map((d) => {
+    if (typeof d === 'string') d = { id: d };
+    const part = d.system ? systemGroup(d.system, d.desc) : S.byId.get(d.id);
+    if (!part) return null;
+    const hide = new Set((d.hide || []).map((id) => S.byId.get(id)).filter(Boolean));
+    return { part, hide, ghost: !!d.system };
+  }).filter(Boolean);
+}
+
+/* Regroupe les pièces d'un système pour la fiche et la caméra : boîte
+   englobante, triangles et direction d'éclatement cumulés ; la liste des
+   pièces tient lieu de points clés. */
+function systemGroup(system, desc) {
+  const members = S.parts.filter((p) => p.system === system);
+  if (!members.length) return null;
+  const g = {
+    id: `systeme:${system}`, name: system, system: `Système · ${members.length} pièce${members.length > 1 ? 's' : ''}`,
+    desc: desc || '', points: members.map((p) => p.name), members: new Set(members),
+    meshes: members.flatMap((p) => p.meshes), restBox: new THREE.Box3(), tris: 0,
+    shell: members.every((p) => p.shell), offsetWorld: new THREE.Vector3()
+  };
+  for (const p of members) { g.restBox.union(p.restBox); g.tris += p.tris; g.offsetWorld.add(p.offsetWorld); }
+  return g;
+}
+
+function tourLayout() {
+  // Hauteurs en pixels : l'introduction est un peu plus longue qu'une étape.
+  return { intro: innerHeight * 1.2, step: innerHeight * 0.9 };
+}
+
+function buildTourTrack() {
+  const { intro, step } = tourLayout(), track = $('#tourTrack');
+  track.innerHTML = '';
+  const add = (h) => { const d = document.createElement('div'); d.style.height = h + 'px'; track.appendChild(d); };
+  add(intro);
+  S.tour.steps.forEach(() => add(step));
+  add(innerHeight * 0.4);
+}
+
+/* Sur téléphone, la fiche occupe le bas de l'écran : on décale l'image 3D vers
+   le haut pour que la pièce cadrée reste visible au-dessus. */
+function tourViewOffset() {
+  if (S.tour && innerWidth <= 860) camera.setViewOffset(innerWidth, innerHeight, 0, innerHeight * 0.22, innerWidth, innerHeight);
+  else camera.clearViewOffset();
+  redraw();
+}
+
+function enterTour() {
+  const steps = tourSteps(S.config);
+  if (!steps.length) return;
+  S.tour = { steps, index: null };
+  select(null);
+  setView('complet');
+  controls.enabled = false;
+  lastMove = null; hover(null); $('#tag').style.display = 'none';
+  toggleIndex(false);
+
+  const list = $('#tourSteps');
+  list.innerHTML = '';
+  steps.forEach(({ part: p }, i) => {
+    const li = document.createElement('li'), b = document.createElement('button');
+    b.textContent = p.name;
+    b.onclick = () => scrollTo({ top: tourLayout().intro + i * tourLayout().step + 1, behavior: reduceMotion ? 'auto' : 'smooth' });
+    li.appendChild(b); list.appendChild(li);
+  });
+
+  document.documentElement.classList.add('tour');
+  $('#tour').hidden = false;
+  $('#tourHint').hidden = false;
+  tourBtn.setAttribute('aria-pressed', 'true');
+  tourBtn.textContent = 'Quitter la visite';
+  buildTourTrack();
+  tourViewOffset();
+  scrollTo(0, 0);
+  onTourScroll();
+}
+
+function exitTour() {
+  if (!S.tour) return;
+  S.tour = null;
+  document.documentElement.classList.remove('tour');
+  $('#tour').hidden = true;
+  $('#tourHint').hidden = true;
+  $('#tourTrack').innerHTML = '';
+  tourBtn.setAttribute('aria-pressed', 'false');
+  tourBtn.textContent = 'Visite guidée';
+  controls.enabled = true;
+  tourViewOffset();
+  select(null);
+  setView('complet');
+  setExplode(0);
+  scrollTo(0, 0);
+}
+
+function onTourScroll() {
+  if (!S.tour) return;
+  const { intro, step } = tourLayout(), y = scrollY;
+  const n = S.tour.steps.length;
+  setExplode(Math.min(1, y / intro) * TOUR_EXPLODE);
+  $('#tourHint').classList.toggle('gone', y > 40);
+  goTourStep(y < intro ? -1 : Math.min(n - 1, Math.floor((y - intro) / step)));
+}
+
+function goTourStep(i) {
+  const T = S.tour;
+  if (T.index === i) return;
+  T.index = i;
+  const p = T.steps[i]?.part || null;
+  $('#tourNum').textContent = p ? `${String(i + 1).padStart(2, '0')} / ${String(T.steps.length).padStart(2, '0')}` : 'Visite guidée';
+  $('#tourName').textContent = p ? p.name : '';
+  $('#tourSteps').querySelectorAll('li').forEach((li, k) => {
+    li.classList.toggle('done', k < i);
+    if (k === i) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+  });
+  if (!p) { select(null); setView('complet'); redraw(); return; }
+  // Pièce de carrosserie : vue complète ; pièce intérieure : coque transparente.
+  setView(p.shell ? 'complet' : 'transparent');
+  select(p);
+  S.focus = null;  // la caméra de la visite prend le relais (voir tourCamera)
+  const sh = $('#sheet');
+  sh.classList.remove('swap'); void sh.offsetWidth; sh.classList.add('swap');
+}
+
+/* Caméra de la visite : vise le centre de la pièce, à une distance qui la fait
+   tenir dans le cadre, depuis le côté vers lequel elle s'écarte (les roues de
+   profil, les phares de face, le moteur de derrière et au-dessus). */
+const tourBase = new THREE.Vector3(), tourDir = new THREE.Vector3(), tourPos = new THREE.Vector3(), tourAim = new THREE.Vector3();
+function tourCamera(dt) {
+  const p = S.tour.steps[S.tour.index]?.part;
+  const cam = S.config.camera;
+  if (cam) tourBase.fromArray(cam.position).sub(tourAim.fromArray(cam.target)).normalize();
+  else tourBase.set(1, 0.5, 1.1).normalize();
+  if (p) {
+    carGroup.updateMatrixWorld(true);
+    tmpBox.makeEmpty();
+    for (const m of p.meshes) tmpBox.expandByObject(m);
+    if (tmpBox.isEmpty()) return;
+    tmpBox.getCenter(tourAim);
+    const radius = tmpBox.getSize(tmpV).length() / 2;
+    tourDir.copy(p.offsetWorld).setY(0);
+    if (tourDir.lengthSq() < 1e-6) tourDir.copy(tourBase).setY(0);
+    tourDir.normalize().multiplyScalar(0.8).addScaledVector(tourBase, 0.6).setY(0.55).normalize();
+    // La pièce doit tenir en hauteur et en largeur : en portrait, c'est la
+    // largeur qui limite.
+    const half = Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * Math.min(1, camera.aspect));
+    const fit = radius / Math.sin(half);
+    const dist = THREE.MathUtils.clamp(fit * 1.25, controls.minDistance, controls.maxDistance);
+    tourPos.copy(tourAim).addScaledVector(tourDir, dist);
+  } else {
+    // Introduction : vue d'ensemble, qui recule à mesure que la voiture s'éclate.
+    if (cam) tourAim.fromArray(cam.target); else tourAim.set(0, S.size.y * 0.45, 0);
+    const len = Math.max(S.size.x, S.size.z);
+    const base = cam ? new THREE.Vector3().fromArray(cam.position).distanceTo(tourAim) : len * 1.7;
+    const k = S.config.dolly ?? DOLLY;
+    tourPos.copy(tourAim).addScaledVector(tourBase, base * (1 + k * S.t) * (camera.aspect < 1 ? Math.min(2.2, 0.9 / camera.aspect) : 1));
+  }
+  const a = reduceMotion ? 1 : 1 - Math.exp(-dt * 3);
+  if (controls.target.distanceTo(tourAim) + camera.position.distanceTo(tourPos) < 1e-3) return;
+  controls.target.lerp(tourAim, a);
+  camera.position.lerp(tourPos, a);
+  redraw();
+}
+
+tourBtn.onclick = () => (S.tour ? exitTour() : enterTour());
+addEventListener('scroll', onTourScroll, { passive: true });
 
 /* ---------- Pointeur ---------- */
 const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
@@ -671,8 +877,9 @@ function frame() {
   const tPrev = S.t;
   S.t = reduceMotion ? S.tTarget : S.t + (S.tTarget - S.t) * (1 - Math.exp(-dt * 5));
   if (Math.abs(S.t - S.tTarget) < 1e-4) S.t = S.tTarget;
-  // La caméra recule pendant l'éclatement pour garder toutes les pièces dans le cadre.
-  if (S.t !== tPrev) {
+  // La caméra recule pendant l'éclatement pour garder toutes les pièces dans le cadre
+  // (en visite guidée, c'est tourCamera qui la place).
+  if (S.t !== tPrev && !S.tour) {
     const k = S.config?.dolly ?? DOLLY, f = (1 + k * S.t) / (1 + k * tPrev);
     camera.position.sub(controls.target).multiplyScalar(f).add(controls.target);
   }
@@ -682,8 +889,12 @@ function frame() {
   for (const p of S.parts) {
     if (p.open && p.open.v !== p.open.target) animating = true;
   }
+  // Pendant le mouvement, l'ombre au sol reste figée : la recalculer à chaque
+  // image redessinait tout le modèle une seconde fois. Elle est mise à jour une
+  // fois les pièces arrêtées.
+  if (animating) { redraw(); shadowPending = true; }
+  else if (shadowPending) { shadowPending = false; moved(); }
   if (animating) {
-    moved();
     for (const p of S.parts) {
       const k = easeInOut(THREE.MathUtils.clamp((S.t - p.delay) / (1 - STAGGER), 0, 1));
       let ang = 0;
@@ -711,8 +922,10 @@ function frame() {
     canvas.style.cursor = p ? 'pointer' : 'grab';
   }
 
+  if (S.tour) tourCamera(dt);
+
   // Recentrage doux sur la pièce choisie.
-  if (S.focus) {
+  if (S.focus && !S.tour) {
     carGroup.updateMatrixWorld(true);
     tmpBox.makeEmpty();
     for (const m of S.focus.meshes) if (m.visible || S.isolated) tmpBox.expandByObject(m);
@@ -761,6 +974,8 @@ addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  if (S.tour) { buildTourTrack(); onTourScroll(); }
+  tourViewOffset();
   redraw();
 });
 
