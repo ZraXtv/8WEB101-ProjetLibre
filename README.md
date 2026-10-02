@@ -46,7 +46,9 @@ d'ajuster sa difficulté.
 
 `anatomie/` contient un explorateur 3D (Three.js) d'une Porsche 911 et de son
 moteur : vue éclatée, fiche par composant, peintures. Il est accessible depuis le menu « Anatomie 3D », ou directement
-sur http://127.0.0.1:5000/anatomie/index.html. Détails et crédits des
+sur http://127.0.0.1:5000/anatomie/index.html. Son code est basé sur
+[focus-parts-explorer](https://github.com/Gigadad11/focus-parts-explorer)
+de Gigadad11 (licence MIT). Détails et crédits des
 modèles dans [anatomie/README.md](anatomie/README.md).
 
 Autres pistes : mode « série » sans limite de questions, badges, questions à saisie libre.

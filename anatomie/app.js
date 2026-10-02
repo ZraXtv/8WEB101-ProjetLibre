@@ -1,3 +1,7 @@
+/* Explorateur 3D en vue éclatée.
+   Basé sur focus-parts-explorer de Gigadad11
+   (https://github.com/Gigadad11/focus-parts-explorer), licence MIT :
+   voir LICENSE-focus-parts-explorer. */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -470,7 +474,8 @@ function buildUI(config) {
   document.title = `${config.title}, anatomie interactive`;
   const n = S.parts.length, sysCount = new Set(S.parts.map((p) => p.system)).size;
   $('#count').textContent = sysCount > 1 ? `${n} composants répartis en ${sysCount} systèmes.` : `${n} composants.`;
-  $('#credit').innerHTML = config.credit ? (config.creditUrl ? `<a href="${config.creditUrl}" target="_blank" rel="noopener">${esc(config.credit)}</a>` : esc(config.credit)) : '';
+  $('#credit').innerHTML = (config.credit ? (config.creditUrl ? `<a href="${config.creditUrl}" target="_blank" rel="noopener">${esc(config.credit)}</a>` : esc(config.credit)) + '<br>' : '')
+    + 'Code basé sur <a href="https://github.com/Gigadad11/focus-parts-explorer" target="_blank" rel="noopener">focus-parts-explorer</a> de Gigadad11 (MIT).';
 
   const pw = $('#paints');
   pw.innerHTML = '';

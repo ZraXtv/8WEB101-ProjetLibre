@@ -36,6 +36,7 @@ models/moteur-911sc.json   114 composants en 13 systèmes, avec références Por
 models/index.json          liste des modèles proposés dans le sélecteur
 vendor/                    Three.js, addons, décodeurs Draco/Meshopt, three-mesh-bvh, police Archivo
 outils/simplifier.mjs      script d'allègement d'une partie d'un .glb (Node.js)
+LICENSE-focus-parts-explorer  licence MIT du projet d'origine du code
 ```
 
 ## Ajouter une voiture avec ses fiches
@@ -85,5 +86,7 @@ Pour que portes et capot s'ouvrent correctement, leur origine doit être placée
 - Résolution plafonnée à 1,5× sur les écrans haute densité.
 
 ## Crédits
+
+Le code de l'explorateur (`app.js`, `index.html`, `style.css`) est basé sur [focus-parts-explorer](https://github.com/Gigadad11/focus-parts-explorer) de Gigadad11, licence MIT (texte complet dans `LICENSE-focus-parts-explorer`). Il a été adapté ici : modèles et textes en français, intégration au site du quiz, optimisations et visite guidée.
 
 Porsche « Free 1975 Porsche 911 (930) Turbo » de Lionsharp Studios, licence CC BY 4.0 (github.com/BigSmoke4/3D-Porsche-911), textures réduites et pièces renommées. Moteur Porsche 911 SC 3.0 (type 930/03) de Joseph Schneider (github.com/josephschneider77-sys/porsche-911sc-engine), licence ISC ; textes traduits et regroupés en français. Three.js et three-mesh-bvh sous licence MIT. Police Archivo sous licence SIL OFL.
