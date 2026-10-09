@@ -254,7 +254,9 @@ routerAdd("GET", "/api/quiz/classement", (e) => {
   if (mode && !q.MODES[mode]) return q.erreur(e, 400, "Mode inconnu.");
 
   return e.json(200, q.lignes(
-    "SELECT u.name AS nom, NULLIF(u.region, '') AS region, MAX(p.score) AS meilleur_score, " +
+    // Jamais NULL : PocketBase ne sait pas le ranger dans un champ texte, et la
+    // requête entière échouait pour un joueur sans région.
+    "SELECT u.name AS nom, COALESCE(u.region, '') AS region, MAX(p.score) AS meilleur_score, " +
     "COUNT(*) AS parties_jouees, " +
     "SUM(p.bonnes_reponses) AS total_bonnes " +
     "FROM parties p JOIN users u ON u.id = p.utilisateur " +
