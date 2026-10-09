@@ -1,5 +1,14 @@
 .DS_Store
 Thumbs.db
 __pycache__/
-backend/.venv/
-backend/data/
+
+# Ancienne version (Flask), conservée dans backup/
+backup/backend/.venv/
+backup/backend/data/
+
+# PocketBase : programme téléchargé par les scripts, base de données,
+# fichiers envoyés et réglages propres à la machine
+pocketbase/pocketbase
+pocketbase/pocketbase.exe
+pocketbase/pb_data/
+pocketbase/.env

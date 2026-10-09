@@ -1,0 +1,18 @@
+# Lance le quiz dans Docker, identique sur toutes les machines :
+#   cp .env.example .env   (puis remplir le compte admin)
+#   docker compose up --build
+# Site : http://127.0.0.1:8090   Tableau de bord : http://127.0.0.1:8090/_/
+services:
+  quiz:
+    build: .
+    ports:
+      - "127.0.0.1:8090:8090"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - donnees_quiz:/pb/pb_data
+    restart: unless-stopped
+
+volumes:
+  donnees_quiz:
