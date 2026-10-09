@@ -52,7 +52,8 @@
 
   --transition: 160ms cubic-bezier(0.4, 0, 0.2, 1);
   --largeur-max: 1140px;
-  --entete-hauteur: 68px;
+  --entete-hauteur: 76px;
+  --entete-fond: #e8ebee;
 
   color-scheme: light;
 }
@@ -79,6 +80,7 @@
   --surface-3: rgba(255, 255, 255, 0.08);
   --bordure: rgba(255, 255, 255, 0.09);
   --sur-encre: #151a20;
+  --entete-fond: #151a20;
 
   --ombre-md: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
   --ombre-lg: 0 18px 40px -20px rgba(0, 0, 0, 0.8);
@@ -170,11 +172,16 @@ main {
    3. En-tête / pied
    ========================================================================== */
 
+/* Bande opaque sur toute la largeur : sans fond, le logo et son nom
+   flottaient par-dessus le texte qui défile dessous (même à 95 %
+   d'opacité, un grand titre restait visible au travers). */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 60;
-  padding-top: 12px;
+  padding-block: 10px;
+  background: var(--entete-fond);
+  border-bottom: 1px solid var(--bordure);
 }
 
 .nav-contenu {
@@ -195,18 +202,25 @@ main {
 
 .logo:hover { text-decoration: none; }
 
+/* Compteur de vitesse : cadran à l'encre, aiguille à la couleur d'accent.
+   Les couleurs viennent d'ici et suivent donc le thème clair ou sombre. */
 .logo-mark {
   display: grid;
   place-items: center;
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50%;
-  background: var(--verre);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--bordure);
-  font-size: 1.1rem;
+  background: var(--encre);
+  color: var(--sur-encre);
 }
+
+.logo-mark svg { display: block; }
+.logo-cadran { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.logo-aiguille { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; }
+.logo-moyeu { fill: currentColor; }
+
+.logo:hover .logo-aiguille { transform: rotate(-35deg); }
+.logo-aiguille { transform-origin: 16px 18px; transition: transform 300ms cubic-bezier(0.3, 1.6, 0.5, 1); }
 
 .logo-text {
   font-weight: 820;
