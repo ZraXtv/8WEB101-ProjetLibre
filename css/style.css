@@ -839,6 +839,22 @@ tbody tr:hover { background: var(--surface-2); }
 .note { font-size: 12px; color: var(--texte-doux); margin-top: 0.3rem; }
 .lien-bas { text-align: center; margin-top: 1.25rem; font-size: 13px; color: var(--texte-doux); }
 
+/* Drapeau de la région du joueur, posé avant son nom. Le liseré garde visibles
+   les drapeaux à bande blanche (Japon, Corée) sur un fond clair. */
+.drapeau {
+  height: 1em;
+  width: auto;
+  margin-right: 0.45em;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--bordure);
+  vertical-align: -0.12em;
+}
+
+.cellule-joueur { white-space: nowrap; }
+
+.carte-region { margin-bottom: 2rem; max-width: 520px; }
+.carte-region h2 { margin: 0; }
+
 [role="alert"] {
   margin-top: 1rem;
   padding: 0.75rem 0.95rem;

@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
     courriel TEXT NOT NULL UNIQUE,
     mot_de_passe_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'membre' CHECK (role IN ('membre', 'admin')),
+    -- Code de regions.REGIONS ; adapte la difficulté des logos au joueur.
+    region TEXT,
     date_creation TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -54,6 +56,8 @@ CREATE TABLE IF NOT EXISTS questions_partie (
     position INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
     propositions TEXT NOT NULL,
+    -- Difficulté figée au tirage, selon la région du joueur à ce moment-là.
+    difficulte INTEGER,
     reponse_donnee TEXT,
     correcte INTEGER,
     duree_ms INTEGER,
