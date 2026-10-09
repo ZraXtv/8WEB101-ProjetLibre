@@ -38,7 +38,7 @@ d'ajuster sa difficulté.
 
 | Épreuve | État |
 |---|---|
-| Logos de marques | 88 questions prêtes |
+| Logos de marques | 64 questions prêtes |
 | Modèles de voitures | à importer (images libres disponibles sur Commons) |
 | Pièces automobiles | à importer (images libres disponibles sur Commons) |
 
@@ -87,24 +87,35 @@ qui sépare deux blocs, et écarte celui qui ressemble à un bandeau de texte
 sous les chevrons demande deux passes, une pour la lettre isolée et une
 pour le reste du mot.
 
-Une trentaine de logos restent inchangés parce qu'ils *sont* le nom de la
-marque (Ford, Ferrari, Lamborghini, Jeep...) : il n'y a rien à isoler. Ils
-servent de questions faciles.
+Quand le symbole touche le texte (le trait de Moskvitch, la couronne de
+Horch), un cadre fixe (`CADRES`) découpe le symbole seul.
+
+Quand le nom fait partie du dessin, aucun recadrage ne suffit : `MASQUES`
+l'efface. Les lettres du rondel BMW et de la bague Alfa Romeo sont repeintes
+avec la couleur de l'anneau, angle par angle pour garder les reflets. Le mot
+« VOLVO », le « MINI » central, les cartouches d'Aston Martin et de Borgward
+sont remplis avec le fond. Les inscriptions du blason Porsche sont recouvertes
+d'un dégradé entre les couleurs au-dessus et au-dessous.
+
+Vingt-quatre logos *sont* le nom de la marque (Ford, Fiat, Jeep, Kia,
+Nissan...) : il n'y a rien à isoler, ils sont donc retirés du quiz
+(`LOGOS_TEXTUELS` dans `charger_questions.py`).
 
 Toujours lancer `--apercu` avant `--appliquer` : le résultat s'écrit dans
 `data/apercu_recadrage/` sans toucher aux originaux, pour pouvoir le
-vérifier à l'œil.
+vérifier à l'œil. Les images étant remplacées sur place, on peut nommer les
+logos à traiter (`--appliquer proton bmw`) pour ne pas retravailler les autres.
 
 ### Difficulté des logos
 
-| Niveau | Contenu | Exemples |
-|---|---|---|
-| Facile (32) | le logo est le nom écrit | Ford, Lamborghini, Maserati |
-| Moyen (8) | nom intégré au dessin | BMW, MINI, Bentley |
-| Difficile (48) | symbole nu, aucun texte | Ferrari, Maybach, Moskvitch |
+Plus aucun logo ne montre le nom de la marque : la difficulté dépend de la
+notoriété du symbole.
 
-Choisir « Difficile » sur l'accueil ne sert donc que des emblèmes sans
-aucune lettre.
+| Niveau | Exemples |
+|---|---|
+| Facile (20) | Audi, BMW, Mercedes-Benz, Toyota, Volkswagen |
+| Moyen (17) | Alfa Romeo, Aston Martin, Lexus, Maserati, Škoda |
+| Difficile (27) | Borgward, Horch, Moskvitch, Perodua, Zastava |
 
 ### Barème
 
@@ -157,6 +168,16 @@ son blason. Ferrari renvoyait ainsi le mot « Ferrari » au lieu du cheval
 cabré, Maybach un M simple au lieu du double M. Ces cas sont corrigés à la
 main dans `REMPLACEMENTS` (Ferrari, Maybach, Aston Martin, McLaren, Bentley,
 Renault, BMW, Mercedes-Benz).
+
+Wikidata donne aussi souvent la version monochrome du logo, alors que le
+joueur connaît la version en couleur vue sur les voitures. Treize marques
+(Audi, Chevrolet, Citroën, DS, Lexus, Maserati, Mazda, McLaren, Opel, Renault,
+Toyota, Volvo, Zastava) pointent donc vers une version en couleur choisie sur
+Commons. Pour Lincoln, Chery, SsangYong, Oldsmobile et Horch, aucune version
+en couleur sous licence libre n'a été trouvée.
+
+`python3 importer_marques.py Mazda Opel` ne retélécharge que les marques
+nommées ; il faut ensuite relancer `recadrer_logos.py` sur ces mêmes logos.
 
 Le cheval cabré de Ferrari n'existe pas en vectoriel sous licence libre — le
 dessin est protégé, seules des photographies du blason sont réutilisables.

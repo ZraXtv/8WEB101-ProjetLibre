@@ -10,9 +10,14 @@ liés sur Wikidata : on écarte les motos, les poids lourds, les holdings
 marques de voitures reconnaissables par un joueur.
 
     python3 importer_marques.py
+    python3 importer_marques.py Mazda Opel   # seulement ces marques
+
+Un logo retéléchargé remplace l'image recadrée : limiter l'import aux marques
+modifiées, puis relancer recadrer_logos.py sur ces seules marques.
 """
 import json
 import re
+import sys
 import time
 import urllib.error
 import urllib.parse
@@ -80,7 +85,6 @@ MARQUES = {
 # Commons : celui d'un groupe plutôt que de la marque, ou une variante avec le
 # nom écrit alors qu'une version symbole existe.
 REMPLACEMENTS = {
-    "Renault": "File:Renault 2021 Text.svg",       # Wikidata pointe sur « Renault Group »
     "BMW": "File:BMW.svg",                          # idem, « BMW Group »
     "Mercedes-Benz": "File:Mercedes-Logo.svg",      # idem, « Mercedes-Benz Group »
     "MINI": "File:MINI logo.svg",
@@ -94,11 +98,25 @@ REMPLACEMENTS = {
     "Ferrari": "File:Ferrari-Cavalino-rampante-Saint-Briac-sur-Mer-byRundvald.jpg",
     "Maybach": "File:Maybach Manufaktur logo.svg",       # le double M
     "Aston Martin": "File:Aston Martin 1935.svg",        # les ailes
-    "McLaren": "File:McLaren Speedmark.svg",             # le « speedmark »
     "Bentley": "File:Bentley.svg",                       # le B ailé
     "Honda": "File:Honda.svg",                            # le H, pas le lettrage
     "BYD": "File:BYD Auto Logo.svg",                     # l'ovale, reconnaissable
-    "DS Automobiles": "File:DS Automobiles 2009 logo.svg",
+
+    # Wikidata donne souvent la version monochrome (« flat ») du logo, alors
+    # que le joueur connaît la version en couleur qu'il voit sur les voitures.
+    "Audi": "File:Audi Logo 1995.svg",                  # anneaux chromés
+    "Chevrolet": "File:Chevrolet-logo.png",              # nœud papillon doré
+    "Citroën": "File:Citroen-logo-2009.png",             # chevrons argentés
+    "DS Automobiles": "File:DS Logo.jpg",                # monogramme chromé
+    "Lexus": "File:LexusLogoDileo.png",
+    "Maserati": "File:Maserati - logo.jpg",              # trident rouge, ovale bleu
+    "Mazda": "File:Mazda-Logo.png",
+    "McLaren": "File:McLaren 2018 logo.svg",             # speedmark orange
+    "Opel": "File:Opel Logo 1987.svg",                   # éclair sur fond jaune
+    "Renault": "File:Renault Logo 1982.svg",             # losange sur fond jaune
+    "Toyota": "File:Toyota Symbol.svg",                 # emblème rouge
+    "Volvo": "File:Volvo Trucks & Bus logo.jpg",         # même emblème que les voitures
+    "Zastava": "File:Logo de l'entreprise automobile Zastava.jpg",
 }
 
 # Écartées après vérification visuelle : ce sont des photos de calandre ou de
@@ -183,10 +201,11 @@ def main():
     DOSSIER.mkdir(parents=True, exist_ok=True)
     liste = recuperer_liste()
 
+    seulement = set(sys.argv[1:])
     voulues = {}
     absentes = []
     for etiquette, affichage in MARQUES.items():
-        if affichage in REFUSEES:
+        if affichage in REFUSEES or (seulement and affichage not in seulement):
             continue
         if affichage in REMPLACEMENTS:
             voulues[affichage] = REMPLACEMENTS[affichage]
