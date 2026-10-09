@@ -3,8 +3,8 @@
     "Audi": {
       "fichier": "audi.png",
       "licence": "Public domain",
-      "auteur": "Strichpunkt / KMS Team",
-      "source": "https://commons.wikimedia.org/wiki/File:Audi-Logo_2016.svg"
+      "auteur": "Audi",
+      "source": "https://commons.wikimedia.org/wiki/File:Audi_Logo_1995.svg"
     },
     "BMW": {
       "fichier": "bmw.png",
@@ -27,8 +27,8 @@
     "Toyota": {
       "fichier": "toyota.png",
       "licence": "Public domain",
-      "auteur": "Toyota Motor Corporation",
-      "source": "https://commons.wikimedia.org/wiki/File:Toyota.svg"
+      "auteur": "Toyota",
+      "source": "https://commons.wikimedia.org/wiki/File:Toyota_Symbol.svg"
     },
     "Honda": {
       "fichier": "honda.png",
@@ -57,14 +57,14 @@
     "Renault": {
       "fichier": "renault.png",
       "licence": "Public domain",
-      "auteur": "Renault / Reproduction : Kilyann Le Hen",
-      "source": "https://commons.wikimedia.org/wiki/File:Renault_2021_Text.svg"
+      "auteur": "Renault",
+      "source": "https://commons.wikimedia.org/wiki/File:Renault_Logo_1982.svg"
     },
     "Citroën": {
       "fichier": "citroen.png",
       "licence": "Public domain",
-      "auteur": "Citroën",
-      "source": "https://commons.wikimedia.org/wiki/File:Citroen_2022.svg"
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Citroen-logo-2009.png"
     },
     "Fiat": {
       "fichier": "fiat.png",
@@ -135,8 +135,8 @@
     "Opel": {
       "fichier": "opel.png",
       "licence": "Public domain",
-      "auteur": "Opel",
-      "source": "https://commons.wikimedia.org/wiki/File:Opel_logo_2023.svg"
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Opel_Logo_1987.svg"
     },
     "Lamborghini": {
       "fichier": "lamborghini.png",
@@ -159,8 +159,8 @@
     "Volvo": {
       "fichier": "volvo.png",
       "licence": "Public domain",
-      "auteur": "Volvo Group",
-      "source": "https://commons.wikimedia.org/wiki/File:Volvo-Iron-Mark-Black.svg"
+      "auteur": "Vectorized by LG4761",
+      "source": "https://commons.wikimedia.org/wiki/File:Volvo_Trucks_%26_Bus_logo.jpg"
     },
     "Aston Martin": {
       "fichier": "aston-martin.png",
@@ -182,9 +182,9 @@
     },
     "Maserati": {
       "fichier": "maserati.png",
-      "licence": "Public domain",
-      "auteur": "Maserati",
-      "source": "https://commons.wikimedia.org/wiki/File:Maserati_logo_2.svg"
+      "licence": "CC BY-SA 3.0",
+      "auteur": "Jakub \"flyz1\" Maciejewski",
+      "source": "https://commons.wikimedia.org/wiki/File:Maserati_-_logo.jpg"
     },
     "Lancia": {
       "fichier": "lancia.png",
@@ -219,8 +219,8 @@
     "McLaren": {
       "fichier": "mclaren.png",
       "licence": "Public domain",
-      "auteur": "Ved havet",
-      "source": "https://commons.wikimedia.org/wiki/File:McLaren_Speedmark.svg"
+      "auteur": "McLaren",
+      "source": "https://commons.wikimedia.org/wiki/File:McLaren_2018_logo.svg"
     },
     "Koenigsegg": {
       "fichier": "koenigsegg.png",
@@ -236,9 +236,9 @@
     },
     "DS Automobiles": {
       "fichier": "ds-automobiles.png",
-      "licence": "Public domain",
-      "auteur": "Automobiles Citroën S.A.",
-      "source": "https://commons.wikimedia.org/wiki/File:DS_Automobiles_2009_logo.svg"
+      "licence": "CC BY-SA 3.0",
+      "auteur": "Luc106",
+      "source": "https://commons.wikimedia.org/wiki/File:DS_Logo.jpg"
     },
     "Polestar": {
       "fichier": "polestar.png",
@@ -279,8 +279,8 @@
     "Chevrolet": {
       "fichier": "chevrolet.png",
       "licence": "Public domain",
-      "auteur": "Unknown author Unknown author",
-      "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_simple_logo.svg"
+      "auteur": "Diego HC",
+      "source": "https://commons.wikimedia.org/wiki/File:Chevrolet-logo.png"
     },
     "Dodge": {
       "fichier": "dodge.png",
@@ -333,14 +333,14 @@
     "Mazda": {
       "fichier": "mazda.png",
       "licence": "Public domain",
-      "auteur": "Mazda",
-      "source": "https://commons.wikimedia.org/wiki/File:Mazda_logo_2024_(vertical).svg"
+      "auteur": "Unknown author Unknown author",
+      "source": "https://commons.wikimedia.org/wiki/File:Mazda-Logo.png"
     },
     "Lexus": {
       "fichier": "lexus.png",
       "licence": "Public domain",
-      "auteur": "Gaspard",
-      "source": "https://commons.wikimedia.org/wiki/File:Lexus.svg"
+      "auteur": "Lexus",
+      "source": "https://commons.wikimedia.org/wiki/File:LexusLogoDileo.png"
     },
     "Daihatsu": {
       "fichier": "daihatsu.png",
@@ -446,9 +446,9 @@
     },
     "Zastava": {
       "fichier": "zastava.png",
-      "licence": "Public domain",
+      "licence": "CC BY-SA 4.0",
       "auteur": "http://autoshowserbia.info/manufacturer_logos/zastava.jpg",
-      "source": "https://commons.wikimedia.org/wiki/File:Zastava_Automobiles_logo.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Logo_de_l%27entreprise_automobile_Zastava.jpg"
     },
     "Iran Khodro": {
       "fichier": "iran-khodro.png",

@@ -14,9 +14,21 @@ def get_connection():
     return connexion
 
 
+# Colonnes ajoutées après la première version du schéma : CREATE TABLE IF NOT
+# EXISTS ne touche pas une table existante, elles sont donc ajoutées ici.
+COLONNES_AJOUTEES = [
+    ("utilisateurs", "region", "TEXT"),
+    ("questions_partie", "difficulte", "INTEGER"),
+]
+
+
 def init_db():
     connexion = get_connection()
     connexion.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
+    for table, colonne, type_sql in COLONNES_AJOUTEES:
+        existantes = {ligne["name"] for ligne in connexion.execute(f"PRAGMA table_info({table})")}
+        if colonne not in existantes:
+            connexion.execute(f"ALTER TABLE {table} ADD COLUMN {colonne} {type_sql}")
     connexion.commit()
     connexion.close()
     restreindre_acces_fichier()

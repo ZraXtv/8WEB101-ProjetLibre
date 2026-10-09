@@ -13,7 +13,7 @@ JavaScript. L'ancienne version (serveur Flask) est conservée dans
 ## Lancer le projet
 
 Tout se passe dans le dossier `pocketbase/`. Au premier lancement, la base
-est créée et les 88 questions de logos y sont chargées automatiquement.
+est créée et les 64 questions de logos y sont chargées automatiquement.
 
 ```bash
 cd pocketbase
@@ -57,11 +57,12 @@ Il y a deux sortes de comptes :
 pocketbase/
 ├── pb_migrations/      structure de la base (collections, règles, limites)
 │   ├── 1790000000_structure.js
-│   └── 1790000001_questions_logos.js   chargement des 88 logos
+│   ├── 1790000001_questions_logos.js   chargement des logos
+│   └── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP
-│   └── quiz/               modules partagés par les hooks
+│   └── quiz/               modules partagés (dont regions.js : difficulté par région)
 ├── pb_public/          le site : pages, CSS, JS, polices, explorateur 3D
 ├── donnees/            questions de départ et leurs images (non publiques)
 ├── outils/simplifier.mjs   allègement des modèles 3D (voir pb_public/anatomie/README.md)
@@ -121,11 +122,29 @@ de PocketBase : seuls les hooks du jeu et le tableau de bord y accèdent.
 
 ### Difficulté des logos
 
-| Niveau | Contenu | Exemples |
-|---|---|---|
-| Facile (28) | le logo est le nom écrit | Ford, Lamborghini, Fiat |
-| Moyen (10) | nom intégré au dessin | BMW, MINI, Bentley |
-| Difficile (50) | symbole nu, aucun texte | Ferrari, Maybach, Moskvitch |
+Aucun logo ne montre le nom de la marque : il est recadré ou effacé sur
+l'image, et les 24 logos qui *sont* le nom écrit (Ford, Fiat, Jeep…) sont
+retirés du quiz. La difficulté dépend donc de la notoriété du symbole :
+
+| Niveau | Exemples |
+|---|---|
+| Facile (20) | Audi, BMW, Mercedes-Benz, Toyota, Volkswagen |
+| Moyen (17) | Alfa Romeo, Aston Martin, Lexus, Maserati, Škoda |
+| Difficile (27) | Borgward, Horch, Moskvitch, Perodua, Zastava |
+
+### Difficulté selon la région
+
+Chaque joueur peut renseigner sa région à l'inscription ou sur sa page
+« Mes stats ». Son drapeau s'affiche alors dans l'en-tête et devant son
+pseudonyme au classement.
+
+La difficulté ci-dessus est une notoriété « moyenne », qui ne vaut pas
+partout : une Subaru est banale au Canada et rare en France, une Dacia
+l'inverse. Pour un joueur qui a choisi sa région, la difficulté de chaque
+logo est recalculée (`pb_hooks/quiz/regions.js`) : marques nationales du
+pays d'abord, puis écarts propres au marché (Europe, Amérique, Asie), sinon
+la difficulté de base. Elle est figée au lancement de la partie et sert
+autant au filtre Facile / Moyen / Difficile qu'au barème.
 
 ## API
 
@@ -137,6 +156,8 @@ obtenu est envoyé dans l'en-tête `Authorization`. Le jeu a sa propre API :
 | Méthode | Route | Description |
 |---|---|---|
 | GET | `/api/quiz/moi` | Joueur connecté |
+| PATCH | `/api/quiz/moi` | Changer sa région |
+| GET | `/api/quiz/regions` | Régions proposées |
 | GET | `/api/quiz/modes` | Épreuves et nombre de questions disponibles |
 | POST | `/api/quiz/parties` | Lancer une partie |
 | POST | `/api/quiz/parties/<id>/question` | Afficher la question en cours et démarrer son chrono |

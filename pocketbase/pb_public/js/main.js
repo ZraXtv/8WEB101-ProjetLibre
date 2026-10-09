@@ -62,6 +62,49 @@ function pourcentage(bonnes, total) {
   return total ? Math.round((bonnes / total) * 100) : 0;
 }
 
+/* Régions : la liste vient du serveur, qui s'en sert pour la difficulté. Les
+   drapeaux sont des images, les émojis de drapeaux s'affichant comme deux
+   lettres sous Windows. */
+
+let promesseRegions = null;
+
+function chargerRegions() {
+  if (!promesseRegions) {
+    promesseRegions = api("/regions")
+      .then((regions) => regions.sort((a, b) => a.nom.localeCompare(b.nom, "fr")))
+      .catch(() => []);
+  }
+  return promesseRegions;
+}
+
+function creerDrapeau(code, regions) {
+  const region = regions.find((r) => r.code === code);
+  if (!region) return null;
+  const image = el("img", "drapeau");
+  image.src = `assets/drapeaux/${region.code}.png`;
+  image.alt = region.nom;
+  image.title = region.nom;
+  return image;
+}
+
+async function remplirChoixRegion(select, valeur) {
+  const regions = await chargerRegions();
+  select.replaceChildren(
+    new Option("Non précisée", ""),
+    ...regions.map((region) => new Option(region.nom, region.code)),
+  );
+  select.value = valeur || "";
+}
+
+async function afficherDrapeauNav(region) {
+  const lien = document.querySelector("#nav-profil a");
+  if (!lien) return;
+  lien.querySelector(".drapeau")?.remove();
+  if (!region) return;
+  const drapeau = creerDrapeau(region, await chargerRegions());
+  if (drapeau) lien.prepend(drapeau);
+}
+
 function dateCourte(valeur) {
   if (!valeur) return "";
   // PocketBase stocke en UTC (« 2026-10-08 12:00:00.000Z ») : le format ISO
@@ -82,6 +125,7 @@ function messageErreur(statut, corps) {
   }
   if (champs.password) return "Le mot de passe doit faire entre 10 et 71 caractères.";
   if (champs.name) return "Le pseudonyme est requis (40 caractères au plus).";
+  if (champs.region) return "Région inconnue.";
   if (champs.identity) return "Courriel ou mot de passe invalide.";
   // Nos propres refus (politique de mots de passe) sont déjà en français.
   if (corps && corps.message && !/^(Failed|Something|The request)/.test(corps.message)) return corps.message;
@@ -502,8 +546,12 @@ async function chargerClassement() {
   if (!zone) return;
 
   let lignes = [];
+  let regions = [];
   try {
-    lignes = await api(`/classement${modeClassement ? `?mode=${modeClassement}` : ""}`);
+    [lignes, regions] = await Promise.all([
+      api(`/classement${modeClassement ? `?mode=${modeClassement}` : ""}`),
+      chargerRegions(),
+    ]);
   } catch {
     lignes = [];
   }
@@ -535,7 +583,11 @@ async function chargerClassement() {
     const medailles = ["or", "argent", "bronze"];
     celluleRang.appendChild(el("span", `rang ${medailles[index] || ""}`.trim(), String(index + 1)));
     tr.appendChild(celluleRang);
-    tr.appendChild(el("td", null, ligne.nom));
+    const celluleJoueur = el("td", "cellule-joueur");
+    const drapeau = creerDrapeau(ligne.region, regions);
+    if (drapeau) celluleJoueur.appendChild(drapeau);
+    celluleJoueur.appendChild(document.createTextNode(ligne.nom));
+    tr.appendChild(celluleJoueur);
     tr.appendChild(el("td", null, `${ligne.meilleur_score} pts`));
     tr.appendChild(el("td", null, String(ligne.parties_jouees)));
     tr.appendChild(el("td", null, String(ligne.total_bonnes)));
@@ -591,6 +643,7 @@ async function initProfil(utilisateur) {
   }
 
   document.getElementById("titre-profil").textContent = `Statistiques de ${utilisateur.nom}`;
+  initFormulaireRegion(utilisateur);
 
   let stats;
   try {
@@ -661,6 +714,31 @@ async function initProfil(utilisateur) {
   const cadre = el("div", "table-wrapper");
   cadre.appendChild(table);
   zoneRecentes.replaceChildren(cadre);
+}
+
+function initFormulaireRegion(utilisateur) {
+  const formulaire = document.getElementById("form-region");
+  if (!formulaire) return;
+
+  const select = formulaire.elements.region;
+  remplirChoixRegion(select, utilisateur.region);
+
+  formulaire.addEventListener("submit", async (evenement) => {
+    evenement.preventDefault();
+    const bouton = formulaire.querySelector("button[type='submit']");
+    bouton.disabled = true;
+    try {
+      const misAJour = await api("/moi", {
+        method: "PATCH",
+        body: JSON.stringify({ region: select.value }),
+      });
+      afficherDrapeauNav(misAJour.region);
+      toast("Région enregistrée.", "succes");
+    } catch (erreur) {
+      toast(erreur.message, "erreur");
+    }
+    bouton.disabled = false;
+  });
 }
 
 /* ==========================================================================
@@ -818,6 +896,8 @@ function initFormulaireInscription() {
   const formulaire = document.getElementById("form-inscription");
   if (!formulaire) return;
 
+  remplirChoixRegion(formulaire.elements.region, "");
+
   formulaire.addEventListener("submit", async (evenement) => {
     evenement.preventDefault();
     const donnees = new FormData(formulaire);
@@ -833,6 +913,7 @@ function initFormulaireInscription() {
           email: String(donnees.get("courriel") || "").trim().toLowerCase(),
           password: motDePasse,
           passwordConfirm: motDePasse,
+          region: donnees.get("region") || "",
         }),
       });
       await seConnecter(donnees.get("courriel"), motDePasse);
@@ -910,6 +991,7 @@ async function initEtatSession() {
     if (elements.deconnexion) elements.deconnexion.hidden = false;
     if (elements.profil) elements.profil.hidden = false;
     if (elements.admin) elements.admin.hidden = utilisateur.role !== "admin";
+    afficherDrapeauNav(utilisateur.region);
   }
 
   if (elements.deconnexion) {

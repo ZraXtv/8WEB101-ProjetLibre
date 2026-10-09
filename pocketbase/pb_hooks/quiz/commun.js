@@ -61,7 +61,9 @@ function questionPublique(question, qp, partie) {
     image: `/api/quiz/parties/${partie.id}/image?q=${qp.getInt("position")}`,
     propositions: propositionsDe(qp),
     indice: question.getString("indice") || null,
-    difficulte: question.getInt("difficulte"),
+    // Difficulté figée au tirage (selon la région du joueur) ; les parties
+    // lancées avant l'ajout des régions n'en ont pas.
+    difficulte: qp.getInt("difficulte") || question.getInt("difficulte"),
     tempsLimiteMs: DUREE_MAX_QUESTION_MS,
     credit: {
       licence: question.getString("licence"),

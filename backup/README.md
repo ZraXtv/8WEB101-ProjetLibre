@@ -42,7 +42,7 @@ d'ajuster sa difficulté.
 
 | Épreuve | État |
 |---|---|
-| Logos de marques | 88 questions prêtes |
+| Logos de marques | 64 questions prêtes |
 | Modèles de voitures | à importer (images libres disponibles sur Commons) |
 | Pièces automobiles | à importer (images libres disponibles sur Commons) |
 
@@ -91,28 +91,65 @@ qui sépare deux blocs, et écarte celui qui ressemble à un bandeau de texte
 sous les chevrons demande deux passes, une pour la lettre isolée et une
 pour le reste du mot.
 
-Une trentaine de logos restent inchangés parce qu'ils *sont* le nom de la
-marque (Ford, Ferrari, Lamborghini, Jeep...) : il n'y a rien à isoler. Ils
-servent de questions faciles.
+Quand le symbole touche le texte (le trait de Moskvitch, la couronne de
+Horch), un cadre fixe (`CADRES`) découpe le symbole seul.
+
+Quand le nom fait partie du dessin, aucun recadrage ne suffit : `MASQUES`
+l'efface. Les lettres du rondel BMW et de la bague Alfa Romeo sont repeintes
+avec la couleur de l'anneau, angle par angle pour garder les reflets. Le mot
+« VOLVO », le « MINI » central, les cartouches d'Aston Martin et de Borgward
+sont remplis avec le fond. Les inscriptions du blason Porsche sont recouvertes
+d'un dégradé entre les couleurs au-dessus et au-dessous.
+
+Vingt-quatre logos *sont* le nom de la marque (Ford, Fiat, Jeep, Kia,
+Nissan...) : il n'y a rien à isoler, ils sont donc retirés du quiz
+(`LOGOS_TEXTUELS` dans `charger_questions.py`).
 
 Toujours lancer `--apercu` avant `--appliquer` : le résultat s'écrit dans
 `data/apercu_recadrage/` sans toucher aux originaux, pour pouvoir le
-vérifier à l'œil.
+vérifier à l'œil. Les images étant remplacées sur place, on peut nommer les
+logos à traiter (`--appliquer proton bmw`) pour ne pas retravailler les autres.
 
 ### Difficulté des logos
 
-| Niveau | Contenu | Exemples |
-|---|---|---|
-| Facile (32) | le logo est le nom écrit | Ford, Lamborghini, Maserati |
-| Moyen (8) | nom intégré au dessin | BMW, MINI, Bentley |
-| Difficile (48) | symbole nu, aucun texte | Ferrari, Maybach, Moskvitch |
+Plus aucun logo ne montre le nom de la marque : la difficulté dépend de la
+notoriété du symbole.
 
-Choisir « Difficile » sur l'accueil ne sert donc que des emblèmes sans
-aucune lettre.
+| Niveau | Exemples |
+|---|---|
+| Facile (20) | Audi, BMW, Mercedes-Benz, Toyota, Volkswagen |
+| Moyen (17) | Alfa Romeo, Aston Martin, Lexus, Maserati, Škoda |
+| Difficile (27) | Borgward, Horch, Moskvitch, Perodua, Zastava |
+
+### Difficulté selon la région
+
+Chaque joueur peut renseigner sa région à l'inscription ou sur sa page
+« Mes stats ». Son drapeau s'affiche alors dans l'en-tête et devant son
+pseudonyme au classement.
+
+La difficulté ci-dessus est une notoriété « moyenne ». Elle ne vaut pas
+partout : une Subaru est banale au Canada et rare en France, une Dacia
+l'inverse. `backend/regions.py` recalcule donc la difficulté d'un logo pour la
+région du joueur : d'abord les marques nationales ou omniprésentes dans le
+pays (Renault en France, Subaru au Canada), puis les écarts propres à tout un
+marché (Europe, Amérique du Nord, Asie), sinon la difficulté de base.
+
+| Exemple | France | Canada |
+|---|---|---|
+| Subaru | Moyen | Facile |
+| Renault | Facile | Difficile |
+| Buick | Difficile | Facile |
+
+La difficulté recalculée sert au filtre de l'accueil et au barème : elle est
+figée au tirage dans `questions_partie.difficulte`, pour qu'un changement de
+région en cours de partie ne modifie pas les points. Sans région renseignée
+(ou sans compte), la difficulté de base s'applique. Les colonnes `region` et
+`difficulte` sont ajoutées automatiquement aux bases existantes au démarrage.
 
 ### Barème
 
-- 100 points par bonne réponse, multipliés par la difficulté (1 à 3)
+- 100 points par bonne réponse, multipliés par la difficulté (1 à 3), celle
+  de la région du joueur
 - jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
 - 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
   réseau), la réponse compte comme fausse. Un chrono visible décompte le temps
@@ -126,6 +163,8 @@ aucune lettre.
 | POST | `/api/connexion` | Se connecter |
 | POST | `/api/deconnexion` | Fermer la session |
 | GET | `/api/moi` | Utilisateur connecté |
+| PATCH | `/api/moi` | Modifier sa région |
+| GET | `/api/regions` | Régions proposées |
 | GET | `/api/modes` | Épreuves et nombre de questions disponibles |
 | POST | `/api/parties` | Lancer une partie |
 | POST | `/api/parties/<id>/question` | Afficher la question en cours et démarrer son chrono |
@@ -162,6 +201,16 @@ cabré, Maybach un M simple au lieu du double M. Ces cas sont corrigés à la
 main dans `REMPLACEMENTS` (Ferrari, Maybach, Aston Martin, McLaren, Bentley,
 Renault, BMW, Mercedes-Benz).
 
+Wikidata donne aussi souvent la version monochrome du logo, alors que le
+joueur connaît la version en couleur vue sur les voitures. Treize marques
+(Audi, Chevrolet, Citroën, DS, Lexus, Maserati, Mazda, McLaren, Opel, Renault,
+Toyota, Volvo, Zastava) pointent donc vers une version en couleur choisie sur
+Commons. Pour Lincoln, Chery, SsangYong, Oldsmobile et Horch, aucune version
+en couleur sous licence libre n'a été trouvée.
+
+`python3 importer_marques.py Mazda Opel` ne retélécharge que les marques
+nommées ; il faut ensuite relancer `recadrer_logos.py` sur ces mêmes logos.
+
 Le cheval cabré de Ferrari n'existe pas en vectoriel sous licence libre — le
 dessin est protégé, seules des photographies du blason sont réutilisables.
 Le script recadre donc automatiquement la photo sur le jaune de Modène.
@@ -176,6 +225,10 @@ contenir du script, un PNG non.
 
 Les logos restent des marques déposées. Leur usage ici est pédagogique et
 non commercial, sans lien ni approbation des constructeurs.
+
+Les drapeaux (`assets/drapeaux/`) viennent aussi de Commons (« Flag of
+Canada.svg », etc.), dans le domaine public. Ce sont des images et non des
+émojis : Windows affiche les émojis de drapeaux comme deux lettres.
 
 ## Sécurité
 
@@ -227,17 +280,19 @@ projet/
 ├── index.html          choix de l'épreuve et de la difficulté
 ├── jeu.html            écran de jeu
 ├── classement.html     meilleurs scores
-├── profil.html         statistiques personnelles
+├── profil.html         statistiques personnelles et région
 ├── connexion.html / inscription.html
 ├── admin.html          gestion des questions
 ├── css/style.css
 ├── js/main.js, js/theme.js
 ├── assets/
 │   ├── fonts/          polices hébergées localement
+│   ├── drapeaux/       drapeaux des régions des joueurs
 │   └── images/logos/   images des questions
 └── backend/
     ├── app.py              serveur Flask (API + pages)
     ├── db.py, schema.sql
+    ├── regions.py          régions et difficulté des logos selon la région
     ├── importer_marques.py téléchargement des logos depuis Commons
     ├── recadrer_logos.py   retire le nom de la marque des logos
     ├── charger_questions.py

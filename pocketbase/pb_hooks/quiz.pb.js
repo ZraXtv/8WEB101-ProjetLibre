@@ -15,7 +15,30 @@ routerAdd("GET", "/api/quiz/moi", (e) => {
   const q = require(`${__hooks}/quiz/commun.js`);
   const j = q.joueur(e);
   if (!j) return q.erreur(e, 401, "Non connecté.");
-  return e.json(200, { id: j.id, nom: j.getString("name"), role: j.getString("role") || "membre" });
+  return e.json(200, {
+    id: j.id, nom: j.getString("name"), role: j.getString("role") || "membre",
+    region: j.getString("region") || null,
+  });
+});
+
+// Changement de région depuis la page « Mes stats » (vide = non précisée).
+routerAdd("PATCH", "/api/quiz/moi", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const { regionValide } = require(`${__hooks}/quiz/regions.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+
+  const region = String((e.requestInfo().body || {}).region || "").trim().toLowerCase();
+  if (region && !regionValide(region)) return q.erreur(e, 400, "Région inconnue.");
+  j.set("region", region);
+  $app.save(j);
+  return e.json(200, {
+    id: j.id, nom: j.getString("name"), role: j.getString("role") || "membre", region: region || null,
+  });
+});
+
+routerAdd("GET", "/api/quiz/regions", (e) => {
+  return e.json(200, require(`${__hooks}/quiz/regions.js`).listerRegions());
 });
 
 // ---- Épreuves ---------------------------------------------------------------
@@ -44,20 +67,25 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   if (!q.MODES[mode]) return q.erreur(e, 400, "Mode de jeu inconnu.");
   if (!(difficulte in q.DIFFICULTES)) return q.erreur(e, 400, "Difficulté inconnue.");
 
-  let filtre = "mode = {:mode} && actif = true";
-  const params = { mode };
-  if (q.DIFFICULTES[difficulte] !== null) {
-    filtre += " && difficulte = {:d}";
-    params.d = q.DIFFICULTES[difficulte];
-  }
-  const disponibles = $app.findRecordsByFilter("questions", filtre, "", 0, 0, params);
+  const { difficultePour } = require(`${__hooks}/quiz/regions.js`);
+  const j = q.joueur(e);
+  const region = j ? j.getString("region") : "";
+
+  // La difficulté dépend de la région du joueur : le filtre se fait donc
+  // ici plutôt que dans la requête.
+  const voulue = q.DIFFICULTES[difficulte];
+  const niveau = {};
+  const disponibles = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode })
+    .filter((r) => {
+      niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
+      return voulue === null || niveau[r.id] === voulue;
+    });
   if (disponibles.length < q.NB_PROPOSITIONS) {
     return q.erreur(e, 409, "Pas encore assez de questions dans ce mode. Revenez bientôt !");
   }
 
   const tirage = q.melanger(disponibles.slice()).slice(0, q.NB_QUESTIONS);
   const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
-  const j = q.joueur(e);
 
   let partie, premiere;
   $app.runInTransaction((tx) => {
@@ -83,6 +111,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
       qp.set("position", position);
       qp.set("question", question.id);
       qp.set("propositions", propositions);
+      qp.set("difficulte", niveau[question.id]);
       qp.set("repondue", false);
       tx.save(qp);
       if (position === 0) premiere = qp;
@@ -156,7 +185,8 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
     if (correcte) {
       const rapidite = Math.max(0, q.DUREE_MAX_QUESTION_MS - dureeMs) / q.DUREE_MAX_QUESTION_MS;
       bonus = Math.floor(q.BONUS_RAPIDITE_MAX * rapidite);
-      points = q.POINTS_BASE * question.getInt("difficulte") + bonus;
+      const niveau = courante.getInt("difficulte") || question.getInt("difficulte");
+      points = q.POINTS_BASE * niveau + bonus;
     }
 
     courante.set("repondue", true);
@@ -224,13 +254,14 @@ routerAdd("GET", "/api/quiz/classement", (e) => {
   if (mode && !q.MODES[mode]) return q.erreur(e, 400, "Mode inconnu.");
 
   return e.json(200, q.lignes(
-    "SELECT u.name AS nom, MAX(p.score) AS meilleur_score, COUNT(*) AS parties_jouees, " +
+    "SELECT u.name AS nom, NULLIF(u.region, '') AS region, MAX(p.score) AS meilleur_score, " +
+    "COUNT(*) AS parties_jouees, " +
     "SUM(p.bonnes_reponses) AS total_bonnes " +
     "FROM parties p JOIN users u ON u.id = p.utilisateur " +
     "WHERE p.terminee = TRUE AND ({:mode} = '' OR p.mode = {:mode}) " +
     "GROUP BY p.utilisateur ORDER BY meilleur_score DESC LIMIT 50",
     { mode },
-    { nom: "", meilleur_score: 0, parties_jouees: 0, total_bonnes: 0 },
+    { nom: "", region: "", meilleur_score: 0, parties_jouees: 0, total_bonnes: 0 },
   ));
 });
 
