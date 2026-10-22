@@ -362,6 +362,12 @@ async function repondre(choix, zonePropositions, carte) {
   partie.score = resultat.score;
   partie.bonnes = resultat.bonnesReponses;
 
+  if (resultat.badgeDebloque) {
+    const { marque, palier } = resultat.badgeDebloque;
+    const infos = PALIERS_BADGES[palier];
+    toast(`${infos.icone} Badge ${infos.libelle.toLowerCase()} débloqué : ${marque} !`, "succes");
+  }
+
   zonePropositions.querySelectorAll(".proposition").forEach((bouton) => {
     bouton.disabled = true;
     if (bouton.textContent === resultat.bonneReponse) bouton.classList.add("correcte");
@@ -607,6 +613,7 @@ async function initProfil(utilisateur) {
 
   document.getElementById("titre-profil").textContent = `Statistiques de ${utilisateur.nom}`;
   initFormulaireRegion(utilisateur);
+  initBadges();
 
   let stats;
   try {
@@ -677,6 +684,111 @@ async function initProfil(utilisateur) {
   const cadre = el("div", "table-wrapper");
   cadre.appendChild(table);
   zoneRecentes.replaceChildren(cadre);
+}
+
+/* Badges : un par marque, en bronze, argent puis or selon le nombre de logos
+   trouvés. Les seuils viennent du serveur. */
+
+const PALIERS_BADGES = {
+  bronze: { libelle: "Bronze", icone: "🥉" },
+  argent: { libelle: "Argent", icone: "🥈" },
+  or: { libelle: "Or", icone: "🥇" },
+};
+
+const FILTRES_BADGES = [
+  ["tous", "Tous"],
+  ["obtenus", "Obtenus"],
+  ["a-debloquer", "À débloquer"],
+];
+
+function carteBadge(badge) {
+  const carte = el("article", `badge ${badge.palier ? `badge-${badge.palier}` : "badge-verrouille"}`);
+
+  const medaille = el("div", "badge-medaille");
+  const logo = el("img");
+  logo.src = badge.logo;
+  logo.alt = "";
+  logo.loading = "lazy";
+  medaille.appendChild(logo);
+  carte.appendChild(medaille);
+
+  carte.appendChild(el("div", "badge-nom", badge.marque));
+  carte.appendChild(el("div", "badge-palier",
+    badge.palier ? PALIERS_BADGES[badge.palier].libelle : "À débloquer"));
+
+  const jauge = el("div", "badge-jauge");
+  const remplissage = el("div", "badge-jauge-remplissage");
+  const cible = badge.prochain ? badge.prochain.seuil : badge.bonnes;
+  remplissage.style.width = `${cible ? Math.min(100, (badge.bonnes / cible) * 100) : 0}%`;
+  jauge.appendChild(remplissage);
+  carte.appendChild(jauge);
+
+  carte.appendChild(el("div", "badge-compte", badge.prochain
+    ? `${badge.bonnes} / ${badge.prochain.seuil} vers ${PALIERS_BADGES[badge.prochain.nom].libelle.toLowerCase()}`
+    : `${badge.bonnes} logos trouvés`));
+
+  carte.title = `${badge.marque} : ${badge.bonnes} logo${badge.bonnes > 1 ? "s" : ""} trouvé${badge.bonnes > 1 ? "s" : ""}`;
+  return carte;
+}
+
+async function initBadges() {
+  const grille = document.getElementById("grille-badges");
+  if (!grille) return;
+
+  let donnees;
+  try {
+    donnees = await api("/mes-badges");
+  } catch {
+    toast("Impossible de charger vos badges.", "erreur");
+    return;
+  }
+
+  const { badges, paliers } = donnees;
+  const parPalier = (nom) => badges.filter((b) => b.palier === nom).length;
+  const obtenus = badges.filter((b) => b.palier).length;
+  const decompte = paliers.slice().reverse()
+    .map((p) => `${PALIERS_BADGES[p.nom].icone} ${parPalier(p.nom)}`).join("   ");
+  const regle = paliers
+    .map((p) => `${PALIERS_BADGES[p.nom].libelle.toLowerCase()} à ${p.seuil}`).join(", ");
+  document.getElementById("resume-badges").textContent =
+    `${obtenus} badge${obtenus > 1 ? "s" : ""} sur ${badges.length} marques   ${decompte}. `
+    + `Logos d'une même marque à trouver : ${regle}.`;
+
+  let filtre = "tous";
+  const afficher = () => {
+    const visibles = badges.filter((b) =>
+      filtre === "tous" || (filtre === "obtenus" ? b.palier : !b.palier));
+    if (!visibles.length) {
+      grille.replaceChildren(creerEtatVide({
+        icone: "🏅",
+        titre: filtre === "obtenus" ? "Aucun badge pour l'instant" : "Tous les badges sont débloqués",
+        message: filtre === "obtenus"
+          ? `Trouvez ${paliers[0].seuil} fois le logo d'une même marque pour gagner son badge bronze.`
+          : "Visez maintenant l'or pour chaque marque !",
+        lien: filtre === "obtenus" ? "index.html" : null,
+        libelleLien: "Jouer",
+      }));
+      return;
+    }
+    grille.replaceChildren(...visibles.map(carteBadge));
+  };
+
+  const zoneFiltre = document.getElementById("filtre-badges");
+  zoneFiltre.replaceChildren(...FILTRES_BADGES.map(([cle, libelle]) => {
+    const puce = el("button", "puce", libelle);
+    puce.type = "button";
+    puce.setAttribute("aria-pressed", String(cle === filtre));
+    puce.addEventListener("click", () => {
+      filtre = cle;
+      zoneFiltre.querySelectorAll(".puce").forEach((autre, index) => {
+        autre.setAttribute("aria-pressed", String(FILTRES_BADGES[index][0] === cle));
+      });
+      afficher();
+    });
+    return puce;
+  }));
+
+  afficher();
 }
 
 function initFormulaireRegion(utilisateur) {

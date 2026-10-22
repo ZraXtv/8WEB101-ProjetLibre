@@ -37,6 +37,9 @@ DUREE_MAX_QUESTION_MS = 20000
 # démarre avant que la question ne s'affiche dans le navigateur.
 TOLERANCE_RESEAU_MS = 1500
 
+# Badges par marque : nombre de logos trouvés pour débloquer chaque palier.
+PALIERS_BADGES = [("bronze", 10), ("argent", 50), ("or", 100)]
+
 MAX_LONGUEUR_NOM = 40
 MAX_LONGUEUR_COURRIEL = 254
 MAX_LONGUEUR_MOT_DE_PASSE = 128
@@ -417,6 +420,76 @@ def regions():
     return jsonify(lister_regions())
 
 
+# ---- Badges ----------------------------------------------------------------
+
+def palier_atteint(bonnes):
+    """Plus haut palier atteint avec ce nombre de bonnes réponses, ou None."""
+    atteint = None
+    for nom, seuil in PALIERS_BADGES:
+        if bonnes >= seuil:
+            atteint = nom
+    return atteint
+
+
+def prochain_palier(bonnes):
+    for nom, seuil in PALIERS_BADGES:
+        if bonnes < seuil:
+            return {"nom": nom, "seuil": seuil}
+    return None
+
+
+def bonnes_reponses_par_marque(connexion_bd, utilisateur_id, marque=None):
+    """Logos trouvés par le joueur, par marque. Calculé à partir des réponses
+    enregistrées : aucun compteur à tenir à jour, et les parties jouées avant
+    l'ajout des badges comptent aussi."""
+    requete = (
+        "SELECT q.reponse AS marque, COUNT(*) AS bonnes "
+        "FROM questions_partie qp "
+        "JOIN parties p ON p.id = qp.partie_id "
+        "JOIN questions q ON q.id = qp.question_id "
+        "WHERE p.utilisateur_id = ? AND q.mode = 'logo' AND qp.correcte = 1"
+    )
+    parametres = [utilisateur_id]
+    if marque is not None:
+        requete += " AND q.reponse = ?"
+        parametres.append(marque)
+    requete += " GROUP BY q.reponse"
+    return {ligne["marque"]: ligne["bonnes"]
+            for ligne in connexion_bd.execute(requete, parametres)}
+
+
+@app.get("/api/mes-badges")
+def mes_badges():
+    utilisateur = utilisateur_courant()
+    if not utilisateur:
+        return jsonify(erreur="Non connecté."), 401
+
+    connexion_bd = get_connection()
+    marques = connexion_bd.execute(
+        "SELECT reponse, fichier FROM questions WHERE mode = 'logo' AND actif = 1"
+    ).fetchall()
+    compteurs = bonnes_reponses_par_marque(connexion_bd, utilisateur["id"])
+    connexion_bd.close()
+
+    badges = []
+    for ligne in marques:
+        bonnes = compteurs.get(ligne["reponse"], 0)
+        badges.append({
+            "marque": ligne["reponse"],
+            "logo": f"assets/images/logos/{ligne['fichier']}",
+            "bonnes": bonnes,
+            "palier": palier_atteint(bonnes),
+            "prochain": prochain_palier(bonnes),
+        })
+
+    rang = {nom: i for i, (nom, _) in enumerate(PALIERS_BADGES)}
+    badges.sort(key=lambda b: (-rang.get(b["palier"], -1), -b["bonnes"], b["marque"].lower()))
+    return jsonify(
+        paliers=[{"nom": nom, "seuil": seuil} for nom, seuil in PALIERS_BADGES],
+        badges=badges,
+    )
+
+
 # ---- Parties ---------------------------------------------------------------
 
 def question_publique(ligne, propositions, position, total):
@@ -582,6 +655,17 @@ def repondre(partie_id):
         (points, 1 if correcte else 0, partie_id),
     )
 
+    # Le compte inclut la réponse qu'on vient d'enregistrer : un palier pile
+    # atteint signifie que le badge vient d'être débloqué.
+    badge_debloque = None
+    if correcte and proprietaire is not None and courante["mode"] == "logo":
+        bonnes = bonnes_reponses_par_marque(
+            connexion_bd, proprietaire, courante["reponse"]
+        ).get(courante["reponse"], 0)
+        for nom, seuil in PALIERS_BADGES:
+            if bonnes == seuil:
+                badge_debloque = {"marque": courante["reponse"], "palier": nom}
+
     suivante = connexion_bd.execute(
         "SELECT qp.propositions, qp.position, q.mode, q.fichier, q.indice, q.difficulte, "
         "q.licence, q.auteur, q.source "
@@ -613,6 +697,7 @@ def repondre(partie_id):
         score=etat["score"],
         bonnesReponses=etat["bonnes_reponses"],
         terminee=suivante is None,
+        badgeDebloque=badge_debloque,
     )
 
 

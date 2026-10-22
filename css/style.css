@@ -29,6 +29,10 @@
   --rouge-500: #b42318;
   --rouge-100: rgba(180, 35, 24, 0.1);
 
+  --bronze: #a8662f;
+  --argent: #7f8a96;
+  --or: #b8860b;
+
   --fond: var(--papier);
   --fond-degrade: radial-gradient(120% 90% at 50% 30%, var(--papier) 0%, #dde1e5 55%, var(--papier-bord) 100%);
   --verre: rgba(246, 247, 249, 0.84);
@@ -71,6 +75,10 @@
   --vert-100: rgba(76, 203, 133, 0.14);
   --rouge-500: #f06b5d;
   --rouge-100: rgba(240, 107, 93, 0.14);
+
+  --bronze: #d08b51;
+  --argent: #b9c3cd;
+  --or: #e6b83c;
 
   --fond-degrade: radial-gradient(120% 90% at 50% 30%, #1c232b 0%, var(--papier) 55%, var(--papier-bord) 100%);
   --verre: rgba(28, 35, 43, 0.84);
@@ -854,6 +862,103 @@ tbody tr:hover { background: var(--surface-2); }
 
 .carte-region { margin-bottom: 2rem; max-width: 520px; }
 .carte-region h2 { margin: 0; }
+
+/* Badges par marque : le logo dans une médaille dont l'anneau prend la
+   couleur du palier atteint. */
+.section-badges { margin-bottom: 2rem; }
+
+.entete-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.entete-badges h2 { margin: 0; }
+.entete-badges .note { margin-top: 0.3rem; max-width: 36rem; }
+.filtre-badges { margin-top: 0; }
+
+.grille-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.badge {
+  --couleur-palier: var(--filet);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px 12px;
+  text-align: center;
+  background: var(--verre);
+  border: 1px solid var(--bordure);
+  border-radius: var(--r-md);
+}
+
+.badge-bronze { --couleur-palier: var(--bronze); }
+.badge-argent { --couleur-palier: var(--argent); }
+.badge-or { --couleur-palier: var(--or); }
+
+.badge-medaille {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--couleur-palier), 0 6px 14px -8px rgba(0, 0, 0, 0.5);
+}
+
+.badge-medaille img { width: 70%; height: 70%; object-fit: contain; }
+
+.badge-verrouille .badge-medaille { box-shadow: 0 0 0 2px var(--filet); }
+.badge-verrouille .badge-medaille img { filter: grayscale(1); opacity: 0.45; }
+
+.badge-nom {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.badge-palier {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--couleur-palier);
+}
+
+.badge-verrouille .badge-palier { color: var(--texte-doux); }
+
+.badge-jauge {
+  width: 100%;
+  height: 3px;
+  margin-top: 4px;
+  border-radius: var(--r-pilule);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.badge-jauge-remplissage {
+  height: 100%;
+  background: var(--accent);
+}
+
+.badge-or .badge-jauge-remplissage { background: var(--or); }
+
+.badge-compte {
+  font-size: 11px;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+}
 
 [role="alert"] {
   margin-top: 1rem;

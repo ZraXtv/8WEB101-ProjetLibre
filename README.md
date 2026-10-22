@@ -51,7 +51,16 @@ sur http://127.0.0.1:5000/anatomie/index.html. Son code est basé sur
 de Gigadad11 (licence MIT). Détails et crédits des
 modèles dans [anatomie/README.md](anatomie/README.md).
 
-Autres pistes : mode « série » sans limite de questions, badges, questions à saisie libre.
+## Badges
+
+Chaque marque a son badge, visible sur la page « Mes stats » : bronze après
+10 logos de cette marque trouvés, argent après 50, or après 100. Le compte
+est calculé à partir des réponses enregistrées en base (les parties jouées
+avant l'ajout des badges comptent donc aussi), et un message s'affiche en
+pleine partie quand un palier est franchi. Les seuils sont réglés par
+`PALIERS_BADGES` dans `backend/app.py`.
+
+Autres pistes : mode « série » sans limite de questions, questions à saisie libre.
 
 ## Comment marche une partie
 
@@ -167,6 +176,7 @@ région en cours de partie ne modifie pas les points. Sans région renseignée
 | POST | `/api/parties/<id>/reponse` | Répondre à la question en cours |
 | GET | `/api/classement?mode=` | Meilleurs scores |
 | GET | `/api/mes-statistiques` | Statistiques personnelles |
+| GET | `/api/mes-badges` | Badges par marque et progression vers le palier suivant |
 | GET | `/api/admin/questions` | Lister les questions (admin) |
 | PATCH | `/api/admin/questions/<id>` | Activer ou recalibrer une question (admin) |
 | GET | `/api/admin/utilisateurs` | Lister les comptes (admin) |
