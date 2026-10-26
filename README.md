@@ -92,9 +92,12 @@ les questions.
 1. Le navigateur demande une partie (`POST /api/quiz/parties`) en précisant
    l'épreuve et la difficulté.
 2. Le serveur tire 10 questions au hasard et, pour chacune, fabrique
-   4 propositions : la bonne réponse et trois réponses piochées parmi les
-   autres questions de la même épreuve. Ces propositions sont **figées en
-   base** au moment du tirage.
+   4 propositions : la bonne réponse et trois leurres qui commencent si
+   possible par la même lettre (Honda, Hyundai, Horch, Hanomag). Les leurres
+   viennent des autres questions de l'épreuve, complétées pour les lettres
+   rares par une liste de marques qui ne servent que de leurres
+   (`LEURRES_SUPPLEMENTAIRES` dans `pb_hooks/quiz/commun.js`). Ces
+   propositions sont **figées en base** au moment du tirage.
 3. Le navigateur reçoit l'image et les 4 propositions, **mais jamais
    l'indication de la bonne réponse**. L'image passe par une adresse neutre
    (`/api/quiz/parties/<id>/image`) : le nom du fichier, qui contient souvent

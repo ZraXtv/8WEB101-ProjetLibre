@@ -75,17 +75,19 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   // ici plutôt que dans la requête.
   const voulue = q.DIFFICULTES[difficulte];
   const niveau = {};
-  const disponibles = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode })
-    .filter((r) => {
-      niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
-      return voulue === null || niveau[r.id] === voulue;
-    });
+  const actives = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode });
+  const disponibles = actives.filter((r) => {
+    niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
+    return voulue === null || niveau[r.id] === voulue;
+  });
   if (disponibles.length < q.NB_PROPOSITIONS) {
     return q.erreur(e, 409, "Pas encore assez de questions dans ce mode. Revenez bientôt !");
   }
 
   const tirage = q.melanger(disponibles.slice()).slice(0, q.NB_QUESTIONS);
-  const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
+  // Leurres pris dans toutes les questions du mode, pas seulement celles de la
+  // difficulté choisie : il y a ainsi plus de marques avec la même initiale.
+  const toutesReponses = actives.map((r) => r.getString("reponse"));
 
   let partie, premiere;
   $app.runInTransaction((tx) => {
@@ -104,8 +106,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
     const collection = tx.findCollectionByNameOrId("questions_partie");
     tirage.forEach((question, position) => {
       const bonne = question.getString("reponse");
-      const distracteurs = q.melanger(toutesReponses.filter((r) => r !== bonne));
-      const propositions = q.melanger(distracteurs.slice(0, q.NB_PROPOSITIONS - 1).concat([bonne]));
+      const propositions = q.choisirPropositions(mode, bonne, toutesReponses);
       const qp = new Record(collection);
       qp.set("partie", partie.id);
       qp.set("position", position);
