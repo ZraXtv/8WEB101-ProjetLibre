@@ -13,7 +13,13 @@ JavaScript. L'ancienne version (serveur Flask) est conservée dans
 ## Lancer le projet
 
 Tout se passe dans le dossier `pocketbase/`. Au premier lancement, la base
-est créée et les 64 questions de logos y sont chargées automatiquement.
+est créée et les questions y sont chargées automatiquement : 64 logos et,
+pour l'instant, un seul modèle (`donnees/modeles.json`).
+
+Les questions de modèles portent leurs propres mauvaises réponses (champ
+`leurres`) : des modèles proches de la bonne réponse, par exemple Peugeot
+106, 206 et 309 pour une Peugeot 205. Si une question en a moins de trois,
+les autres modèles du quiz complètent.
 
 ```bash
 cd pocketbase
@@ -58,7 +64,8 @@ pocketbase/
 ├── pb_migrations/      structure de la base (collections, règles, limites)
 │   ├── 1790000000_structure.js
 │   ├── 1790000001_questions_logos.js   chargement des logos
-│   └── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
+│   ├── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
+│   └── 1790000003_modeles.js           questions de modèles et leurs leurres
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP

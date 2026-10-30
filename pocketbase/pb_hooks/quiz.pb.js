@@ -80,12 +80,21 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
       niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
       return voulue === null || niveau[r.id] === voulue;
     });
-  if (disponibles.length < q.NB_PROPOSITIONS) {
+  const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
+  // Mauvaises réponses : d'abord les leurres choisis pour la question (modèles
+  // proches), puis les autres questions du mode.
+  const leurresDe = (question) => {
+    const bonne = question.getString("reponse");
+    const propres = q.melanger(q.leurresDe(question).filter((r) => r !== bonne));
+    const autres = q.melanger(toutesReponses.filter((r) => r !== bonne && propres.indexOf(r) === -1));
+    return propres.concat(autres).slice(0, q.NB_PROPOSITIONS - 1);
+  };
+  const jouables = disponibles.filter((r) => leurresDe(r).length === q.NB_PROPOSITIONS - 1);
+  if (!jouables.length) {
     return q.erreur(e, 409, "Pas encore assez de questions dans ce mode. Revenez bientôt !");
   }
 
-  const tirage = q.melanger(disponibles.slice()).slice(0, q.NB_QUESTIONS);
-  const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
+  const tirage = q.melanger(jouables.slice()).slice(0, q.NB_QUESTIONS);
 
   let partie, premiere;
   $app.runInTransaction((tx) => {
@@ -104,8 +113,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
     const collection = tx.findCollectionByNameOrId("questions_partie");
     tirage.forEach((question, position) => {
       const bonne = question.getString("reponse");
-      const distracteurs = q.melanger(toutesReponses.filter((r) => r !== bonne));
-      const propositions = q.melanger(distracteurs.slice(0, q.NB_PROPOSITIONS - 1).concat([bonne]));
+      const propositions = q.melanger(leurresDe(question).concat([bonne]));
       const qp = new Record(collection);
       qp.set("partie", partie.id);
       qp.set("position", position);

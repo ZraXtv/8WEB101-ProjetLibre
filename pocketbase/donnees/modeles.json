@@ -1,0 +1,12 @@
+[
+  {
+    "mode": "modele",
+    "reponse": "Peugeot 205",
+    "leurres": ["Peugeot 106", "Peugeot 206", "Peugeot 309"],
+    "fichier": "modeles/peugeot-205.jpg",
+    "difficulte": 2,
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford (affichette et plaque floutées)",
+    "source": "https://commons.wikimedia.org/wiki/File:1990_Peugeot_205_GTi_1.6_Front.jpg"
+  }
+]

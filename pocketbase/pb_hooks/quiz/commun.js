@@ -46,6 +46,14 @@ function melanger(liste) {
   return liste;
 }
 
+/** Mauvaises réponses choisies pour cette question (modèles proches), ou []. */
+function leurresDe(question) {
+  const valeur = toString(question.get("leurres"));
+  if (!valeur || valeur === "null") return [];
+  const leurres = JSON.parse(valeur);
+  return Array.isArray(leurres) ? leurres.map(String) : [];
+}
+
 function propositionsDe(qp) {
   return JSON.parse(toString(qp.get("propositions")) || "[]");
 }
@@ -111,6 +119,6 @@ function lignes(sql, params, modele) {
 module.exports = {
   MODES, DIFFICULTES, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
   DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
-  erreur, joueur, estAdmin, melanger, propositionsDe, questionPublique, partieDe,
+  erreur, joueur, estAdmin, melanger, leurresDe, propositionsDe, questionPublique, partieDe,
   questionCourante, lignes,
 };

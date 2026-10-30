@@ -254,9 +254,11 @@ async function initAccueil() {
     carte.appendChild(el("p", null, details.texte || ""));
 
     const pied = el("div", "carte-mode-pied");
-    const pret = infos.questions >= 4;
+    // Les modèles ont leurs propres mauvaises réponses : une seule question
+    // suffit pour jouer.
+    const pret = infos.questions >= 1;
     pied.appendChild(el("span", `etiquette ${pret ? "pret" : "vide"}`,
-      pret ? `${infos.questions} questions` : "bientôt disponible"));
+      pret ? `${infos.questions} question${infos.questions > 1 ? "s" : ""}` : "bientôt disponible"));
     pied.appendChild(el("span", null, pret ? "Jouer →" : ""));
     carte.appendChild(pied);
 
