@@ -13,13 +13,20 @@ JavaScript. L'ancienne version (serveur Flask) est conservée dans
 ## Lancer le projet
 
 Tout se passe dans le dossier `pocketbase/`. Au premier lancement, la base
-est créée et les questions y sont chargées automatiquement : 64 logos et,
-pour l'instant, un seul modèle (`donnees/modeles.json`).
+est créée et les questions y sont chargées automatiquement : 64 logos et
+50 modèles de voitures (`donnees/modeles.json`).
 
 Les questions de modèles portent leurs propres mauvaises réponses (champ
-`leurres`) : des modèles proches de la bonne réponse, par exemple Peugeot
-106, 206 et 309 pour une Peugeot 205. Si une question en a moins de trois,
-les autres modèles du quiz complètent.
+`leurres`) : trois autres modèles **de la même marque**, par exemple Peugeot
+106, 206 et 309 pour une Peugeot 205. Le logo de la marque étant visible
+sur la photo, des leurres d'une autre marque s'élimineraient d'un coup d'œil.
+Si une question en a moins de trois, les autres modèles du quiz complètent.
+
+Les photos viennent de Wikimedia Commons, sous licence libre (CC BY,
+CC BY-SA, CC0 ou domaine public) ; l'auteur, la licence et le lien de chaque
+photo sont dans `donnees/modeles.json` et s'affichent sous l'image pendant
+le jeu. Quand un texte de la photo donnait la réponse (badge « M3 » ou
+« GT-R », affichette de vente), il a été flouté, ce que le crédit signale.
 
 ```bash
 cd pocketbase
@@ -65,7 +72,8 @@ pocketbase/
 │   ├── 1790000000_structure.js
 │   ├── 1790000001_questions_logos.js   chargement des logos
 │   ├── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
-│   └── 1790000003_modeles.js           questions de modèles et leurs leurres
+│   ├── 1790000003_modeles.js           questions de modèles et leurs leurres
+│   └── 1790000004_modeles_complets.js  les 50 modèles
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP
