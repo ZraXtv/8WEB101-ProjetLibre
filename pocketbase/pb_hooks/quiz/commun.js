@@ -5,10 +5,13 @@
    les fonctions déclarées à côté d'elles et doivent charger ce module avec
    require(`${__hooks}/quiz/commun.js`). */
 
+// « coefficient » multiplie les points de base d'une bonne réponse :
+// reconnaître un modèle parmi trois autres de la même marque est plus dur
+// que reconnaître un logo, et rapporte donc plus.
 const MODES = {
-  logo: { titre: "Devine la marque", question: "À quelle marque appartient ce logo ?" },
-  modele: { titre: "Devine le modèle", question: "Quel est ce modèle ?" },
-  piece: { titre: "Devine la pièce", question: "Quelle pièce automobile est-ce ?" },
+  logo: { titre: "Devine la marque", question: "À quelle marque appartient ce logo ?", coefficient: 1 },
+  modele: { titre: "Devine le modèle", question: "Quel est ce modèle ?", coefficient: 1.5 },
+  piece: { titre: "Devine la pièce", question: "Quelle pièce automobile est-ce ?", coefficient: 1 },
 };
 const DIFFICULTES = { toutes: null, facile: 1, moyen: 2, difficile: 3 };
 

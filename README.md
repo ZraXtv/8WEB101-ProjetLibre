@@ -129,7 +129,9 @@ de PocketBase : seuls les hooks du jeu et le tableau de bord y accèdent.
 
 ### Barème
 
-- 100 points par bonne réponse, multipliés par la difficulté (1 à 3)
+- 100 points par bonne réponse, multipliés par la difficulté (1 à 3) et
+  par le coefficient de l'épreuve : ×1 pour les logos, ×1,5 pour les
+  modèles, plus durs à reconnaître (`coefficient` dans `pb_hooks/quiz/commun.js`)
 - jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
 - 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
   réseau), la réponse compte comme fausse. Le chrono affiché n'est

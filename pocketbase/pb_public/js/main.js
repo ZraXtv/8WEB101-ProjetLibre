@@ -257,8 +257,12 @@ async function initAccueil() {
     // Les modèles ont leurs propres mauvaises réponses : une seule question
     // suffit pour jouer.
     const pret = infos.questions >= 1;
+    let etiquette = `${infos.questions} question${infos.questions > 1 ? "s" : ""}`;
+    if (infos.coefficient > 1) {
+      etiquette += ` · points ×${String(infos.coefficient).replace(".", ",")}`;
+    }
     pied.appendChild(el("span", `etiquette ${pret ? "pret" : "vide"}`,
-      pret ? `${infos.questions} question${infos.questions > 1 ? "s" : ""}` : "bientôt disponible"));
+      pret ? etiquette : "bientôt disponible"));
     pied.appendChild(el("span", null, pret ? "Jouer →" : ""));
     carte.appendChild(pied);
 
