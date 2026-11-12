@@ -146,6 +146,21 @@ pays d'abord, puis écarts propres au marché (Europe, Amérique, Asie), sinon
 la difficulté de base. Elle est figée au lancement de la partie et sert
 autant au filtre Facile / Moyen / Difficile qu'au barème.
 
+### Badges
+
+Chaque marque du quiz des logos a son badge, visible sur la page
+« Mes stats » : bronze après 10 logos de cette marque trouvés, argent
+après 50, or après 100. Seules les bonnes réponses comptent, pas les
+questions rencontrées. Le compte est calculé à partir des réponses
+enregistrées (les parties jouées avant l'ajout des badges comptent donc
+aussi), et un message s'affiche en pleine partie quand un palier est
+franchi. Les seuils sont réglés par `PALIERS_BADGES` dans
+`pb_hooks/quiz/commun.js`.
+
+Le logo d'une marque n'apparaît sur son badge qu'une fois trouvé au moins
+une fois ; avant, seule son initiale est affichée. Sinon la page des
+badges servirait d'antisèche pour le quiz des logos.
+
 ## API
 
 Les comptes utilisent l'API standard de PocketBase
@@ -165,6 +180,8 @@ obtenu est envoyé dans l'en-tête `Authorization`. Le jeu a sa propre API :
 | POST | `/api/quiz/parties/<id>/reponse` | Répondre à la question en cours |
 | GET | `/api/quiz/classement?mode=` | Meilleurs scores |
 | GET | `/api/quiz/mes-statistiques` | Statistiques personnelles |
+| GET | `/api/quiz/mes-badges` | Badges par marque et progression vers le palier suivant |
+| GET | `/api/quiz/mes-badges/<id>/logo` | Logo d'un badge (marque déjà trouvée) |
 | GET | `/api/quiz/admin/questions` | Lister les questions (admin) |
 | PATCH | `/api/quiz/admin/questions/<id>` | Activer ou recalibrer une question (admin) |
 | GET | `/api/quiz/admin/questions/<id>/image` | Vignette d'une question (admin) |

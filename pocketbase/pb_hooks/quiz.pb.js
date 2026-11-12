@@ -195,6 +195,16 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
     courante.set("duree_ms", dureeMs);
     tx.save(courante);
 
+    // Le compte inclut la réponse qu'on vient d'enregistrer : un palier pile
+    // atteint signifie que le badge vient d'être débloqué.
+    let badgeDebloque = null;
+    const proprietaire = p.getString("utilisateur");
+    if (correcte && proprietaire && question.getString("mode") === "logo") {
+      const bonnes = q.bonnesParMarque(tx, proprietaire, bonneReponse)[bonneReponse] || 0;
+      const palier = q.PALIERS_BADGES.find((pal) => pal.seuil === bonnes);
+      if (palier) badgeDebloque = { marque: bonneReponse, palier: palier.nom };
+    }
+
     const terminee = !q.questionCourante(tx, p);
     p.set("score", p.getInt("score") + points);
     p.set("bonnes_reponses", p.getInt("bonnes_reponses") + (correcte ? 1 : 0));
@@ -215,6 +225,7 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       score: p.getInt("score"),
       bonnesReponses: p.getInt("bonnes_reponses"),
       terminee,
+      badgeDebloque,
     };
   });
   return e.json(statut, resultat);
@@ -293,6 +304,61 @@ routerAdd("GET", "/api/quiz/mes-statistiques", (e) => {
   );
 
   return e.json(200, { global_: global, parMode, recentes });
+});
+
+// ---- Badges -----------------------------------------------------------------
+
+/* Un badge par marque du quiz des logos : bronze, argent puis or selon le
+   nombre de fois où le joueur a trouvé son logo. */
+routerAdd("GET", "/api/quiz/mes-badges", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+
+  const compteurs = q.bonnesParMarque($app, j.id);
+  const rang = { bronze: 1, argent: 2, or: 3 };
+  const badges = $app.findRecordsByFilter("questions", "mode = 'logo' && actif = true", "", 0, 0)
+    .map((r) => {
+      const marque = r.getString("reponse");
+      const bonnes = compteurs[marque] || 0;
+      return {
+        marque,
+        bonnes,
+        palier: q.palierAtteint(bonnes),
+        prochain: q.prochainPalier(bonnes),
+        // Logo montré seulement pour une marque déjà trouvée : sinon la page
+        // servirait d'antisèche pour le quiz des logos.
+        logo: bonnes > 0 ? `/api/quiz/mes-badges/${r.id}/logo` : null,
+      };
+    })
+    .sort((a, b) => (rang[b.palier] || 0) - (rang[a.palier] || 0)
+      || b.bonnes - a.bonnes || a.marque.localeCompare(b.marque));
+
+  return e.json(200, { paliers: q.PALIERS_BADGES, badges });
+});
+
+// Logo d'un badge (chargé par fetch avec le jeton du joueur).
+routerAdd("GET", "/api/quiz/mes-badges/{id}/logo", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+  let question;
+  try {
+    question = $app.findRecordById("questions", e.request.pathValue("id"));
+  } catch (_) {
+    return q.erreur(e, 404, "Logo introuvable.");
+  }
+  const marque = question.getString("reponse");
+  if (question.getString("mode") !== "logo" || !q.bonnesParMarque($app, j.id, marque)[marque]) {
+    return q.erreur(e, 404, "Logo introuvable.");
+  }
+  e.response.header().set("Cache-Control", "private, max-age=3600");
+  const stockage = $app.newFilesystem();
+  try {
+    stockage.serve(e.response, e.request, `${question.baseFilesPath()}/${question.getString("image")}`, "image");
+  } finally {
+    stockage.close();
+  }
 });
 
 // ---- Administration ---------------------------------------------------------

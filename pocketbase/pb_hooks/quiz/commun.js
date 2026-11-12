@@ -21,6 +21,42 @@ const DUREE_MAX_QUESTION_MS = 20000;
 // démarre avant que la question ne s'affiche dans le navigateur.
 const TOLERANCE_RESEAU_MS = 1500;
 
+// Badges par marque : nombre de logos trouvés pour débloquer chaque palier.
+const PALIERS_BADGES = [
+  { nom: "bronze", seuil: 10 },
+  { nom: "argent", seuil: 50 },
+  { nom: "or", seuil: 100 },
+];
+
+/** Plus haut palier atteint avec ce nombre de bonnes réponses, ou null. */
+function palierAtteint(bonnes) {
+  let atteint = null;
+  for (const p of PALIERS_BADGES) if (bonnes >= p.seuil) atteint = p.nom;
+  return atteint;
+}
+
+function prochainPalier(bonnes) {
+  return PALIERS_BADGES.find((p) => bonnes < p.seuil) || null;
+}
+
+/** Logos trouvés par le joueur, par marque ({ marque: nombre }). Calculé à
+    partir des réponses enregistrées : aucun compteur à tenir à jour, et les
+    parties jouées avant l'ajout des badges comptent aussi. Seules les bonnes
+    réponses comptent, pas les questions simplement rencontrées. « app » peut
+    être une transaction, pour voir la réponse qu'on vient d'y enregistrer. */
+function bonnesParMarque(app, utilisateurId, marque) {
+  const resultat = arrayOf(new DynamicModel({ marque: "", bonnes: 0 }));
+  app.db().newQuery(
+    "SELECT q.reponse AS marque, COUNT(*) AS bonnes FROM questions_partie qp " +
+    "JOIN parties p ON p.id = qp.partie JOIN questions q ON q.id = qp.question " +
+    "WHERE p.utilisateur = {:u} AND q.mode = 'logo' AND qp.correcte = TRUE " +
+    "AND ({:m} = '' OR q.reponse = {:m}) GROUP BY q.reponse",
+  ).bind({ u: utilisateurId, m: marque || "" }).all(resultat);
+  const compteurs = {};
+  for (const ligne of resultat) compteurs[ligne.marque] = ligne.bonnes;
+  return compteurs;
+}
+
 function erreur(e, statut, message) {
   return e.json(statut, { erreur: message });
 }
@@ -110,7 +146,8 @@ function lignes(sql, params, modele) {
 
 module.exports = {
   MODES, DIFFICULTES, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
-  DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
+  DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS, PALIERS_BADGES,
+  palierAtteint, prochainPalier, bonnesParMarque,
   erreur, joueur, estAdmin, melanger, propositionsDe, questionPublique, partieDe,
   questionCourante, lignes,
 };
