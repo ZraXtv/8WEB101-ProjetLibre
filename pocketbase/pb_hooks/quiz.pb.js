@@ -86,6 +86,15 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
 
   const tirage = q.melanger(disponibles.slice()).slice(0, q.NB_QUESTIONS);
   const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
+  // Pièces : les mauvaises réponses viennent du même modèle 3D, sans quoi
+  // « Antenne » ou « Roue » trahiraient une capture du moteur.
+  const groupe = (r) => (q.anatomieDe(r) || {}).modele || "";
+  const reponsesDuGroupe = {};
+  for (const r of disponibles) {
+    const g = groupe(r);
+    if (!reponsesDuGroupe[g]) reponsesDuGroupe[g] = new Set();
+    reponsesDuGroupe[g].add(r.getString("reponse"));
+  }
 
   let partie, premiere;
   $app.runInTransaction((tx) => {
@@ -104,7 +113,10 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
     const collection = tx.findCollectionByNameOrId("questions_partie");
     tirage.forEach((question, position) => {
       const bonne = question.getString("reponse");
-      const distracteurs = q.melanger(toutesReponses.filter((r) => r !== bonne));
+      const proches = [...reponsesDuGroupe[groupe(question)]].filter((r) => r !== bonne);
+      const distracteurs = q.melanger(
+        proches.length >= q.NB_PROPOSITIONS - 1 ? proches : toutesReponses.filter((r) => r !== bonne),
+      );
       const propositions = q.melanger(distracteurs.slice(0, q.NB_PROPOSITIONS - 1).concat([bonne]));
       const qp = new Record(collection);
       qp.set("partie", partie.id);
@@ -213,6 +225,8 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       correcte,
       tempsEcoule,
       bonneReponse,
+      revision: q.lienRevision(question),
+      explication: question.getString("explication") || null,
       points,
       bonusRapidite: bonus,
       dureeMs,

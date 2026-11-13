@@ -58,7 +58,8 @@ pocketbase/
 ├── pb_migrations/      structure de la base (collections, règles, limites)
 │   ├── 1790000000_structure.js
 │   ├── 1790000001_questions_logos.js   chargement des logos
-│   └── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
+│   ├── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
+│   └── 1790000003_pieces.js            épreuve des pièces (captures du modèle 3D)
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP
@@ -66,6 +67,7 @@ pocketbase/
 ├── pb_public/          le site : pages, CSS, JS, polices, explorateur 3D
 ├── donnees/            questions de départ et leurs images (non publiques)
 ├── outils/simplifier.mjs   allègement des modèles 3D (voir pb_public/anatomie/README.md)
+├── outils/captures-pieces.mjs  images de l'épreuve des pièces, tirées de l'explorateur 3D
 ├── demarrer.sh / demarrer.ps1, Dockerfile, docker-compose.yml
 ├── .env.example        réglages propres à chaque machine
 ├── VERSION             version de PocketBase utilisée
@@ -86,6 +88,30 @@ réponse, l'image, la difficulté (1 à 3) et cocher `actif`. Les épreuves
 « modèles » et « pièces » s'ouvrent automatiquement à partir de 4 questions.
 La page « Admin » du site permet ensuite d'activer, désactiver ou recalibrer
 les questions.
+
+### L'épreuve des pièces
+
+Ses images sont des captures de l'explorateur 3D (`pb_public/anatomie/`) :
+la pièce seule, dans sa vraie matière, sur fond blanc. Chaque question
+« piece » de `donnees/questions.json` porte un champ `anatomie`
+(`{ "modele": "moteur", "piece": "crankshaft" }`) qui la relie à sa fiche :
+- les mauvaises réponses sont tirées parmi les pièces du **même modèle**
+  (pas d'« Antenne » proposée sur une capture du moteur) ;
+- une fois la réponse donnée, le bouton « Réviser en 3D » ouvre la fiche de
+  la pièce dans l'explorateur. Ce lien n'est envoyé qu'avec la correction,
+  puisqu'il contient la solution.
+
+Chaque pièce a aussi un `indice` (sa famille : « Synchronisation »,
+« Lubrification »…, choisie pour ne jamais reprendre un mot d'une réponse),
+affiché avec la question, et une `explication` d'une phrase (à quoi sert la
+pièce), envoyée seulement avec la correction. En fin de partie, un
+récapitulatif liste les dix questions avec, pour chaque erreur, le lien de
+révision.
+
+Pour ajouter une pièce : ajouter l'entrée dans `donnees/questions.json`,
+produire son image avec `outils/captures-pieces.mjs` (mode d'emploi en tête
+du fichier), puis la charger dans la base (nouvelle migration, ou tableau de
+bord en remplissant aussi le champ `anatomie`).
 
 ## Comment marche une partie
 

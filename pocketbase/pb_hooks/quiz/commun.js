@@ -8,7 +8,7 @@
 const MODES = {
   logo: { titre: "Devine la marque", question: "À quelle marque appartient ce logo ?" },
   modele: { titre: "Devine le modèle", question: "Quel est ce modèle ?" },
-  piece: { titre: "Devine la pièce", question: "Quelle pièce automobile est-ce ?" },
+  piece: { titre: "Devine la pièce", question: "Quelle est cette pièce ?" },
 };
 const DIFFICULTES = { toutes: null, facile: 1, moyen: 2, difficile: 3 };
 
@@ -44,6 +44,26 @@ function melanger(liste) {
     const tmp = liste[i]; liste[i] = liste[j]; liste[j] = tmp;
   }
   return liste;
+}
+
+/** Pièce de l'explorateur 3D liée à une question ({ modele, piece }), ou null. */
+function anatomieDe(question) {
+  try {
+    const a = JSON.parse(toString(question.get("anatomie")) || "null");
+    return a && a.modele && a.piece ? a : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/** Page de l'explorateur qui ouvre la fiche de la pièce. À n'envoyer qu'après
+    la réponse : l'adresse contient la solution. */
+function lienRevision(question) {
+  const a = anatomieDe(question);
+  if (!a) return null;
+  // Sans « index.html » : PocketBase redirige cette adresse vers le dossier
+  // et perd les paramètres au passage.
+  return `anatomie/?model=${encodeURIComponent(a.modele)}&piece=${encodeURIComponent(a.piece)}`;
 }
 
 function propositionsDe(qp) {
@@ -111,6 +131,6 @@ function lignes(sql, params, modele) {
 module.exports = {
   MODES, DIFFICULTES, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
   DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
-  erreur, joueur, estAdmin, melanger, propositionsDe, questionPublique, partieDe,
+  erreur, joueur, estAdmin, melanger, anatomieDe, lienRevision, propositionsDe, questionPublique, partieDe,
   questionCourante, lignes,
 };
