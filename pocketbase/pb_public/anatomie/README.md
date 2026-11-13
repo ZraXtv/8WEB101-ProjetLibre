@@ -14,7 +14,7 @@ toujours passer par un serveur HTTP.
 
 ## Utilisation
 
-- Sélecteur « Porsche 911 », « Moteur » en haut à droite. Liens directs : `?model=porsche`, `?model=moteur`, et `&piece=<id>` pour ouvrir directement la fiche d'une pièce (lien « Réviser en 3D » du quiz). `&capture` donne le rendu épuré qui sert aux images de l'épreuve des pièces (voir `pocketbase/outils/captures-pieces.mjs`).
+- Sélecteur « Porsche 911 », « Moteur » en haut à droite. Liens directs : `?model=porsche`, `?model=moteur`, et `&piece=<id>` pour ouvrir directement la fiche d'une pièce (lien « Réviser en 3D » du quiz).
 - Sur la Porsche, la fiche du moteur propose « Explorer le moteur pièce par pièce ».
 - Glisser pour tourner, molette ou pincement pour zoomer.
 - Curseur « Vue éclatée » (ou touche `E`) pour écarter les pièces.
