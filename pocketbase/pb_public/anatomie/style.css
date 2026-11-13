@@ -166,3 +166,8 @@ html.tour #index,html.tour #toggleIndex,html.tour #dock,html.tour .file-btn,html
   #tourName{display:inline;font-size:var(--fs-s);color:var(--ink)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Rendu épuré pour les images du quiz (?capture) : la pièce seule, fond blanc. */
+html.capture body{background:#fff}
+html.capture header,html.capture .tools,html.capture #toggleIndex,html.capture #index,html.capture #sheet,
+html.capture #dock,html.capture #credit,html.capture #leader,html.capture #tag,html.capture #loader{display:none!important}

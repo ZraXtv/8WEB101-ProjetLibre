@@ -21,6 +21,12 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast;
 /* Modèles proposés : models/index.json. Choix par l'URL : ?model=moteur, ou ?config=models/autre.json */
 const CATALOG_URL = 'models/index.json';
 const query = new URLSearchParams(location.search);
+/* ?piece=<id> ouvre directement la fiche d'une pièce, cadrée (lien « Réviser »
+   du quiz). ?capture ajoute un rendu épuré, la pièce seule sur fond blanc :
+   c'est ainsi que sont produites les images de l'épreuve des pièces
+   (pocketbase/outils/captures-pieces.mjs). */
+const capture = query.has('capture');
+if (capture) document.documentElement.classList.add('capture');
 
 const $ = (s) => document.querySelector(s);
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -82,6 +88,13 @@ const ring = new THREE.Mesh(new THREE.RingGeometry(1, 1.004, 160), new THREE.Mes
 ring.rotation.x = -Math.PI / 2;
 ring.position.y = 0.002;
 scene.add(ground, ring);
+// Capture : ni sol ni ombre, celle des pièces estompées noircirait l'image.
+if (capture) {
+  ground.visible = ring.visible = sun.castShadow = false;
+  // Une bougie ne mesure que quelques centimètres : il faut pouvoir s'en approcher.
+  camera.near = 0.005;
+  camera.updateProjectionMatrix();
+}
 
 const carGroup = new THREE.Group();
 scene.add(carGroup);
@@ -91,7 +104,7 @@ const S = {
   config: null, gltf: null, parts: [], byId: new Map(), meshes: [], owner: new Map(),
   t: 0, tTarget: 0, selected: null, hovered: null, view: 'complet', isolated: false,
   openings: new Map(), accent: new THREE.Color('#a3162b'), variants: [], paint: null, size: new THREE.Vector3(),
-  focus: null,
+  focus: null, ready: false,
   // Visite guidée : étapes, étape en cours (-1 = introduction), pièce cadrée.
   tour: null
 };
@@ -133,6 +146,7 @@ function buildChooser(current) {
       if (b.getAttribute('aria-pressed') === 'true') return;
       box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b));
       history.replaceState(null, '', `?model=${m.id}`);
+      query.delete('piece');
       await loadConfig(m.config);
     };
     box.appendChild(b);
@@ -154,6 +168,9 @@ async function loadConfig(url) {
     setExplode(0);
     $('#search').value = '';
     renderIndex();
+    const wanted = S.byId.get(query.get('piece'));
+    if (wanted) showPart(wanted);
+    S.ready = true;
   } catch (err) {
     const local = location.protocol === 'file:';
     setLoad(local
@@ -203,7 +220,7 @@ async function mountCar(gltf, config, title) {
 
   // Caméra
   const len = Math.max(S.size.x, S.size.z);
-  controls.minDistance = len * 0.3;
+  controls.minDistance = capture ? 0 : len * 0.3;
   controls.maxDistance = len * 6;
   ring.scale.setScalar(len * 0.62);
   if (config.camera) {
@@ -429,12 +446,13 @@ function applyMaterials() {
   for (const m of S.meshes) {
     const p = S.owner.get(m), mat = m.userData.own, base = mat.userData.base;
     const sel = isSelected(p);
-    const visible = !((S.view === 'pieces' && p.shell) || (S.isolated && S.selected && !sel) || step?.hide.has(p));
+    const visible = !((S.view === 'pieces' && p.shell) || ((S.isolated || capture) && S.selected && !sel) || step?.hide.has(p));
     if (visible !== m.visible) { m.visible = visible; shown = true; }
     const ghost = !sel && ((S.view === 'transparent' && p.shell) || !!step?.ghost);
     m.material = ghost ? ghostOf(mat) : mat;
     if (mat.emissive) {
-      if (sel) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.55; }
+      // En capture, la pièce garde sa vraie matière, sans surlignage.
+      if (sel && !capture) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.55; }
       else if (p === S.hovered) { mat.emissive.copy(S.accent); mat.emissiveIntensity = 0.22; }
       else { mat.emissive.copy(base.emissive); mat.emissiveIntensity = base.emissiveIntensity; }
     }
@@ -809,27 +827,132 @@ function goTourStep(i) {
    tenir dans le cadre, depuis le côté vers lequel elle s'écarte (les roues de
    profil, les phares de face, le moteur de derrière et au-dessus). */
 const tourBase = new THREE.Vector3(), tourDir = new THREE.Vector3(), tourPos = new THREE.Vector3(), tourAim = new THREE.Vector3();
+function baseDirection() {
+  const cam = S.config.camera;
+  if (cam) tourBase.fromArray(cam.position).sub(tourDir.fromArray(cam.target)).normalize();
+  else tourBase.set(1, 0.5, 1.1).normalize();
+  return tourBase;
+}
+
+/* Point visé et position de caméra pour cadrer une pièce. Renvoie false si
+   la pièce n'a aucun maillage. « wide » recule pour garder le reste du modèle
+   autour, sans quoi une petite pièce serait impossible à situer. */
+function partPose(p, aim, pos, wide = false) {
+  baseDirection();
+  carGroup.updateMatrixWorld(true);
+  tmpBox.makeEmpty();
+  for (const m of p.meshes) tmpBox.expandByObject(m);
+  if (tmpBox.isEmpty()) return false;
+  tmpBox.getCenter(aim);
+  const radius = tmpBox.getSize(tmpV).length() / 2;
+  tourDir.copy(p.offsetWorld).setY(0);
+  if (tourDir.lengthSq() < 1e-6) tourDir.copy(tourBase).setY(0);
+  tourDir.normalize().multiplyScalar(0.8).addScaledVector(tourBase, 0.6).setY(0.55).normalize();
+  // La pièce doit tenir en hauteur et en largeur : en portrait, c'est la
+  // largeur qui limite.
+  const half = Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * Math.min(1, camera.aspect));
+  const fit = radius / Math.sin(half);
+  // En capture, la pièce est seule : elle remplit l'image.
+  if (capture) { pos.copy(aim).addScaledVector(tourDir, fit * 1.1); return true; }
+  const min = wide ? Math.max(S.size.x, S.size.z) * 0.7 : controls.minDistance;
+  const dist = THREE.MathUtils.clamp(fit * (wide ? 2.2 : 1.25), min, controls.maxDistance);
+  pos.copy(aim).addScaledVector(tourDir, dist);
+  return true;
+}
+
+/* Ouvre la fiche d'une pièce et place la caméra dessus, sans animation. Vue
+   transparente : sans elle, un cylindre reste caché derrière les échangeurs. */
+function showPart(p) {
+  setView('transparent');
+  select(p);
+  S.focus = null;
+  if (capture) frameCapture(p);
+  else if (partPose(p, controls.target, camera.position, true)) { controls.update(); redraw(); }
+}
+
+/* ---------- Capture : choix du point de vue et cadrage ----------
+   Une direction fixe montrait certaines pièces par la tranche (un arbre à
+   cames vu en bout n'est plus qu'un trait). On dessine donc la silhouette de
+   la pièce, seule et en blanc, dans une petite image hors écran, depuis une
+   vingtaine de points de vue autour d'elle : on garde celui où elle couvre le
+   plus de pixels, puis on la recentre et on règle la distance pour qu'elle
+   remplisse l'image. */
+const silhouette = capture && (() => {
+  const W = 160, H = 120;
+  const target = new THREE.WebGLRenderTarget(W, H);
+  const white = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const pixels = new Uint8Array(W * H * 4);
+  const cam = new THREE.PerspectiveCamera();
+  return (pos, aim) => {
+    cam.copy(camera);
+    cam.position.copy(pos);
+    cam.lookAt(aim);
+    cam.updateMatrixWorld();
+    const env = scene.environment;
+    scene.overrideMaterial = white; scene.environment = null;
+    renderer.setRenderTarget(target);
+    renderer.setClearColor(0x000000, 1);
+    renderer.clear();
+    renderer.render(scene, cam);
+    renderer.readRenderTargetPixels(target, 0, 0, W, H, pixels);
+    renderer.setRenderTarget(null);
+    renderer.setClearColor(0x000000, 0);
+    scene.overrideMaterial = null; scene.environment = env;
+    // Lignes lues de bas en haut, comme l'axe vertical de l'écran en NDC.
+    const r = { n: 0, x0: W, x1: -1, y0: H, y1: -1, W, H, cam };
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      if (pixels[(y * W + x) * 4] < 128) continue;
+      r.n++;
+      if (x < r.x0) r.x0 = x; if (x > r.x1) r.x1 = x;
+      if (y < r.y0) r.y0 = y; if (y > r.y1) r.y1 = y;
+    }
+    return r;
+  };
+})();
+
+function frameCapture(p) {
+  const aim = new THREE.Vector3(), pos = new THREE.Vector3();
+  if (!partPose(p, aim, pos)) return;
+  const deg = THREE.MathUtils.degToRad;
+  let d = pos.distanceTo(aim), best = null;
+  for (const el of [15, 35, 60]) {
+    for (let az = 0; az < 360; az += 45) {
+      const dir = new THREE.Vector3(
+        Math.cos(deg(el)) * Math.sin(deg(az)), Math.sin(deg(el)), Math.cos(deg(el)) * Math.cos(deg(az)));
+      const r = silhouette(pos.copy(aim).addScaledVector(dir, d), aim);
+      // Léger avantage à la vue de trois quarts, la plus lisible à surface égale.
+      const score = r.n * (el === 35 ? 1.1 : 1);
+      if (!best || score > best.score) best = { score, dir };
+    }
+  }
+  // Recentrage et distance, en plusieurs passes : de près, la perspective
+  // rend chaque correction approximative. On s'arrête quand la pièce occupe
+  // entre 70 et 82 % de l'image, centrée.
+  const right = new THREE.Vector3(), up = new THREE.Vector3();
+  for (let i = 0; i < 8; i++) {
+    const r = silhouette(pos.copy(aim).addScaledVector(best.dir, d), aim);
+    if (!r.n) break;
+    const cx = ((r.x0 + r.x1 + 1) / 2 / r.W) * 2 - 1, cy = ((r.y0 + r.y1 + 1) / 2 / r.H) * 2 - 1;
+    const halfH = d * Math.tan(deg(camera.fov) / 2), halfW = halfH * camera.aspect;
+    right.setFromMatrixColumn(r.cam.matrixWorld, 0);
+    up.setFromMatrixColumn(r.cam.matrixWorld, 1);
+    aim.addScaledVector(right, cx * halfW).addScaledVector(up, cy * halfH);
+    const fill = Math.max((r.x1 - r.x0 + 1) / r.W, (r.y1 - r.y0 + 1) / r.H);
+    if (fill > 0.7 && fill < 0.82 && Math.abs(cx) < 0.03 && Math.abs(cy) < 0.03) break;
+    d *= fill / 0.76;
+  }
+  controls.target.copy(aim);
+  camera.position.copy(aim).addScaledVector(best.dir, d);
+  controls.update();
+  redraw();
+}
+
 function tourCamera(dt) {
   const p = S.tour.steps[S.tour.index]?.part;
   const cam = S.config.camera;
-  if (cam) tourBase.fromArray(cam.position).sub(tourAim.fromArray(cam.target)).normalize();
-  else tourBase.set(1, 0.5, 1.1).normalize();
+  baseDirection();
   if (p) {
-    carGroup.updateMatrixWorld(true);
-    tmpBox.makeEmpty();
-    for (const m of p.meshes) tmpBox.expandByObject(m);
-    if (tmpBox.isEmpty()) return;
-    tmpBox.getCenter(tourAim);
-    const radius = tmpBox.getSize(tmpV).length() / 2;
-    tourDir.copy(p.offsetWorld).setY(0);
-    if (tourDir.lengthSq() < 1e-6) tourDir.copy(tourBase).setY(0);
-    tourDir.normalize().multiplyScalar(0.8).addScaledVector(tourBase, 0.6).setY(0.55).normalize();
-    // La pièce doit tenir en hauteur et en largeur : en portrait, c'est la
-    // largeur qui limite.
-    const half = Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * Math.min(1, camera.aspect));
-    const fit = radius / Math.sin(half);
-    const dist = THREE.MathUtils.clamp(fit * 1.25, controls.minDistance, controls.maxDistance);
-    tourPos.copy(tourAim).addScaledVector(tourDir, dist);
+    if (!partPose(p, tourAim, tourPos)) return;
   } else {
     // Introduction : vue d'ensemble, qui recule à mesure que la voiture s'éclate.
     if (cam) tourAim.fromArray(cam.target); else tourAim.set(0, S.size.y * 0.45, 0);
@@ -989,4 +1112,4 @@ boot();
 frame();
 
 // Accès console pour le débogage et les captures automatiques.
-window.__car = { S, loadBuffer, setExplode, setView, select: (id) => select(S.byId.get(id) || null), camera, controls, renderer, pick };
+window.__car = { S, loadBuffer, showPart: (id) => S.byId.has(id) && showPart(S.byId.get(id)), setExplode, setView, select: (id) => select(S.byId.get(id) || null), camera, controls, renderer, pick };
