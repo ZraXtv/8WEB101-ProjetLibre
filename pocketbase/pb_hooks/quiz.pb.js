@@ -174,7 +174,11 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
     // démarré, la question n'a jamais été demandée : hors délai.
     const debut = p.getFloat("debut_question");
     let dureeMs = debut ? Math.round(Date.now() - debut) : null;
-    const tempsEcoule = dureeMs === null || dureeMs > q.DUREE_MAX_QUESTION_MS + q.TOLERANCE_RESEAU_MS;
+    // Une réponse vide est envoyée par le navigateur quand son chrono atteint
+    // zéro : c'est un temps écoulé, même si le serveur compte encore dans la
+    // marge réseau (sinon le joueur verrait « Raté » sans avoir rien choisi).
+    const tempsEcoule = !choix || dureeMs === null
+      || dureeMs > q.DUREE_MAX_QUESTION_MS + q.TOLERANCE_RESEAU_MS;
     if (dureeMs === null) dureeMs = q.DUREE_MAX_QUESTION_MS;
 
     const question = tx.findRecordById("questions", courante.getString("question"));
