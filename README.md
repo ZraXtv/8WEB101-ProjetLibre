@@ -14,7 +14,8 @@ JavaScript. L'ancienne version (serveur Flask) est conservée dans
 
 Tout se passe dans le dossier `pocketbase/`. Au premier lancement, la base
 est créée et les questions y sont chargées automatiquement : 64 logos et
-50 modèles de voitures (`donnees/modeles.json`).
+1000 modèles de voitures (`donnees/modeles.json`, voir « Importer des
+modèles » plus bas).
 
 Les questions de modèles portent leurs propres mauvaises réponses (champ
 `leurres`) : trois autres modèles **de la même marque**, par exemple Peugeot
@@ -81,6 +82,7 @@ pocketbase/
 ├── pb_public/          le site : pages, CSS, JS, polices, explorateur 3D
 ├── donnees/            questions de départ et leurs images (non publiques)
 ├── outils/simplifier.mjs   allègement des modèles 3D (voir pb_public/anatomie/README.md)
+├── outils/importer_modeles.py  import des modèles de voitures (Wikidata, Commons)
 ├── demarrer.sh / demarrer.ps1, Dockerfile, docker-compose.yml
 ├── .env.example        réglages propres à chaque machine
 ├── VERSION             version de PocketBase utilisée
@@ -98,9 +100,36 @@ commiter. Ne pas retoucher une migration déjà appliquée.
 
 Depuis le tableau de bord, collection `questions` : choisir le mode, la
 réponse, l'image, la difficulté (1 à 3) et cocher `actif`. Les épreuves
-« modèles » et « pièces » s'ouvrent automatiquement à partir de 4 questions.
-La page « Admin » du site permet ensuite d'activer, désactiver ou recalibrer
-les questions.
+« modèles » et « pièces » s'ouvrent automatiquement dès leur première
+question. La page « Admin » du site permet ensuite d'activer, désactiver ou
+recalibrer les questions.
+
+### Importer des modèles
+
+Les 50 premiers modèles ont été choisis et vérifiés à la main. Les autres
+viennent de `outils/importer_modeles.py`, qui complète `donnees/modeles.json`
+jusqu'au nombre voulu :
+
+```bash
+cd pocketbase
+pip install pillow
+python outils/importer_modeles.py --total 1000
+```
+
+- les modèles sont ceux de **Wikidata** qui ont une photo, classés par
+  notoriété (nombre d'articles Wikipédia qui leur sont consacrés) ; les plus
+  connus sont faciles, les moins connus difficiles ;
+- la photo est l'image représentative choisie sur Wikidata, hébergée sur
+  **Wikimedia Commons** sous licence libre ; son crédit est conservé. Les
+  noms de fichiers qui annoncent un arrière, un intérieur ou un moteur sont
+  écartés, et l'image est réduite à 640 px de large ;
+- les trois leurres sont des modèles de la même marque, de l'époque la plus
+  proche ; les variantes d'un même modèle (« Golf » / « Golf GTI ») ne sont
+  jamais proposées ensemble ;
+- les réponses des API sont gardées dans `outils/.cache/` (ignoré par git).
+
+Une photo inadaptée passée entre les mailles (nom du modèle lisible, mauvais
+véhicule) se désactive depuis la page « Admin ».
 
 ## Comment marche une partie
 
