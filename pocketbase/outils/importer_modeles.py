@@ -28,6 +28,7 @@ import json
 import re
 import time
 import unicodedata
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -69,20 +70,38 @@ def lire_json(url, donnees=None):
     if fichier.exists():
         return json.loads(fichier.read_text(encoding="utf-8"))
     corps = urllib.parse.urlencode(donnees).encode() if donnees else None
-    for essai in range(5):
+    for essai in range(8):
         try:
             requete = urllib.request.Request(url, data=corps, headers=UA)
             with urllib.request.urlopen(requete, timeout=120) as reponse:
                 resultat = json.load(reponse)
             break
-        except Exception:
-            if essai == 4:
+        except Exception as erreur:
+            if essai == 7:
                 raise
-            time.sleep(3 + essai * 5)
+            # Trop de requêtes : on attend le délai demandé par le serveur.
+            attente = 5 + essai * 10
+            if isinstance(erreur, urllib.error.HTTPError) and erreur.code == 429:
+                attente = max(attente, int(erreur.headers.get("Retry-After") or 60))
+            print(f"  serveur occupé, nouvel essai dans {attente} s", flush=True)
+            time.sleep(attente)
     CACHE.mkdir(exist_ok=True)
     fichier.write_text(json.dumps(resultat), encoding="utf-8")
-    time.sleep(0.3)
+    time.sleep(1)
     return resultat
+
+
+def telecharger(url):
+    for essai in range(6):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as reponse:
+                return reponse.read()
+        except urllib.error.HTTPError as erreur:
+            if erreur.code != 429 or essai == 5:
+                raise
+            attente = max(10 + essai * 10, int(erreur.headers.get("Retry-After") or 30))
+            print(f"  images : serveur occupé, nouvel essai dans {attente} s", flush=True)
+            time.sleep(attente)
 
 
 def sparql(requete):
@@ -270,16 +289,14 @@ def main():
         fichier = DOSSIER_IMAGES / f"{slug(c['nom'])}.jpg"
         if not fichier.exists():
             try:
-                requete = urllib.request.Request(info["vignette"], headers=UA)
-                with urllib.request.urlopen(requete, timeout=60) as reponse:
-                    image = Image.open(io.BytesIO(reponse.read())).convert("RGB")
+                image = Image.open(io.BytesIO(telecharger(info["vignette"]))).convert("RGB")
             except Exception as erreur:
                 print("  image ignorée :", c["nom"], erreur)
                 continue
             if image.width > LARGEUR_IMAGE:
                 image = image.resize((LARGEUR_IMAGE, round(image.height * LARGEUR_IMAGE / image.width)))
             image.save(fichier, quality=78, optimize=True)
-            time.sleep(0.2)
+            time.sleep(0.5)
 
         nouveaux.append({
             "mode": "modele",
