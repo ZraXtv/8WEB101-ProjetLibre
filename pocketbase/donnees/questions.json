@@ -578,11 +578,11 @@
  {
   "mode": "piece",
   "reponse": "Vilebrequin",
-  "fichier": "pieces/moteur-crankshaft.jpg",
+  "fichier": "pieces/photo-vilebrequin.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY 2.0",
+  "auteur": "Alex Kovach",
+  "source": "https://commons.wikimedia.org/wiki/File:Crankshaft_jap_grayscale.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "crankshaft"
@@ -593,11 +593,11 @@
  {
   "mode": "piece",
   "reponse": "Piston",
-  "fichier": "pieces/moteur-piston-1.jpg",
+  "fichier": "pieces/photo-piston.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "160SX",
+  "source": "https://commons.wikimedia.org/wiki/File:Piston_and_Conn-rod_for_NISSAN_VQ35DE_by_HKS_01.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "piston-1"
@@ -608,11 +608,11 @@
  {
   "mode": "piece",
   "reponse": "Bielle",
-  "fichier": "pieces/moteur-conrod-1.jpg",
+  "fichier": "pieces/photo-bielle.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Gede",
+  "source": "https://commons.wikimedia.org/wiki/File:Bielles_harley.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "conrod-1"
@@ -623,26 +623,26 @@
  {
   "mode": "piece",
   "reponse": "Cylindre",
-  "fichier": "pieces/moteur-cylinder-1.jpg",
+  "fichier": "pieces/photo-cylindre.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "The RedBurn",
+  "source": "https://commons.wikimedia.org/wiki/File:PSA_TU_1.1_engine_block_head_removed.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "cylinder-1"
   },
   "indice": "Enveloppe et structure",
-  "explication": "Le tube dans lequel coulisse le piston et où brûle le mélange. Ce moteur en a six, refroidis par air (d'où les ailettes)."
+  "explication": "Le tube dans lequel coulisse le piston et où brûle le mélange air-essence. Ce moteur en a quatre, en ligne."
  },
  {
   "mode": "piece",
   "reponse": "Bougie d'allumage",
-  "fichier": "pieces/moteur-spark-plug-1.jpg",
+  "fichier": "pieces/photo-bougie-d-allumage.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "Schumi4ever",
+  "source": "https://commons.wikimedia.org/wiki/File:Buj%C3%ADa_Bosch_Yttrium_Super_Plus.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "spark-plug-1"
@@ -653,11 +653,11 @@
  {
   "mode": "piece",
   "reponse": "Alternateur",
-  "fichier": "pieces/moteur-alternator.jpg",
+  "fichier": "pieces/photo-alternateur.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY 2.0",
+  "auteur": "Shixart1985",
+  "source": "https://commons.wikimedia.org/wiki/File:Car_alternator_on_a_workbench_surrounded_by_various_auto_parts_in_a_garage_setting.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "alternator"
@@ -668,11 +668,11 @@
  {
   "mode": "piece",
   "reponse": "Silencieux d'échappement",
-  "fichier": "pieces/moteur-muffler.jpg",
+  "fichier": "pieces/photo-silencieux-d-echappement.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "CrowzRSA",
+  "source": "https://commons.wikimedia.org/wiki/File:CRX_OEM_Muffler_c.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "muffler"
@@ -683,11 +683,11 @@
  {
   "mode": "piece",
   "reponse": "Filtre à air",
-  "fichier": "pieces/moteur-air-filter.jpg",
+  "fichier": "pieces/photo-filtre-a-air.jpg",
   "difficulte": 1,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY 3.0",
+  "auteur": "Donar Reiskoffer",
+  "source": "https://commons.wikimedia.org/wiki/File:Air_filter,_opel_astra(2).JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "air-filter"
@@ -698,11 +698,11 @@
  {
   "mode": "piece",
   "reponse": "Culasse",
-  "fichier": "pieces/moteur-head-1.jpg",
+  "fichier": "pieces/photo-culasse.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "IJB TA",
+  "source": "https://commons.wikimedia.org/wiki/File:Head_D15A3.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "head-1"
@@ -713,11 +713,11 @@
  {
   "mode": "piece",
   "reponse": "Arbre à cames",
-  "fichier": "pieces/moteur-camshaft-right.jpg",
+  "fichier": "pieces/photo-arbre-a-cames.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY 4.0",
+  "auteur": "Elmschrat",
+  "source": "https://commons.wikimedia.org/wiki/File:1-_nockenwelle.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "camshaft-right"
@@ -728,11 +728,11 @@
  {
   "mode": "piece",
   "reponse": "Chaîne de distribution",
-  "fichier": "pieces/moteur-timing-chain-right.jpg",
+  "fichier": "pieces/photo-chaine-de-distribution.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Kolossos",
+  "source": "https://commons.wikimedia.org/wiki/File:Nockenwellenantrieb.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "timing-chain-right"
@@ -742,27 +742,12 @@
  },
  {
   "mode": "piece",
-  "reponse": "Volant moteur",
-  "fichier": "pieces/moteur-flywheel.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "flywheel"
-  },
-  "indice": "Liaison avec la boîte de vitesses",
-  "explication": "Disque lourd fixé au vilebrequin : il régularise la rotation et sert d'appui à l'embrayage."
- },
- {
-  "mode": "piece",
   "reponse": "Disque d'embrayage",
-  "fichier": "pieces/moteur-clutch-disc.jpg",
+  "fichier": "pieces/photo-disque-d-embrayage.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "Public domain",
+  "auteur": "Sonett72",
+  "source": "https://commons.wikimedia.org/wiki/File:Clutchdisc.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "clutch-disc"
@@ -773,11 +758,11 @@
  {
   "mode": "piece",
   "reponse": "Pompe à huile",
-  "fichier": "pieces/moteur-oil-pump.jpg",
+  "fichier": "pieces/photo-pompe-a-huile.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC0",
+  "auteur": "Ll1324",
+  "source": "https://commons.wikimedia.org/wiki/File:Oil_Pump_from_Toyota_Coaster_Bus.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "oil-pump"
@@ -787,42 +772,12 @@
  },
  {
   "mode": "piece",
-  "reponse": "Radiateur d'huile",
-  "fichier": "pieces/moteur-oil-cooler.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "oil-cooler"
-  },
-  "indice": "Lubrification",
-  "explication": "Il refroidit l'huile, très sollicitée sur ce moteur refroidi par air."
- },
- {
-  "mode": "piece",
-  "reponse": "Turbine de refroidissement",
-  "fichier": "pieces/moteur-fan-impeller.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "fan-impeller"
-  },
-  "indice": "Ventilation et électricité",
-  "explication": "Ce ventilateur souffle l'air sur les ailettes des cylindres pour refroidir le moteur."
- },
- {
-  "mode": "piece",
   "reponse": "Courroie d'alternateur",
-  "fichier": "pieces/moteur-fan-belt.jpg",
+  "fichier": "pieces/photo-courroie-d-alternateur.jpg",
   "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Miya.m",
+  "source": "https://commons.wikimedia.org/wiki/File:Belt_drive_systen_01.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "fan-belt"
@@ -832,57 +787,12 @@
  },
  {
   "mode": "piece",
-  "reponse": "Soupapes",
-  "fichier": "pieces/moteur-valves-1.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "valves-1"
-  },
-  "indice": "Synchronisation",
-  "explication": "Elles s'ouvrent pour laisser entrer l'air frais et sortir les gaz brûlés, puis referment le cylindre."
- },
- {
-  "mode": "piece",
-  "reponse": "Carter moteur",
-  "fichier": "pieces/moteur-crankcase-right.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "crankcase-right"
-  },
-  "indice": "Enveloppe et structure",
-  "explication": "L'enveloppe en aluminium qui porte le vilebrequin et sur laquelle se fixent les cylindres."
- },
- {
-  "mode": "piece",
-  "reponse": "Faisceau de bougies",
-  "fichier": "pieces/moteur-ignition-leads.jpg",
-  "difficulte": 2,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "ignition-leads"
-  },
-  "indice": "Mise à feu du mélange",
-  "explication": "Les câbles qui amènent le courant de l'allumeur jusqu'à chaque bougie."
- },
- {
-  "mode": "piece",
   "reponse": "Allumeur",
-  "fichier": "pieces/moteur-distributor.jpg",
+  "fichier": "pieces/photo-allumeur.jpg",
   "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "Public domain",
+  "auteur": "Elwood",
+  "source": "https://commons.wikimedia.org/wiki/File:Spinterogeno.JPG",
   "anatomie": {
    "modele": "moteur",
    "piece": "distributor"
@@ -892,42 +802,12 @@
  },
  {
   "mode": "piece",
-  "reponse": "Mécanisme d'embrayage",
-  "fichier": "pieces/moteur-pressure-plate.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "pressure-plate"
-  },
-  "indice": "Liaison avec la boîte de vitesses",
-  "explication": "Ses ressorts serrent le disque d'embrayage contre le volant moteur."
- },
- {
-  "mode": "piece",
-  "reponse": "Échangeur de chaleur",
-  "fichier": "pieces/moteur-heat-exchanger-right.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "heat-exchanger-right"
-  },
-  "indice": "Évacuation des gaz",
-  "explication": "Autour des tuyaux d'échappement, il récupère la chaleur des gaz pour chauffer l'habitacle."
- },
- {
-  "mode": "piece",
   "reponse": "Culbuteurs",
-  "fichier": "pieces/moteur-rockers-right.jpg",
+  "fichier": "pieces/photo-culbuteurs.jpg",
   "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "Rios",
+  "source": "https://commons.wikimedia.org/wiki/File:Vahadlo.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "rockers-right"
@@ -938,11 +818,11 @@
  {
   "mode": "piece",
   "reponse": "Pipe d'admission",
-  "fichier": "pieces/moteur-intake-runner-1.jpg",
+  "fichier": "pieces/photo-pipe-d-admission.jpg",
   "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Alison Cassidy",
+  "source": "https://commons.wikimedia.org/wiki/File:Manifold_comparison.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "intake-runner-1"
@@ -952,87 +832,12 @@
  },
  {
   "mode": "piece",
-  "reponse": "Doseur-distributeur",
-  "fichier": "pieces/moteur-mixture-control-unit.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "mixture-control-unit"
-  },
-  "indice": "Alimentation en air et carburant",
-  "explication": "Il mesure l'air aspiré et envoie la juste quantité d'essence à chaque injecteur."
- },
- {
-  "mode": "piece",
-  "reponse": "Poulie de vilebrequin",
-  "fichier": "pieces/moteur-crank-pulley.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "crank-pulley"
-  },
-  "indice": "Pièces en mouvement",
-  "explication": "Fixée au bout du vilebrequin, elle entraîne la courroie des accessoires."
- },
- {
-  "mode": "piece",
-  "reponse": "Tendeur de chaîne",
-  "fichier": "pieces/moteur-chain-tensioner-right.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "chain-tensioner-right"
-  },
-  "indice": "Synchronisation",
-  "explication": "Il maintient la chaîne de distribution tendue pour qu'elle ne saute pas de dent."
- },
- {
-  "mode": "piece",
-  "reponse": "Coussinets de paliers",
-  "fichier": "pieces/moteur-main-bearings.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "main-bearings"
-  },
-  "indice": "Pièces en mouvement",
-  "explication": "Ces demi-bagues lisses supportent le vilebrequin et le laissent tourner sur un film d'huile."
- },
- {
-  "mode": "piece",
-  "reponse": "Arbre intermédiaire",
-  "fichier": "pieces/moteur-intermediate-shaft.jpg",
-  "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
-  "anatomie": {
-   "modele": "moteur",
-   "piece": "intermediate-shaft"
-  },
-  "indice": "Synchronisation",
-  "explication": "Entraîné par le vilebrequin, il fait à son tour tourner les chaînes des arbres à cames."
- },
- {
-  "mode": "piece",
   "reponse": "Couvre-culbuteurs",
-  "fichier": "pieces/moteur-valve-cover-upper-right.jpg",
+  "fichier": "pieces/photo-couvre-culbuteurs.jpg",
   "difficulte": 3,
-  "licence": "ISC",
-  "auteur": "Joseph Schneider (modèle 3D)",
-  "source": "https://github.com/josephschneider77-sys/porsche-911sc-engine",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Wikimedia Commons",
+  "source": "https://commons.wikimedia.org/wiki/File:Shelby_Mustang_GT350_engine.jpg",
   "anatomie": {
    "modele": "moteur",
    "piece": "valve-cover-upper-right"
@@ -1043,86 +848,71 @@
  {
   "mode": "piece",
   "reponse": "Aileron",
-  "fichier": "pieces/porsche-aileron.jpg",
+  "fichier": "pieces/photo-aileron.jpg",
   "difficulte": 1,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "Maggot666PL",
+  "source": "https://commons.wikimedia.org/wiki/File:Blue_Subaru_Impreza_WRX_-_003.jpg",
   "anatomie": {
    "modele": "porsche",
    "piece": "aileron"
   },
   "indice": "Carrosserie",
-  "explication": "L'aileron « queue de baleine » plaque l'arrière au sol à haute vitesse et aère le moteur placé dessous."
+  "explication": "Fixé à l'arrière, il plaque la voiture au sol à haute vitesse pour améliorer l'adhérence."
  },
  {
   "mode": "piece",
   "reponse": "Roue",
-  "fichier": "pieces/porsche-roue-avg.jpg",
+  "fichier": "pieces/photo-roue.jpg",
   "difficulte": 1,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "Public domain",
+  "auteur": "Abehn",
+  "source": "https://commons.wikimedia.org/wiki/File:Fuchsfelge_silber.jpg",
   "anatomie": {
    "modele": "porsche",
    "piece": "roue-avg"
   },
   "indice": "Liaison au sol",
-  "explication": "Jante et pneu : le seul contact de la voiture avec la route."
+  "explication": "Jante et pneu : le seul contact de la voiture avec la route. Celle-ci est une jante Fuchs de Porsche 911."
  },
  {
   "mode": "piece",
   "reponse": "Capot avant",
-  "fichier": "pieces/porsche-coffre.jpg",
+  "fichier": "pieces/photo-capot-avant.jpg",
   "difficulte": 1,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "CC BY-SA 3.0",
+  "auteur": "Ballista",
+  "source": "https://commons.wikimedia.org/wiki/File:Bonnet_raised_Saab_9-5.JPG",
   "anatomie": {
    "modele": "porsche",
    "piece": "coffre"
   },
   "indice": "Carrosserie",
-  "explication": "Sur cette Porsche, le moteur est à l'arrière : le capot avant ferme le coffre à bagages."
+  "explication": "Il ferme le compartiment avant ; sur la plupart des voitures, c'est là que se trouve le moteur."
  },
  {
   "mode": "piece",
-  "reponse": "Vitrages",
-  "fichier": "pieces/porsche-vitrages.jpg",
+  "reponse": "Pare-brise",
+  "fichier": "pieces/photo-pare-brise.jpg",
   "difficulte": 1,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "WILLAV-FR",
+  "source": "https://commons.wikimedia.org/wiki/File:WL-BF-Pare_brise_2.jpg",
   "anatomie": {
    "modele": "porsche",
    "piece": "vitrages"
   },
   "indice": "Carrosserie",
-  "explication": "Pare-brise, vitres latérales et lunette arrière."
- },
- {
-  "mode": "piece",
-  "reponse": "Moteur",
-  "fichier": "pieces/porsche-moteur.jpg",
-  "difficulte": 1,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
-  "anatomie": {
-   "modele": "porsche",
-   "piece": "moteur"
-  },
-  "indice": "Mécanique",
-  "explication": "Un six-cylindres à plat refroidi par air, placé tout à l'arrière de la voiture."
+  "explication": "La grande vitre avant, en verre feuilleté : fissurée, elle ne vole pas en éclats."
  },
  {
   "mode": "piece",
   "reponse": "Sortie d'échappement",
-  "fichier": "pieces/porsche-echappement.jpg",
+  "fichier": "pieces/photo-sortie-d-echappement.jpg",
   "difficulte": 2,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "Alexander Migl",
+  "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_Corvette_C7_Exhaust_Pipes_IAA_2013.jpg",
   "anatomie": {
    "modele": "porsche",
    "piece": "echappement"
@@ -1133,11 +923,11 @@
  {
   "mode": "piece",
   "reponse": "Feux arrière",
-  "fichier": "pieces/porsche-arriere.jpg",
+  "fichier": "pieces/photo-feux-arriere.jpg",
   "difficulte": 2,
-  "licence": "CC BY 4.0",
-  "auteur": "Lionsharp Studios (modèle 3D)",
-  "source": "https://github.com/BigSmoke4/3D-Porsche-911",
+  "licence": "CC BY-SA 4.0",
+  "auteur": "Matti Blume",
+  "source": "https://commons.wikimedia.org/wiki/File:Alpina_B7,_IAA_2017,_Frankfurt_(1Y7A3123).jpg",
   "anatomie": {
    "modele": "porsche",
    "piece": "arriere"
