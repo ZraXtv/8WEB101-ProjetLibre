@@ -56,6 +56,12 @@ FICHIERS_EXCLUS = re.compile(
 NOMS_EXCLUS = re.compile(
     r"concept|prototype|\bF1\b|formula|formule|racing|race car|rally car|\bGT1\b|"
     r"\bLMP|truck|camion|bus\b|autobus|tractor|tracteur|\bvan\b", re.I)
+MARQUES_SUPPLEMENTAIRES = [
+    "Acura", "Cadillac", "Chrysler", "Cupra", "Datsun", "Fiat", "Ford", "Genesis", "GMC",
+    "Infiniti", "Iso", "Jaguar", "Jeep", "Kia", "Lamborghini", "Lancia", "Land Rover", "Lotus",
+    "Nissan", "Plymouth", "Pontiac", "Ram", "Saab", "SEAT", "Trabant", "UAZ", "Vauxhall",
+    "Willys", "GAZ", "ZAZ", "Wartburg",
+]
 SUFFIXES_CONSTRUCTEUR = re.compile(
     r"\s+(Motor Company|Motor Corporation|Motors?|Automobiles?|Automobile|Cars|"
     r"Car Company|Company|Corporation|Group|AG|GmbH|S\.p\.A\.|SpA|S\.A\.|SA|Ltd\.?|"
@@ -161,7 +167,14 @@ def sans_accents(texte):
 
 
 def cle(texte):
-    return re.sub(r"[^a-z0-9]+", " ", sans_accents(texte).lower()).strip()
+    # « Ford Model T » et « Ford T » désignent la même voiture.
+    texte = re.sub(r"\b(model|modele|type)\b", " ", sans_accents(texte).lower())
+    return re.sub(r"[^a-z0-9]+", " ", texte).strip()
+
+
+def compacte(texte):
+    # « Citroën 2 CV » et « Citroën 2CV » aussi.
+    return cle(texte).replace(" ", "")
 
 
 def nettoyer_constructeur(nom):
@@ -179,8 +192,17 @@ def nettoyer_modele(nom):
 def variante(a, b):
     """Vrai si un nom prolonge l'autre (« Golf » / « Golf GTI ») : les deux ne
     peuvent pas être proposés ensemble, la photo irait aux deux."""
+    if compacte(a) == compacte(b):
+        return True
     a, b = cle(a), cle(b)
     return a == b or a.startswith(b + " ") or b.startswith(a + " ")
+
+
+def meme_voiture(a, b):
+    """Même modèle sous deux noms de marque (« British Mini » / « Austin
+    Mini ») : comparé sans le premier mot, pour les noms en lettres."""
+    fin_a, fin_b = cle(a).split(" ", 1)[-1], cle(b).split(" ", 1)[-1]
+    return fin_a == fin_b and len(fin_a) >= 4 and not any(c.isdigit() for c in fin_a)
 
 
 def slug(nom):
@@ -214,29 +236,34 @@ def charger_candidats():
     noms = libelles(list(modeles))
     noms_marques = {q: nettoyer_constructeur(n) for q, n in
                     libelles([q for m in modeles.values() for q in m["marques"]]).items()}
-    marques_connues = {cle(n): n for n in noms_marques.values()}
+    # Vraies marques : celles du quiz des logos et quelques autres. Le
+    # constructeur de Wikidata est souvent un groupe (« Groupe BMW »,
+    # « Stellantis North America », Toyota pour Lexus) : quand le nom du
+    # modèle commence par une vraie marque, c'est elle qui compte.
+    logos = json.loads((RACINE / "donnees" / "questions.json").read_text(encoding="utf-8"))
+    vraies_marques = {cle(q["reponse"]): q["reponse"] for q in logos} | {
+        cle(n): n for n in MARQUES_SUPPLEMENTAIRES}
+    vraies_marques = dict(sorted(vraies_marques.items(), key=lambda m: -len(m[0])))
 
     candidats = []
     for m in modeles.values():
         nom = nom_brut = noms.get(m["qid"])
-        if not nom or re.fullmatch(r"Q\d+", nom):
+        if not nom or re.fullmatch(r"Q\d+", nom) or "/" in nom:
             continue
         nom = nettoyer_modele(nom)
         marque = next((noms_marques[q] for q in m["marques"] if q in noms_marques), None)
         if not marque:
             continue
-        if cle(nom).startswith(cle(marque) + " "):
+        connue = next((v for k, v in vraies_marques.items() if cle(nom).startswith(k + " ")), None)
+        if connue:
+            marque = connue
+        elif cle(nom).startswith(cle(marque) + " "):
             pass
+        elif cle(nom) == cle(marque):
+            continue
         else:
-            # Libellé d'une marque du groupe (« Peugeot 208 » chez Stellantis) ?
-            premier = next((marques_connues[k] for k in sorted(marques_connues, key=len, reverse=True)
-                            if cle(nom).startswith(k + " ")), None)
-            if premier:
-                marque = premier
-            elif cle(nom) == cle(marque):
-                continue
-            else:
-                nom = f"{marque} {nom}"
+            marque = re.sub(r"^(Groupe|Grupo|Gruppo)\s+", "", marque)
+            nom = f"{marque} {nom}"
         if len(nom) > 60 or NOMS_EXCLUS.search(nom) or NOMS_EXCLUS.search(nom_brut):
             continue
         candidats.append({**m, "nom": nom, "marque": marque})
@@ -274,7 +301,8 @@ def main():
     for c in retenus_pool:
         if len(nouveaux) >= a_ajouter:
             break
-        if any(variante(c["nom"], e["reponse"]) for e in existants):
+        if any(variante(c["nom"], e["reponse"]) or meme_voiture(c["nom"], e["reponse"])
+               for e in existants + nouveaux):
             continue
         leurres = leurres_pour(c)
         if len(leurres) < 3:
@@ -318,6 +346,12 @@ def main():
 
     FICHIER_MODELES.write_text(
         json.dumps(existants + nouveaux, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    # Photos d'un import précédent qui ne servent plus (modèle renommé, écarté).
+    utilisees = {Path(q["fichier"]).name for q in existants + nouveaux}
+    for image in DOSSIER_IMAGES.glob("*.jpg"):
+        if image.name not in utilisees:
+            image.unlink()
     print(f"{len(nouveaux)} modèles ajoutés, {len(existants) + len(nouveaux)} au total")
 
 
