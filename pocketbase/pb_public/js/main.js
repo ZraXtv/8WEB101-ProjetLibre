@@ -372,6 +372,9 @@ function afficherQuestion(question) {
     propositions.appendChild(bouton);
   });
   carte.appendChild(propositions);
+  // Place réservée au retour et au crédit : sans elle, la carte grandit à
+  // chaque réponse puis rétrécit à la question suivante, et la page saute.
+  carte.appendChild(el("div", "zone-retour"));
 
   carte.insertBefore(
     construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
@@ -448,7 +451,8 @@ async function repondre(choix, zonePropositions, carte) {
   });
   retour.appendChild(suite);
 
-  carte.appendChild(retour);
+  const zoneRetour = carte.querySelector(".zone-retour") || carte;
+  zoneRetour.appendChild(retour);
 
   // Le crédit n'apparaît qu'une fois la réponse donnée.
   let credit = null;
@@ -456,7 +460,7 @@ async function repondre(choix, zonePropositions, carte) {
     credit = JSON.parse(carte.dataset.credit || "{}");
   } catch { credit = null; }
   const blocCredit = construireCredit(credit);
-  if (blocCredit) carte.appendChild(blocCredit);
+  if (blocCredit) zoneRetour.appendChild(blocCredit);
 
   suite.focus();
 }

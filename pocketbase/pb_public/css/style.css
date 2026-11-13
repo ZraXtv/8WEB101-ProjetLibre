@@ -681,6 +681,15 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hauteur du retour (texte, points, bouton) et du crédit, réservée avant la
+   réponse pour que la carte garde la même taille d'une question à l'autre. */
+.zone-retour {
+  /* flow-root : la marge haute du retour reste dans la zone au lieu de
+     s'ajouter au-dessus, ce qui agrandissait encore la carte. */
+  display: flow-root;
+  min-height: 9.6rem;
+}
+
 .credit-image {
   margin-top: 1rem;
   font-size: 11px;
