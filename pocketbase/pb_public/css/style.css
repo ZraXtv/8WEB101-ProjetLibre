@@ -534,19 +534,33 @@ main {
   font-size: 1.2rem;
   font-weight: 700;
   font-stretch: 112%;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.indice-question {
+  margin: -0.5rem auto 1rem;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  font-size: 13px;
+  color: var(--texte-doux);
 }
 
 .cadre-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16 / 10;
+  /* Hauteur bornée : les propositions doivent rester visibles sans défiler,
+     chrono en marche, même sur un écran d'ordinateur portable. (Un
+     aspect-ratio plafonné par max-height rétrécissait aussi la largeur.) */
+  height: clamp(170px, 36vh, 380px);
   background: #fff;
   border: 1px solid var(--bordure);
   border-radius: var(--r-md);
   padding: clamp(1rem, 3vw, 2rem);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.1rem;
   overflow: hidden;
 }
 
@@ -636,6 +650,14 @@ main {
 }
 
 .retour-texte { font-weight: 640; }
+.retour-explication {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--texte);
+}
+.retour-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-left: auto; }
 .retour-texte.gagne { color: var(--vert-500); }
 .retour-texte.perdu { color: var(--rouge-500); }
 .retour-points { font-weight: 800; font-stretch: 125%; color: var(--accent); font-variant-numeric: tabular-nums; }
@@ -708,6 +730,35 @@ main {
 }
 
 .resultat-detail { color: var(--texte-doux); margin-top: 0.5rem; }
+
+/* Récapitulatif des questions de la partie */
+.recap {
+  list-style: none;
+  margin: 1.6rem auto 0;
+  padding: 0;
+  max-width: 34rem;
+  text-align: left;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.recap-ligne {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  font-size: 14px;
+}
+
+.recap-marque { font-weight: 800; }
+.recap-ligne.gagne .recap-marque { color: var(--vert-500); }
+.recap-ligne.perdu .recap-marque { color: var(--rouge-500); }
+.recap-texte { flex: 1; }
+.recap-choix { color: var(--texte-doux); }
+.recap-lien { font-size: 13px; font-weight: 600; color: var(--texte); white-space: nowrap; }
 
 .resultat-actions {
   display: flex;

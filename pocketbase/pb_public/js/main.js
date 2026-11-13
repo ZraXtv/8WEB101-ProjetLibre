@@ -277,7 +277,8 @@ async function initAccueil() {
    Écran de jeu
    ========================================================================== */
 
-const partie = { id: null, mode: null, score: 0, bonnes: 0, total: 0, verrou: false };
+// « historique » : une ligne par question répondue, pour le récapitulatif de fin.
+const partie = { id: null, mode: null, score: 0, bonnes: 0, total: 0, verrou: false, historique: [] };
 
 // Le chrono affiché n'est qu'indicatif : c'est le serveur qui mesure le temps
 // réellement compté. Celui-ci part au moment où la question s'affiche.
@@ -332,7 +333,7 @@ function construireCredit(credit) {
   bloc.appendChild(document.createTextNode(
     `Image : ${credit.auteur || "auteur inconnu"} — ${credit.licence} · `));
   if (credit.source) {
-    const lien = el("a", null, "Wikimedia Commons");
+    const lien = el("a", null, /wikimedia\.org/.test(credit.source) ? "Wikimedia Commons" : "source");
     lien.href = credit.source;
     lien.target = "_blank";
     lien.rel = "noopener";
@@ -356,6 +357,7 @@ function afficherQuestion(question) {
 
   const carte = el("div", "carte-question");
   carte.appendChild(el("p", "enonce", question.question));
+  if (question.indice) carte.appendChild(el("p", "indice-question", `Indice : ${question.indice}`));
   carte.appendChild(construireCadreImage(question));
 
   const propositions = el("div", "propositions");
@@ -377,6 +379,9 @@ function afficherQuestion(question) {
   carte.dataset.credit = JSON.stringify(question.credit || {});
 
   zone.replaceChildren(barre, jauge, carte);
+  // La page a pu défiler pendant la correction : on remonte, sinon le chrono
+  // de la nouvelle question reste hors de vue.
+  window.scrollTo({ top: 0 });
 }
 
 async function repondre(choix, zonePropositions, carte) {
@@ -398,6 +403,9 @@ async function repondre(choix, zonePropositions, carte) {
 
   partie.score = resultat.score;
   partie.bonnes = resultat.bonnesReponses;
+  partie.historique.push({
+    reponse: resultat.bonneReponse, choix, correcte: resultat.correcte, revision: resultat.revision,
+  });
 
   zonePropositions.querySelectorAll(".proposition").forEach((bouton) => {
     bouton.disabled = true;
@@ -423,6 +431,10 @@ async function repondre(choix, zonePropositions, carte) {
     retour.appendChild(points);
   }
 
+  if (resultat.explication) retour.appendChild(el("p", "retour-explication", resultat.explication));
+
+  const boutons = el("div", "retour-actions");
+
   const suite = el("button", "btn btn-primary",
     resultat.terminee ? "Voir le résultat" : "Question suivante");
   suite.type = "button";
@@ -440,7 +452,16 @@ async function repondre(choix, zonePropositions, carte) {
       suite.disabled = false;
     }
   });
-  retour.appendChild(suite);
+  if (resultat.revision) {
+    // Nouvel onglet : la partie en cours reste ouverte.
+    const reviser = el("a", "btn btn-secondary", "Réviser en 3D");
+    reviser.href = resultat.revision;
+    reviser.target = "_blank";
+    reviser.rel = "noopener";
+    boutons.appendChild(reviser);
+  }
+  boutons.appendChild(suite);
+  retour.appendChild(boutons);
 
   carte.appendChild(retour);
 
@@ -452,7 +473,34 @@ async function repondre(choix, zonePropositions, carte) {
   const blocCredit = construireCredit(credit);
   if (blocCredit) carte.appendChild(blocCredit);
 
-  suite.focus();
+  suite.focus({ preventScroll: true });
+  retour.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+/* Récapitulatif de fin : chaque question avec la bonne réponse et, en cas
+   d'erreur, ce qui avait été choisi et le lien pour réviser la pièce. */
+function construireRecapitulatif() {
+  if (!partie.historique.length) return null;
+  const liste = el("ol", "recap");
+  partie.historique.forEach((ligne) => {
+    const item = el("li", `recap-ligne ${ligne.correcte ? "gagne" : "perdu"}`);
+    item.appendChild(el("span", "recap-marque", ligne.correcte ? "✓" : "✗"));
+    const texte = el("span", "recap-texte");
+    texte.appendChild(el("strong", null, ligne.reponse));
+    if (!ligne.correcte) {
+      texte.appendChild(el("span", "recap-choix", ligne.choix ? ` — vous : ${ligne.choix}` : " — temps écoulé"));
+    }
+    item.appendChild(texte);
+    if (!ligne.correcte && ligne.revision) {
+      const lien = el("a", "recap-lien", "Réviser en 3D");
+      lien.href = ligne.revision;
+      lien.target = "_blank";
+      lien.rel = "noopener";
+      item.appendChild(lien);
+    }
+    liste.appendChild(item);
+  });
+  return liste;
 }
 
 function afficherResultat() {
@@ -471,6 +519,7 @@ function afficherResultat() {
   else if (reussite >= 50) commentaire = "Pas mal, continuez.";
   carte.appendChild(el("p", "resultat-detail", commentaire));
 
+
   const actions = el("div", "resultat-actions");
   const rejouer = el("button", "btn btn-primary", "Rejouer");
   rejouer.type = "button";
@@ -486,7 +535,11 @@ function afficherResultat() {
   actions.appendChild(accueil);
 
   carte.appendChild(actions);
+  // Après les boutons, pour qu'ils restent visibles sans défiler.
+  const recap = construireRecapitulatif();
+  if (recap) carte.appendChild(recap);
   zone.replaceChildren(carte);
+  window.scrollTo({ top: 0 });
 }
 
 async function initJeu(promesseUtilisateur) {
@@ -529,6 +582,7 @@ async function initJeu(promesseUtilisateur) {
   partie.mode = debut.mode;
   partie.score = 0;
   partie.bonnes = 0;
+  partie.historique = [];
   partie.total = debut.question.total;
 
   document.title = `${debut.titre} — Auto Quiz`;
