@@ -1023,20 +1023,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Dacia Logan",
-    "leurres": [
-      "Dacia Sandero",
-      "Dacia Duster",
-      "Dacia Lodgy"
-    ],
-    "fichier": "modeles/dacia-logan.jpg",
-    "licence": "CC BY-SA 3.0",
-    "auteur": "Michge",
-    "source": "https://commons.wikimedia.org/wiki/File:Dacia_Logan_Facelift_front_-_PSM_2009.jpg",
-    "difficulte": 1
-  },
-  {
-    "mode": "modele",
     "reponse": "BMW i3",
     "leurres": [
       "BMW X5",
@@ -1537,20 +1523,6 @@
     "licence": "CC BY-SA 3.0 de",
     "auteur": "© M 93",
     "source": "https://commons.wikimedia.org/wiki/File:VW_Touran_2.0_TDI_Highline_(II,_Facelift)_%E2%80%93_f_29032026.jpg",
-    "difficulte": 1
-  },
-  {
-    "mode": "modele",
-    "reponse": "Peugeot 407",
-    "leurres": [
-      "Peugeot 206",
-      "Peugeot 205",
-      "Peugeot 308"
-    ],
-    "fichier": "modeles/peugeot-407.jpg",
-    "licence": "CC BY 2.0",
-    "auteur": "Mic from Reading - Berkshire, United Kingdom",
-    "source": "https://commons.wikimedia.org/wiki/File:Peugeot_407,_Ireland_(9119796666).jpg",
     "difficulte": 1
   },
   {
@@ -2335,20 +2307,6 @@
     "licence": "CC BY-SA 2.5",
     "auteur": "Marvin Raaijmakers",
     "source": "https://commons.wikimedia.org/wiki/File:Alfa_Romeo_155_WB_1.jpg",
-    "difficulte": 1
-  },
-  {
-    "mode": "modele",
-    "reponse": "Mercedes-Benz Smart Fortwo",
-    "leurres": [
-      "Mercedes-Benz SLR McLaren",
-      "Mercedes-Benz Type 124",
-      "Mercedes-Benz Type 201"
-    ],
-    "fichier": "modeles/mercedes-benz-smart-fortwo.jpg",
-    "licence": "CC BY-SA 4.0",
-    "auteur": "Johannes Maximilian",
-    "source": "https://commons.wikimedia.org/wiki/File:Smart_Fortwo_W_453_Wien_26_July_2020_JM_(2).jpg",
     "difficulte": 1
   },
   {
@@ -3641,20 +3599,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Peugeot 2008",
-    "leurres": [
-      "Peugeot 206",
-      "Peugeot 205",
-      "Peugeot 308"
-    ],
-    "fichier": "modeles/peugeot-2008.jpg",
-    "licence": "CC BY-SA 4.0",
-    "auteur": "Alexander-93",
-    "source": "https://commons.wikimedia.org/wiki/File:Peugeot_e-2008_Facelift_Autofr%C3%BChling_Ulm_IMG_9302.jpg",
-    "difficulte": 1
-  },
-  {
-    "mode": "modele",
     "reponse": "Volvo XC40",
     "leurres": [
       "Volvo XC90",
@@ -4575,20 +4519,6 @@
     "licence": "CC BY 2.0",
     "auteur": "https://www.flickr.com/people/nakedcharlton/",
     "source": "https://commons.wikimedia.org/wiki/File:1983_Renault_20_TX_automatique,_front_view.jpg",
-    "difficulte": 1
-  },
-  {
-    "mode": "modele",
-    "reponse": "Citroën C-Crosser - Peugeot 4007 - Mitsubishi Outlander CUO",
-    "leurres": [
-      "Citroën 2 CV",
-      "Citroën DS",
-      "Citroën C1"
-    ],
-    "fichier": "modeles/citroen-c-crosser-peugeot-4007-mitsubishi-outlander-cuo.jpg",
-    "licence": "CC BY-SA 3.0",
-    "auteur": "Thomas doerfer",
-    "source": "https://commons.wikimedia.org/wiki/File:Peugeot_4007.jpg",
     "difficulte": 1
   },
   {
@@ -5709,20 +5639,6 @@
     "licence": "Public domain",
     "auteur": "Unknown authorUnknown author",
     "source": "https://commons.wikimedia.org/wiki/File:Audi_RS4_B5.jpg",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
-    "reponse": "Kia Carens",
-    "leurres": [
-      "Kia cee'd",
-      "Kia Rio",
-      "Kia Sportage"
-    ],
-    "fichier": "modeles/kia-carens.jpg",
-    "licence": "CC BY 4.0",
-    "auteur": "Manish Bhardwaj",
-    "source": "https://commons.wikimedia.org/wiki/File:2025_Kia_Carens_Clavis_HTX_Plus.png",
     "difficulte": 2
   },
   {
@@ -6931,20 +6847,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Opel Cascada",
-    "leurres": [
-      "Opel Calibra",
-      "Opel Adam",
-      "Opel Agila"
-    ],
-    "fichier": "modeles/opel-cascada.jpg",
-    "licence": "CC BY-SA 3.0",
-    "auteur": "KarleHorn",
-    "source": "https://commons.wikimedia.org/wiki/File:Opel_Cascada_Front.JPG",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
     "reponse": "Fiat 508 Balilla",
     "leurres": [
       "Fiat 500",
@@ -7515,20 +7417,6 @@
     "licence": "CC BY-SA 3.0",
     "auteur": "Matti Blume / Freisteller, Bildbearbeitung &amp; Retusche von Auge=mit",
     "source": "https://commons.wikimedia.org/wiki/File:Alfa_Romeo_Montreal_GIMS_2024_mod.jpg",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
-    "reponse": "Nissan Murano",
-    "leurres": [
-      "Nissan LEAF",
-      "Nissan GT-R",
-      "Nissan Skyline"
-    ],
-    "fichier": "modeles/nissan-murano.jpg",
-    "licence": "CC BY 4.0",
-    "auteur": "Raszbeary",
-    "source": "https://commons.wikimedia.org/wiki/File:2025_Nissan_Murano_(Front)_NYC_Auto_Show.png",
     "difficulte": 2
   },
   {
@@ -8219,20 +8107,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Toyota Carina",
-    "leurres": [
-      "Toyota Land Cruiser",
-      "Toyota Yaris",
-      "Toyota Supra"
-    ],
-    "fichier": "modeles/toyota-carina.jpg",
-    "licence": "CC BY 3.0",
-    "auteur": "Bjenks (talk)",
-    "source": "https://commons.wikimedia.org/wiki/File:1978Carina.jpg",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
     "reponse": "Mazda 121",
     "leurres": [
       "Mazda RX-8",
@@ -8691,20 +8565,6 @@
     "licence": "Public domain",
     "auteur": "OSX",
     "source": "https://commons.wikimedia.org/wiki/File:2006-2009_Mazda_CX-7_(ER)_Classic_wagon_(2010-06-17)_01.jpg",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
-    "reponse": "SsangYong Rexton",
-    "leurres": [
-      "SsangYong Actyon",
-      "SsangYong Korando",
-      "SsangYong Rodius"
-    ],
-    "fichier": "modeles/ssangyong-rexton.jpg",
-    "licence": "CC BY-SA 4.0",
-    "auteur": "Alexander Migl",
-    "source": "https://commons.wikimedia.org/wiki/File:SsangYong_Rexton_(2nd_generation)_Facelift_Automesse_Ludwigsburg_2022_1X7A5964.jpg",
     "difficulte": 2
   },
   {
@@ -10781,20 +10641,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Chery QQ",
-    "leurres": [
-      "Chery Arrizo 7",
-      "Chery Cowin",
-      "Chery Tiggo"
-    ],
-    "fichier": "modeles/chery-qq.jpg",
-    "licence": "CC BY-SA 2.0",
-    "auteur": "Anuradha Ratnaweera",
-    "source": "https://commons.wikimedia.org/wiki/File:Chery_QQ_face_-_FPMS.jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
     "reponse": "Cadillac Brougham",
     "leurres": [
       "Cadillac Escalade",
@@ -11313,20 +11159,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault R25",
-    "leurres": [
-      "Renault 4",
-      "Renault 5",
-      "Renault 25"
-    ],
-    "fichier": "modeles/renault-r25.jpg",
-    "licence": "CC BY-SA 2.0",
-    "auteur": "Auteur inconnu",
-    "source": "https://commons.wikimedia.org/wiki/File:Fisichella_(Renault)_qualifying_at_USGP_2005.jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
     "reponse": "Nissan Rogue",
     "leurres": [
       "Nissan LEAF",
@@ -11407,20 +11239,6 @@
     "licence": "CC0",
     "auteur": "JustAnotherCarDesigner",
     "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_Teramont_Pro_001_(cropped).jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
-    "reponse": "Chevrolet Bolt",
-    "leurres": [
-      "Chevrolet Malibu",
-      "Chevrolet Captiva",
-      "Chevrolet Silverado"
-    ],
-    "fichier": "modeles/chevrolet-bolt.jpg",
-    "licence": "Public domain",
-    "auteur": "Bull-Doser",
-    "source": "https://commons.wikimedia.org/wiki/File:2027_Chevrolet_Bolt_au_SIAM_2026.JPG",
     "difficulte": 3
   },
   {
@@ -12979,20 +12797,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault R23",
-    "leurres": [
-      "Renault 4",
-      "Renault 5",
-      "Renault 25"
-    ],
-    "fichier": "modeles/renault-r23.jpg",
-    "licence": "CC BY-SA 3.0",
-    "auteur": "Rick Dikeman",
-    "source": "https://commons.wikimedia.org/wiki/File:Jarno_Trulli_2003.jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
     "reponse": "Subaru R2",
     "leurres": [
       "Subaru Impreza",
@@ -13815,20 +13619,6 @@
     "licence": "Public domain",
     "auteur": "IFCAR",
     "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_CL-Class_--_01-07-2012.jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
-    "reponse": "Ferrari America",
-    "leurres": [
-      "Ferrari Enzo",
-      "Ferrari F40",
-      "Ferrari F430"
-    ],
-    "fichier": "modeles/ferrari-america.jpg",
-    "licence": "CC BY 2.0",
-    "auteur": "JaseMan",
-    "source": "https://commons.wikimedia.org/wiki/File:1951_Ferrari_340_America_(2).jpg",
     "difficulte": 3
   },
   {
