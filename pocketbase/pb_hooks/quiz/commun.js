@@ -57,6 +57,37 @@ function leurresDe(question) {
   return Array.isArray(leurres) ? leurres.map(String) : [];
 }
 
+/* Les mauvaises réponses commencent si possible par la même lettre que la
+   bonne (Honda, Hyundai, Horch, Hanomag) : il faut alors vraiment reconnaître
+   le logo, pas seulement éliminer les marques sans rapport.
+   Les lettres rares parmi les questions (F, G, I, K, N, X…) sont complétées
+   par ces marques réelles, qui ne servent que de leurres. Certaines ont été
+   retirées du quiz parce que leur logo écrit leur nom. */
+const LEURRES_SUPPLEMENTAIRES = {
+  logo: [
+    "Bugatti", "BYD", "Cadillac", "Chrysler", "Cupra", "Fiat", "Ford", "Fisker",
+    "Geely", "Genesis", "GMC", "Infiniti", "Isuzu", "Iveco", "Kia", "Karma", "KTM", "Lamborghini", "Lancia", "Land Rover", "Lotus",
+    "Nissan", "NSU", "Nash", "Oltcit", "Ram", "Rover", "Vauxhall", "Vector",
+    "Xiaomi", "Zeekr", "Zotye",
+  ],
+};
+
+/** Première lettre, sans accent : Škoda et Subaru commencent tous deux par S. */
+function initiale(texte) {
+  return String(texte).normalize("NFD").charAt(0).toUpperCase();
+}
+
+/** Leurres pris dans « reponses », ceux de même initiale que la bonne
+    réponse en premier (dans un ordre aléatoire), puis les autres. */
+function leurresParInitiale(mode, bonne, reponses) {
+  const candidats = [...new Set(reponses.concat(LEURRES_SUPPLEMENTAIRES[mode] || []))]
+    .filter((r) => r !== bonne);
+  const lettre = initiale(bonne);
+  const memeLettre = melanger(candidats.filter((r) => initiale(r) === lettre));
+  const autres = melanger(candidats.filter((r) => initiale(r) !== lettre));
+  return memeLettre.concat(autres);
+}
+
 function propositionsDe(qp) {
   return JSON.parse(toString(qp.get("propositions")) || "[]");
 }
@@ -122,6 +153,7 @@ function lignes(sql, params, modele) {
 module.exports = {
   MODES, DIFFICULTES, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
   DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
-  erreur, joueur, estAdmin, melanger, leurresDe, propositionsDe, questionPublique, partieDe,
+  erreur, joueur, estAdmin, melanger, leurresDe, leurresParInitiale, propositionsDe, questionPublique,
+  partieDe,
   questionCourante, lignes,
 };

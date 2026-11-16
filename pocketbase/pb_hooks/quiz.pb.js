@@ -77,18 +77,21 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   // ici plutôt que dans la requête.
   const voulue = q.DIFFICULTES[difficulte];
   const niveau = {};
-  const disponibles = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode })
-    .filter((r) => {
-      niveau[r.id] = difficulteRegionale(r.getString("reponse"), r.getInt("difficulte"), region);
-      return voulue === null || niveau[r.id] === voulue;
-    });
-  const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
+  const actives = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode });
+  const disponibles = actives.filter((r) => {
+    niveau[r.id] = difficulteRegionale(r.getString("reponse"), r.getInt("difficulte"), region);
+    return voulue === null || niveau[r.id] === voulue;
+  });
+  // Réponses de toutes les questions du mode, pas seulement celles de la
+  // difficulté choisie : il y a ainsi plus de noms de même initiale.
+  const toutesReponses = [...new Set(actives.map((r) => r.getString("reponse")))];
   // Mauvaises réponses : d'abord les leurres choisis pour la question (modèles
-  // proches), puis les autres questions du mode.
+  // proches), puis d'autres réponses du mode, de même initiale si possible.
   const leurresDe = (question) => {
     const bonne = question.getString("reponse");
     const propres = q.melanger(q.leurresDe(question).filter((r) => r !== bonne));
-    const autres = q.melanger(toutesReponses.filter((r) => r !== bonne && propres.indexOf(r) === -1));
+    const autres = q.leurresParInitiale(mode, bonne, toutesReponses)
+      .filter((r) => propres.indexOf(r) === -1);
     return propres.concat(autres).slice(0, q.NB_PROPOSITIONS - 1);
   };
   const jouables = disponibles.filter((r) => leurresDe(r).length === q.NB_PROPOSITIONS - 1);
