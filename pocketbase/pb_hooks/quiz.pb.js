@@ -68,7 +68,8 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   if (!q.MODES[mode]) return q.erreur(e, 400, "Mode de jeu inconnu.");
   if (!(difficulte in q.DIFFICULTES)) return q.erreur(e, 400, "Difficulté inconnue.");
 
-  const { difficultePour } = require(`${__hooks}/quiz/regions.js`);
+  const { difficultePour, difficulteModelePour } = require(`${__hooks}/quiz/regions.js`);
+  const difficulteRegionale = mode === "modele" ? difficulteModelePour : difficultePour;
   const j = q.joueur(e);
   const region = j ? j.getString("region") : "";
 
@@ -78,7 +79,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   const niveau = {};
   const disponibles = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode })
     .filter((r) => {
-      niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
+      niveau[r.id] = difficulteRegionale(r.getString("reponse"), r.getInt("difficulte"), region);
       return voulue === null || niveau[r.id] === voulue;
     });
   const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
