@@ -3347,11 +3347,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Lacetti",
+    "reponse": "Daewoo Lacetti",
     "leurres": [
-      "General Daewoo Lanos",
-      "General Daewoo Nexia",
-      "General Daewoo Leganza"
+      "Daewoo Lanos",
+      "Daewoo Nexia",
+      "Daewoo Leganza"
     ],
     "fichier": "modeles/general-daewoo-lacetti.jpg",
     "licence": "CC BY-SA 3.0",
@@ -4285,11 +4285,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Lanos",
+    "reponse": "Daewoo Lanos",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Nexia",
-      "General Daewoo Leganza"
+      "Daewoo Lacetti",
+      "Daewoo Nexia",
+      "Daewoo Leganza"
     ],
     "fichier": "modeles/general-daewoo-lanos.jpg",
     "licence": "Public domain",
@@ -4383,11 +4383,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Nexia",
+    "reponse": "Daewoo Nexia",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Leganza"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Leganza"
     ],
     "fichier": "modeles/general-daewoo-nexia.jpg",
     "licence": "CC BY-SA 3.0",
@@ -5083,11 +5083,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Leganza",
+    "reponse": "Daewoo Leganza",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-daewoo-leganza.jpg",
     "licence": "CC BY 2.0",
@@ -6259,20 +6259,6 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Hummer H1",
-    "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
-    ],
-    "fichier": "modeles/general-hummer-h1.jpg",
-    "licence": "CC BY-SA 2.0",
-    "auteur": "Original: order_242 Derivative work: StomboyCarGeek",
-    "source": "https://commons.wikimedia.org/wiki/File:Hummer_H1_6.5L_Diesel_Detroit_1997_(cropped).jpg",
-    "difficulte": 2
-  },
-  {
-    "mode": "modele",
     "reponse": "Alfa Romeo 145",
     "leurres": [
       "Alfa Romeo 147",
@@ -6329,11 +6315,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Rezzo",
+    "reponse": "Daewoo Rezzo",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-daewoo-rezzo.jpg",
     "licence": "CC BY-SA 3.0",
@@ -6385,11 +6371,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Nubira",
+    "reponse": "Daewoo Nubira",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-daewoo-nubira.jpg",
     "licence": "CC BY-SA 3.0",
@@ -6469,11 +6455,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Morris Minor",
+    "reponse": "Morris Minor",
     "leurres": [
-      "British BMC ADO17",
-      "British MG F",
-      "British Morris Marina"
+      "BMC ADO17",
+      "MG F",
+      "Morris Marina"
     ],
     "fichier": "modeles/british-morris-minor.jpg",
     "licence": "CC BY 2.0",
@@ -6917,11 +6903,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Holden Commodore",
+    "reponse": "Holden Commodore",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-holden-commodore.jpg",
     "licence": "CC BY-SA 4.0",
@@ -7295,11 +7281,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Motors EV1",
+    "reponse": "EV1",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-motors-ev1.jpg",
     "licence": "CC BY-SA 2.0",
@@ -7631,11 +7617,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Leyland Austin Metro",
+    "reponse": "Austin Metro",
     "leurres": [
-      "British Leyland Rover SD1",
-      "British Leyland Austin Allegro",
-      "British Leyland Rover P6"
+      "Rover SD1",
+      "Austin Allegro",
+      "Rover P6"
     ],
     "fichier": "modeles/british-leyland-austin-metro.jpg",
     "licence": "CC BY-SA 2.5",
@@ -8583,11 +8569,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Hummer H3",
+    "reponse": "Hummer H3",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-hummer-h3.jpg",
     "licence": "Public domain",
@@ -8653,11 +8639,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Leyland Rover SD1",
+    "reponse": "Rover SD1",
     "leurres": [
-      "British Leyland Austin Metro",
-      "British Leyland Austin Allegro",
-      "British Leyland Rover P6"
+      "Austin Metro",
+      "Austin Allegro",
+      "Rover P6"
     ],
     "fichier": "modeles/british-leyland-rover-sd1.jpg",
     "licence": "CC BY-SA 2.0",
@@ -9395,11 +9381,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Magnus",
+    "reponse": "Daewoo Magnus",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-daewoo-magnus.jpg",
     "licence": "CC BY-SA 4.0",
@@ -9409,11 +9395,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "General Daewoo Tico",
+    "reponse": "Daewoo Tico",
     "leurres": [
-      "General Daewoo Lacetti",
-      "General Daewoo Lanos",
-      "General Daewoo Nexia"
+      "Daewoo Lacetti",
+      "Daewoo Lanos",
+      "Daewoo Nexia"
     ],
     "fichier": "modeles/general-daewoo-tico.jpg",
     "licence": "CC BY-SA 3.0",
@@ -10193,11 +10179,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "Geely Auto Zeekr 001",
+    "reponse": "Zeekr 001",
     "leurres": [
-      "Geely Auto Smart Hashtag 3",
-      "Geely Auto Emgrand EC7",
-      "Geely Auto Zeekr 9X"
+      "Smart Hashtag 3",
+      "Emgrand EC7",
+      "Zeekr 9X"
     ],
     "fichier": "modeles/geely-auto-zeekr-001.jpg",
     "licence": "CC BY-SA 4.0",
@@ -10273,20 +10259,6 @@
     "licence": "CC BY 2.0",
     "auteur": "Tino Rossini from Toronto, Canada",
     "source": "https://commons.wikimedia.org/wiki/File:2010_Cadillac_SRX.jpg",
-    "difficulte": 3
-  },
-  {
-    "mode": "modele",
-    "reponse": "British BMC ADO17",
-    "leurres": [
-      "British Morris Minor",
-      "British MG F",
-      "British Morris Marina"
-    ],
-    "fichier": "modeles/british-bmc-ado17.jpg",
-    "licence": "CC BY-SA 2.5",
-    "auteur": "DeFacto",
-    "source": "https://commons.wikimedia.org/wiki/File:Morris_1800_1970.jpg",
     "difficulte": 3
   },
   {
@@ -10921,11 +10893,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British MG F",
+    "reponse": "MG F",
     "leurres": [
-      "British Morris Minor",
-      "British BMC ADO17",
-      "British Morris Marina"
+      "Morris Minor",
+      "BMC ADO17",
+      "Morris Marina"
     ],
     "fichier": "modeles/british-mg-f.jpg",
     "licence": "CC BY-SA 3.0",
@@ -11691,11 +11663,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Leyland Austin Allegro",
+    "reponse": "Austin Allegro",
     "leurres": [
-      "British Leyland Austin Metro",
-      "British Leyland Rover SD1",
-      "British Leyland Rover P6"
+      "Austin Metro",
+      "Rover SD1",
+      "Rover P6"
     ],
     "fichier": "modeles/british-leyland-austin-allegro.jpg",
     "licence": "CC BY-SA 3.0",
@@ -12643,11 +12615,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Morris Marina",
+    "reponse": "Morris Marina",
     "leurres": [
-      "British Morris Minor",
-      "British BMC ADO17",
-      "British MG F"
+      "Morris Minor",
+      "BMC ADO17",
+      "MG F"
     ],
     "fichier": "modeles/british-morris-marina.jpg",
     "licence": "CC BY-SA 4.0",
@@ -13777,11 +13749,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "British Leyland Rover P6",
+    "reponse": "Rover P6",
     "leurres": [
-      "British Leyland Austin Metro",
-      "British Leyland Rover SD1",
-      "British Leyland Austin Allegro"
+      "Austin Metro",
+      "Rover SD1",
+      "Austin Allegro"
     ],
     "fichier": "modeles/british-leyland-rover-p6.jpg",
     "licence": "CC BY-SA 4.0",
