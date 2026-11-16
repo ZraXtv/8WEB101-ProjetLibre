@@ -9574,5 +9574,4429 @@
     "auteur": "IFCAR",
     "source": "https://commons.wikimedia.org/wiki/File:1ST-Dodge-Intrepid.jpg",
     "difficulte": 2
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari 575M Maranello",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-575m-maranello.jpg",
+    "licence": "CC BY 2.5",
+    "auteur": "Qwertytam",
+    "source": "https://commons.wikimedia.org/wiki/File:Ferrari_575M_Maranello.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Vaneo",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-vaneo.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes_Vaneo_front_20071009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Albea",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-albea.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Zbyszko",
+    "source": "https://commons.wikimedia.org/wiki/File:Albea.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ GAZelle",
+    "leurres": [
+      "GAZ-69",
+      "GAZ Pobieda",
+      "GAZ-21"
+    ],
+    "fichier": "modeles/gaz-gazelle.jpg",
+    "licence": "CC0",
+    "auteur": "Caughtin16k",
+    "source": "https://commons.wikimedia.org/wiki/File:GAZ-3302_GAZ_museum.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dacia 1300",
+    "leurres": [
+      "Dacia Sandero",
+      "Dacia Duster",
+      "Dacia Lodgy"
+    ],
+    "fichier": "modeles/dacia-1300.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "dacia24.de",
+    "source": "https://commons.wikimedia.org/wiki/File:Dacia_1300.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti FX",
+    "leurres": [
+      "Infiniti G",
+      "Infiniti Q50",
+      "Infiniti QX50"
+    ],
+    "fichier": "modeles/infiniti-fx.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Infiniti_FX30d_S_(S51)_%E2%80%93_Frontansicht,_2._Juli_2011,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Silver Shadow",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-silver-shadow.jpg",
+    "licence": "Public domain",
+    "auteur": "ThwartedEfforts at English Wikipedia",
+    "source": "https://commons.wikimedia.org/wiki/File:Shadow1threequarters.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Lumina",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-lumina.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_Lumina.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ-24",
+    "leurres": [
+      "GAZ-69",
+      "GAZ Pobieda",
+      "GAZ-21"
+    ],
+    "fichier": "modeles/gaz-24.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:GAZ-24_Volga_IMG_2815.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lancia Lambda",
+    "leurres": [
+      "Lancia Delta",
+      "Lancia Thesis",
+      "Lancia Stratos"
+    ],
+    "fichier": "modeles/lancia-lambda.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "tomislav medak",
+    "source": "https://commons.wikimedia.org/wiki/File:Lancia_Lambda_-_L%27evoluzione_dell%27automobile_(3800411693).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Elgrand",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-elgrand.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_Elgrand_e-4ORCE_prototype.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Opel Olympia",
+    "leurres": [
+      "Opel Calibra",
+      "Opel Adam",
+      "Opel Agila"
+    ],
+    "fichier": "modeles/opel-olympia.jpg",
+    "licence": "Public domain",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Opel-Olympia.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki Kizashi",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-kizashi.jpg",
+    "licence": "CC BY 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:Suzuki_Kizashi_2.4_4%C3%974_CVT_Mineralgrey.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bentley Mulsanne",
+    "leurres": [
+      "Bentley Continental GT",
+      "Bentley Bentayga",
+      "Bentley Continental Flying Spur"
+    ],
+    "fichier": "modeles/bentley-mulsanne.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Bentley_Mulsanne_%E2%80%93_Frontansicht_(4),_30._August_2011,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Subaru 360",
+    "leurres": [
+      "Subaru Impreza",
+      "Subaru Legacy",
+      "Subaru Forester"
+    ],
+    "fichier": "modeles/subaru-360.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mytho88",
+    "source": "https://commons.wikimedia.org/wiki/File:1958_Subaru_360_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Tatra 97",
+    "leurres": [
+      "Tatra 77",
+      "Tatra 603",
+      "Tatra 87"
+    ],
+    "fichier": "modeles/tatra-97.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "dave_7",
+    "source": "https://commons.wikimedia.org/wiki/File:TatraT97-front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lincoln MKX",
+    "leurres": [
+      "Lincoln Continental",
+      "Lincoln Town Car",
+      "Lincoln Navigator"
+    ],
+    "fichier": "modeles/lincoln-mkx.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:LINCOLN_MKX_SECOND_GENERATION_China_(7).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lexus HS",
+    "leurres": [
+      "Lexus RX",
+      "Lexus GS",
+      "Lexus CT"
+    ],
+    "fichier": "modeles/lexus-hs.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2010_Lexus_HS250h_--_11-23-2009.png",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Colorado",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-colorado.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "MercurySable99",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_Chevrolet_Colorado_ZR2,_front_right,_07-18-2024.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Corvair",
+    "leurres": [
+      "Chevrolet Impala",
+      "Chevrolet El Camino",
+      "Chevrolet Parkwood"
+    ],
+    "fichier": "modeles/chevrolet-corvair.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "SFoskett",
+    "source": "https://commons.wikimedia.org/wiki/File:1962_Corvair_Monza_900_Turbo_Spyder.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Porsche 993",
+    "leurres": [
+      "Porsche 918",
+      "Porsche Carrera GT",
+      "Porsche Cayman"
+    ],
+    "fichier": "modeles/porsche-993.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Matti Blume",
+    "source": "https://commons.wikimedia.org/wiki/File:Porsche,_Techno-Classica_2018,_Essen_(IMG_9729).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "AvtoVAZ VAZ-2106",
+    "leurres": [
+      "AvtoVAZ Oka",
+      "AvtoVAZ VAZ-2105",
+      "AvtoVAZ VAZ-2102"
+    ],
+    "fichier": "modeles/avtovaz-vaz-2106.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Torsten Maue",
+    "source": "https://commons.wikimedia.org/wiki/File:Lada_(7906678894)_(2).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda BT-50",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-bt-50.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Ethan Llamas",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda_BT-50_3.0_Premium_4x4_2023_(1).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 212",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-212.jpg",
+    "licence": "Public domain",
+    "auteur": "OSX",
+    "source": "https://commons.wikimedia.org/wiki/File:2009_Mercedes-Benz_E_250_CGI_(W_212)_Avantgarde_sedan_(2010-07-05).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Isuzu D-Max",
+    "leurres": [
+      "Isuzu Trooper",
+      "Isuzu Faster",
+      "Isuzu Piazza"
+    ],
+    "fichier": "modeles/isuzu-d-max.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_Isuzu_D-Max_(third_generation)_GIMS_2024_1X7A2056.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Audi S3",
+    "leurres": [
+      "Audi R8",
+      "Audi Q7",
+      "Audi TT"
+    ],
+    "fichier": "modeles/audi-s3.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_Audi_S3_8Y_Sedan_DSC_7356.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Bluebird",
+    "leurres": [
+      "Nissan Gloria",
+      "Nissan Cima",
+      "Nissan LEAF"
+    ],
+    "fichier": "modeles/nissan-bluebird.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Mohammed Hamad",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_Bluebird_U13_Bahrain.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Wraith",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-wraith.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Mariordo (Mario Roberto Durán Ortiz)",
+    "source": "https://commons.wikimedia.org/wiki/File:Rolls-Royce_Wraith_SAO_2014_0643.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz W113",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-w113.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_W113_IMG_5551.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Palisade",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-palisade.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "LuvsMG481",
+    "source": "https://commons.wikimedia.org/wiki/File:2025_Hyundai_Palisade_Calligraphy_Hybrid_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz EQA",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-eqa.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_H243_1X7A0089.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Pulsar",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-pulsar.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Herranderssvensson",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_Pulsar_C13_fl.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Creta",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-creta.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Chanokchon",
+    "source": "https://commons.wikimedia.org/wiki/File:2025_Hyundai_Creta_N_Line.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda MX-6",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-mx-6.jpg",
+    "licence": "Public domain",
+    "auteur": "Bull-Doser",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda_MX-6.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Polestar 2",
+    "leurres": [
+      "Polestar 4",
+      "Polestar 1",
+      "Polestar 3"
+    ],
+    "fichier": "modeles/polestar-2.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Polestar_2_1X7A0419.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mitsubishi Delica",
+    "leurres": [
+      "Mitsubishi L200",
+      "Mitsubishi i MiEV",
+      "Mitsubishi Galant"
+    ],
+    "fichier": "modeles/mitsubishi-delica.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Tennen-Gas",
+    "source": "https://commons.wikimedia.org/wiki/File:Mitsubishi_Delica_Van_003.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 111",
+    "leurres": [
+      "Mercedes-Benz Type 107",
+      "Mercedes-Benz Type 126",
+      "Mercedes-Benz Type 136"
+    ],
+    "fichier": "modeles/mercedes-benz-type-111.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_W111_Ilmenau.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Classe X",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-classe-x.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2018_Mercedes-Benz_X250_Power_D_4MATIC_Automatic_2.3_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Opel Crossland",
+    "leurres": [
+      "Opel Calibra",
+      "Opel Adam",
+      "Opel Agila"
+    ],
+    "fichier": "modeles/opel-crossland.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_Opel_Crossland_X_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Kwid",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-kwid.jpg",
+    "licence": "CC BY 3.0",
+    "auteur": "Autosdeprimera",
+    "source": "https://commons.wikimedia.org/wiki/File:2023_Renault_Kwid_Iconic_(Colombia)_front_view_02.png",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda Pilot",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-pilot.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2023_Honda_Pilot_Touring,_front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lexus NX",
+    "leurres": [
+      "Lexus RX",
+      "Lexus GS",
+      "Lexus CT"
+    ],
+    "fichier": "modeles/lexus-nx.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Ethan Llamas",
+    "source": "https://commons.wikimedia.org/wiki/File:Lexus_NX_350_F_Sport_AWD_TAZA25_Celestial_Blue_Glass_Flake_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo 1750",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-1750.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Herranderssvensson",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa_2000_Berlina_1974.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW 700",
+    "leurres": [
+      "BMW Gina",
+      "BMW Turbo",
+      "BMW M1"
+    ],
+    "fichier": "modeles/bmw-700.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_700_CS_Original_Willi_Martini_1X7A8133.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW Série 3 Compact",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-serie-3-compact.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "nakhon100",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_325ti_(pre-facelift).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW E9",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-e9.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_3.0_CSL_1X7A7215.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW F20",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-f20.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2018_BMW_118i_SE_Automatic_1.5.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac CT6",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-ct6.jpg",
+    "licence": "CC0",
+    "auteur": "JustAnotherCarDesigner",
+    "source": "https://commons.wikimedia.org/wiki/File:Cadillac_CT6_II_007.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac XT5",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-xt5.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:CADILLAC_XT5_SECOND_GENERATION_China.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "McLaren Senna",
+    "leurres": [
+      "McLaren MP4-12C",
+      "McLaren P1",
+      "McLaren 650 S"
+    ],
+    "fichier": "modeles/mclaren-senna.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:McLaren_Senna_Genf_2018.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai NEXO",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-nexo.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Nexo_Genf_2018.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Maserati MC20",
+    "leurres": [
+      "Maserati GranTurismo",
+      "Maserati Quattroporte",
+      "Maserati MC12"
+    ],
+    "fichier": "modeles/maserati-mc20.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Maserati_MC20_Cielo_IAA_2023_1X7A0050.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bugatti Type 35",
+    "leurres": [
+      "Bugatti type 57",
+      "Bugatti type 41",
+      "Bugatti Centodieci"
+    ],
+    "fichier": "modeles/bugatti-type-35.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "joergens.mi",
+    "source": "https://commons.wikimedia.org/wiki/File:Bugatti_Type_35A_1926_(Volante)_jm21658.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Spectre",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-spectre.jpg",
+    "licence": "CC0",
+    "auteur": "Harvey Bold",
+    "source": "https://commons.wikimedia.org/wiki/File:2023_Rolls-Royce_Spectre_EV_-_102kWh_(585PS)_Electric_-_Wittering_Blue_-_06-2024,_Front_Quarter.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Geely Auto Zeekr 001",
+    "leurres": [
+      "Geely Auto Smart Hashtag 3",
+      "Geely Auto Emgrand EC7",
+      "Geely Auto Zeekr 9X"
+    ],
+    "fichier": "modeles/geely-auto-zeekr-001.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Elizbeth smith",
+    "source": "https://commons.wikimedia.org/wiki/File:Zeekr_001_003.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BYD Dolphin",
+    "leurres": [
+      "BYD Seal",
+      "BYD F0",
+      "BYD Seagull"
+    ],
+    "fichier": "modeles/byd-dolphin.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:BYD_Dolphin_IAA_2023_1X7A0637.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dacia Jogger",
+    "leurres": [
+      "Dacia Sandero",
+      "Dacia Duster",
+      "Dacia Lodgy"
+    ],
+    "fichier": "modeles/dacia-jogger.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Dacia_Jogger_IAA_2021_1X7A0140.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari Luce",
+    "leurres": [
+      "Ferrari Purosangue",
+      "Ferrari 296 GTB",
+      "Ferrari Daytona SP3"
+    ],
+    "fichier": "modeles/ferrari-luce.jpg",
+    "licence": "CC BY 4.0",
+    "auteur": "Banhada",
+    "source": "https://commons.wikimedia.org/wiki/File:2027_Ferrari_Luce,_front_left.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet S-10 Blazer",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-s-10-blazer.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:98-05_Chevrolet_S-10_Blazer_2door.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac SRX",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-srx.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Tino Rossini from Toronto, Canada",
+    "source": "https://commons.wikimedia.org/wiki/File:2010_Cadillac_SRX.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "British BMC ADO17",
+    "leurres": [
+      "British Morris Minor",
+      "British MG F",
+      "British Morris Marina"
+    ],
+    "fichier": "modeles/british-bmc-ado17.jpg",
+    "licence": "CC BY-SA 2.5",
+    "auteur": "DeFacto",
+    "source": "https://commons.wikimedia.org/wiki/File:Morris_1800_1970.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën M35",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-m35.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Citro%C3%ABn_M35.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 136",
+    "leurres": [
+      "Mercedes-Benz W06",
+      "Mercedes-Benz Type 111",
+      "Mercedes-Benz Type 107"
+    ],
+    "fichier": "modeles/mercedes-benz-type-136.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_170_SA_1952.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat 509",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-509.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Lars-Göran Lindgren Sweden",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_509_Spider_1925.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Zavod Imeni Likhacheva ZIL 41047",
+    "leurres": [
+      "Zavod Imeni Likhacheva ZIS 110",
+      "Zavod Imeni Likhacheva ZIL 4104",
+      "Zavod Imeni Likhacheva ZIS-101"
+    ],
+    "fichier": "modeles/zavod-imeni-likhacheva-zil-41047.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:ZIL_41047_(1990)_1X7A8072.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Zastava Yugo Florida",
+    "leurres": [
+      "Zastava Koral",
+      "Zastava Skala",
+      "Zastava 750"
+    ],
+    "fichier": "modeles/zastava-yugo-florida.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "de:User:Made in Yugoslavia",
+    "source": "https://commons.wikimedia.org/wiki/File:1991_Yugo_Florida_1.3_EFI.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jeep CJ",
+    "leurres": [
+      "Jeep Wrangler",
+      "Jeep Compass",
+      "Jeep Renegade"
+    ],
+    "fichier": "modeles/jeep-cj.jpg",
+    "licence": "Public domain",
+    "auteur": "PD",
+    "source": "https://commons.wikimedia.org/wiki/File:Jeep-CJ.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti G",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti Q50",
+      "Infiniti QX50"
+    ],
+    "fichier": "modeles/infiniti-g.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:INFINITI_G_(V36)_China.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Corniche",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-corniche.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "David Monniaux",
+    "source": "https://commons.wikimedia.org/wiki/File:Rolls_501523_fh000007.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lincoln MKS",
+    "leurres": [
+      "Lincoln Continental",
+      "Lincoln Town Car",
+      "Lincoln Navigator"
+    ],
+    "fichier": "modeles/lincoln-mks.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2013_Lincoln_MKS_--_2012_NYIAS.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Oldsmobile Toronado",
+    "leurres": [
+      "Oldsmobile 442",
+      "Oldsmobile Cutlass",
+      "Oldsmobile Aurora"
+    ],
+    "fichier": "modeles/oldsmobile-toronado.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Greg Gjerdingen from Willmar, USA",
+    "source": "https://commons.wikimedia.org/wiki/File:1966_Oldsmobile_Toronado_(28862800095).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Frégate",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-fregate.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "unknown, affiliated with Garage de l'Est, uploaded by User:Bravada",
+    "source": "https://commons.wikimedia.org/wiki/File:1959_Renault_Fr%C3%A9gate_Transfluide.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Subaru XT",
+    "leurres": [
+      "Subaru Impreza",
+      "Subaru Legacy",
+      "Subaru Forester"
+    ],
+    "fichier": "modeles/subaru-xt.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:1985_Subaru_Alcyone_VR_Turbo_4WD.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën C4 Aircross",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-c4-aircross.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Citro%C3%ABn_C4_Aircross_HDi_150_Stop_%26_Start_Exclusive_%E2%80%93_Frontansicht,_28._April_2012,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Plymouth Prowler",
+    "leurres": [
+      "Plymouth Superbird",
+      "Plymouth Belvedere",
+      "Plymouth Road Runner"
+    ],
+    "fichier": "modeles/plymouth-prowler.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Plymouth_Prowler_1X7A6128.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda 626",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-626.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda--626.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Kia Cadenza",
+    "leurres": [
+      "Kia cee'd",
+      "Kia Rio",
+      "Kia Sportage"
+    ],
+    "fichier": "modeles/kia-cadenza.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "order_242 from Chile",
+    "source": "https://commons.wikimedia.org/wiki/File:Kia_Cadenza_V6_EX_2010.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Eon",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-eon.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "order_242 from Chile",
+    "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Eos_GL_2014_(11954748753).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Lova",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-lova.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "order_242 from Chile",
+    "source": "https://commons.wikimedia.org/wiki/File:Chevrolet_Aveo_1.4_LS_2004.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda FR-V",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-fr-v.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_FR-V_front_20080303.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Kia Opirus",
+    "leurres": [
+      "Kia cee'd",
+      "Kia Rio",
+      "Kia Sportage"
+    ],
+    "fichier": "modeles/kia-opirus.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:Kia_Opirus_Vorfacelift.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Kia K9",
+    "leurres": [
+      "Kia cee'd",
+      "Kia Rio",
+      "Kia Sportage"
+    ],
+    "fichier": "modeles/kia-k9.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Navigator84",
+    "source": "https://commons.wikimedia.org/wiki/File:Kia_K9_KH_facelift_01_China_2016-04-15.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Kia Optima",
+    "leurres": [
+      "Kia cee'd",
+      "Kia Rio",
+      "Kia Sportage"
+    ],
+    "fichier": "modeles/kia-optima.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:KIA_K5_OPTIMA_China.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dacia SupeRNova",
+    "leurres": [
+      "Dacia Sandero",
+      "Dacia Duster",
+      "Dacia Lodgy"
+    ],
+    "fichier": "modeles/dacia-supernova.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Alofok",
+    "source": "https://commons.wikimedia.org/wiki/File:Dacia_SupeRNova_Rapsodie_by_Alofok.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Daihatsu Charade",
+    "leurres": [
+      "Daihatsu Terios",
+      "Daihatsu Applause",
+      "Daihatsu Sirion"
+    ],
+    "fichier": "modeles/daihatsu-charade.jpg",
+    "licence": "Public domain",
+    "auteur": "User:Ac75",
+    "source": "https://commons.wikimedia.org/wiki/File:Daihatsu_Charade_G10.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volvo P1800",
+    "leurres": [
+      "volvo 145",
+      "Volvo XC90",
+      "Volvo S60"
+    ],
+    "fichier": "modeles/volvo-p1800.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Volvo_P1800_Coupe_(1964)_Classic-Gala_2021_1X7A0260.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chery QQ",
+    "leurres": [
+      "Chery Arrizo 7",
+      "Chery Cowin",
+      "Chery Tiggo"
+    ],
+    "fichier": "modeles/chery-qq.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "Anuradha Ratnaweera",
+    "source": "https://commons.wikimedia.org/wiki/File:Chery_QQ_face_-_FPMS.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac Brougham",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-brougham.jpg",
+    "licence": "Public domain",
+    "auteur": "CZmarlin — Christopher Ziemnowicz, releases all rights but a photo credit would be appreciated if this image is used anywhere other than Wikipedia. Please leave a note at Wikipedia here. Thank you!",
+    "source": "https://commons.wikimedia.org/wiki/File:1991_Cadillac_Brougham_gold-edition_black_fl.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Camargue",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-camargue.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:1984_Rolls-Royce_Camargue_Classic-Gala_2025_DSC_1149.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo 2600",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-2600.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "User Gerdbrendel on en.wikipedia",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chrysler 300M",
+    "leurres": [
+      "Chrysler Pacifica",
+      "Chrysler 300",
+      "Chrysler PT Cruiser"
+    ],
+    "fichier": "modeles/chrysler-300m.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Chrysler_300M.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda Concerto",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-concerto.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_Concerto_1,5i_silver_vr.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat 125P",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-125p.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Pitak",
+    "source": "https://commons.wikimedia.org/wiki/File:Fso_125p_0.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Electra",
+    "leurres": [
+      "Buick LeSabre",
+      "Buick Invicta",
+      "Buick Riviera"
+    ],
+    "fichier": "modeles/buick-electra.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Greg Gjerdingen from Willmar, USA",
+    "source": "https://commons.wikimedia.org/wiki/File:1965_Buick_Electra_225_(25674105731).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick LeSabre",
+    "leurres": [
+      "Buick Electra",
+      "Buick Invicta",
+      "Buick Riviera"
+    ],
+    "fichier": "modeles/buick-lesabre.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:1964_Buick_LeSabre_Custom_vf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac Catera",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-catera.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:97-99_Cadillac_Catera_.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Talbot Samba",
+    "leurres": [
+      "Talbot Tagora",
+      "Talbot-Matra Murena",
+      "Talbot Express"
+    ],
+    "fichier": "modeles/talbot-samba.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Charles01",
+    "source": "https://commons.wikimedia.org/wiki/File:Talbot_Samba_Madrid_1982.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Century",
+    "leurres": [
+      "Buick Skylark",
+      "Buick Electra",
+      "Buick LeSabre"
+    ],
+    "fichier": "modeles/buick-century.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Charles01",
+    "source": "https://commons.wikimedia.org/wiki/File:Buick_1935_4470cc_first_reg_aug_1935.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda Beat",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-beat.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "dave_7",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_Beat.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 202",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-202.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_W202_DSC_8987.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda Tribute",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-tribute.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:01-04_Mazda_Tribute.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lincoln MKZ",
+    "leurres": [
+      "Lincoln MKR",
+      "Lincoln Continental",
+      "Lincoln Town Car"
+    ],
+    "fichier": "modeles/lincoln-mkz.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Navigator84",
+    "source": "https://commons.wikimedia.org/wiki/File:Lincoln_MKZ_II_facelift_001_China_2017-03-24.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lincoln Aviator",
+    "leurres": [
+      "Lincoln Continental",
+      "Lincoln Town Car",
+      "Lincoln Navigator"
+    ],
+    "fichier": "modeles/lincoln-aviator.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Lincoln_Aviator_(U611)_IAA_2025_DSC_1441.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bentley Arnage",
+    "leurres": [
+      "Bentley Continental GT",
+      "Bentley Bentayga",
+      "Bentley Continental Flying Spur"
+    ],
+    "fichier": "modeles/bentley-arnage.jpg",
+    "licence": "Public domain",
+    "auteur": "Hatsukari715",
+    "source": "https://commons.wikimedia.org/wiki/File:2007_Bentley_Arnage_T_01.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Saab 99",
+    "leurres": [
+      "Saab 9-5",
+      "Saab 9-3",
+      "Saab 9000"
+    ],
+    "fichier": "modeles/saab-99.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Liftarn",
+    "source": "https://commons.wikimedia.org/wiki/File:1969-SAAB99.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Aston Martin Virage",
+    "leurres": [
+      "Aston Martin DB5",
+      "Aston Martin One-77",
+      "Aston Martin DB9"
+    ],
+    "fichier": "modeles/aston-martin-virage.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Ben from Weert, Netherlands;cropped by uploader Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:Aston_Martin_Virage.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Laurel",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-laurel.jpg",
+    "licence": "CC0",
+    "auteur": "Oq10pass",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_Laurel_Medalist_%2795_(1).png",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "British MG F",
+    "leurres": [
+      "British Morris Minor",
+      "British BMC ADO17",
+      "British Morris Marina"
+    ],
+    "fichier": "modeles/british-mg-f.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Ferrari2503 at English Wikipedia",
+    "source": "https://commons.wikimedia.org/wiki/File:MG_F_Mark_I.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Spider",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-spider.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Renault_Spider_Monaco_IMG_1222.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 204",
+    "leurres": [
+      "Mercedes-Benz Smart electric drive",
+      "Mercedes-Benz F700",
+      "Mercedes-Benz Citan"
+    ],
+    "fichier": "modeles/mercedes-benz-type-204.jpg",
+    "licence": "Public domain",
+    "auteur": "Bull-Doser",
+    "source": "https://commons.wikimedia.org/wiki/File:%2708_Mercedes-Benz_C-Class_Sedan_(Montreal).JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ-67",
+    "leurres": [
+      "GAZ-69",
+      "GAZ Pobieda",
+      "GAZ-21"
+    ],
+    "fichier": "modeles/gaz-67.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "No machine-readable author provided. Flamaster~commonswiki assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:Gaz-67.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bentley 3 Litre",
+    "leurres": [
+      "Bentley Continental GT",
+      "Bentley Bentayga",
+      "Bentley Continental Flying Spur"
+    ],
+    "fichier": "modeles/bentley-3-litre.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Lars-Göran Lindgren Sweden",
+    "source": "https://commons.wikimedia.org/wiki/File:Bentley_3-Litre_1924.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Porsche 904",
+    "leurres": [
+      "Porsche 918",
+      "Porsche Carrera GT",
+      "Porsche Cayman"
+    ],
+    "fichier": "modeles/porsche-904.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Porsche_904_Carrera_GTS_in_the_Porsche-Museum_(2009)_IMG_7409.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ-64",
+    "leurres": [
+      "GAZ-69",
+      "GAZ Pobieda",
+      "GAZ-21"
+    ],
+    "fichier": "modeles/gaz-64.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "Liftarn",
+    "source": "https://commons.wikimedia.org/wiki/File:GAZ_64.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GMC Terrain",
+    "leurres": [
+      "GMC Acadia",
+      "GMC Envoy",
+      "GMC Typhoon"
+    ],
+    "fichier": "modeles/gmc-terrain.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_GMC_Terrain_Denali,_front_2.29.20.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda Freed",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-freed.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:2019-2024_Honda_Freed%2B_Hybrid.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Opel Diplomat",
+    "leurres": [
+      "Opel Calibra",
+      "Opel Adam",
+      "Opel Agila"
+    ],
+    "fichier": "modeles/opel-diplomat.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. Gryffindor assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:Opel_Diplomat.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jeep Patriot",
+    "leurres": [
+      "Jeep Wrangler",
+      "Jeep Compass",
+      "Jeep Renegade"
+    ],
+    "fichier": "modeles/jeep-patriot.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "JamesYoung8167",
+    "source": "https://commons.wikimedia.org/wiki/File:Jeep_Patriot_facelift_Sanming_01_2022-08-19.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda 929",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-929.jpg",
+    "licence": "Public domain",
+    "auteur": "328cia, shot by permission of owner",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda_929_1984.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volkswagen Vento",
+    "leurres": [
+      "Volkswagen Coccinelle",
+      "Volkswagen up!",
+      "Volkswagen New Beetle"
+    ],
+    "fichier": "modeles/volkswagen-vento.jpg",
+    "licence": "CC BY-SA 2.5",
+    "auteur": "Hwman",
+    "source": "https://commons.wikimedia.org/wiki/File:Vento_Jetta_3.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fisker Karma",
+    "leurres": [
+      "Fisker Inc. Ocean",
+      "Fisker Pear",
+      "Fisker Alaska"
+    ],
+    "fichier": "modeles/fisker-karma.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Indianhilbilly",
+    "source": "https://commons.wikimedia.org/wiki/File:Fisker_Karma_2.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lotus Seven",
+    "leurres": [
+      "Lotus Elise",
+      "Lotus Exige",
+      "Lotus Esprit"
+    ],
+    "fichier": "modeles/lotus-seven.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "dave_7",
+    "source": "https://commons.wikimedia.org/wiki/File:1965LotusSevenSeriesII.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW G20",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-g20.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_BMW_318d_SE_Automatic_2.0_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac XT6",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-xt6.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2020_Cadillac_XT6_Premium,_front_3.2.20.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault R25",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-r25.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Fisichella_(Renault)_qualifying_at_USGP_2005.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Rogue",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-rogue.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2025_Nissan_Rogue_Rock_Creek_AWD,_front_NYIAS_2025.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Plymouth Fury",
+    "leurres": [
+      "Plymouth Barracuda",
+      "Plymouth Prowler",
+      "Plymouth Superbird"
+    ],
+    "fichier": "modeles/plymouth-fury.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:1971_Plymouth_Fury_II_4-door_sedan,_front_left_(Hershey_2019).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti Q50",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti QX50"
+    ],
+    "fichier": "modeles/infiniti-q50.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Infiniti_Q50_S_HYBRID_(V37)_%E2%80%93_Frontansicht,_17._August_2014,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën C3 Aircross",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-c3-aircross.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Citro%C3%ABn_C3_Aircross_(2024)_DSC_0591.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dodge Caravan",
+    "leurres": [
+      "Dodge Viper",
+      "Dodge Ram",
+      "Dodge Durango"
+    ],
+    "fichier": "modeles/dodge-caravan.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2015_Dodge_Grand_Caravan_RT,_front_10.27.21.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volkswagen Atlas",
+    "leurres": [
+      "Volkswagen Coccinelle",
+      "Volkswagen up!",
+      "Volkswagen New Beetle"
+    ],
+    "fichier": "modeles/volkswagen-atlas.jpg",
+    "licence": "CC0",
+    "auteur": "JustAnotherCarDesigner",
+    "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_Teramont_Pro_001_(cropped).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Bolt",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-bolt.jpg",
+    "licence": "Public domain",
+    "auteur": "Bull-Doser",
+    "source": "https://commons.wikimedia.org/wiki/File:2027_Chevrolet_Bolt_au_SIAM_2026.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford E-Series",
+    "leurres": [
+      "Ford Transit",
+      "Ford Model A",
+      "Ford Kuga"
+    ],
+    "fichier": "modeles/ford-e-series.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "LukaCali",
+    "source": "https://commons.wikimedia.org/wiki/File:Ford_E-Series_Ambulance1.png",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Escort",
+    "leurres": [
+      "Ford LTD Crown Victoria",
+      "Ford Laser",
+      "Ford Sierra"
+    ],
+    "fichier": "modeles/ford-escort.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:97-02_Ford_Escort_sedan.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Peugeot 4008",
+    "leurres": [
+      "Peugeot 206",
+      "Peugeot 205",
+      "Peugeot 308"
+    ],
+    "fichier": "modeles/peugeot-4008.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "EurovisionNim",
+    "source": "https://commons.wikimedia.org/wiki/File:2016_Peugeot_4008_(MY15)_Active_wagon_(2018-11-22)_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW Serie 2 Active Tourer",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-serie-2-active-tourer.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_BMW_225xe_Active_Tourer_M_Sport_Premium_Automatic_1.5_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW E63",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-e63.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_M6_(E63)_Retro_Classics_2026_IMG_4810.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW E70",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-e70.jpg",
+    "licence": "Public domain",
+    "auteur": "JaayJay",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_E70_X5_3,0d_pre-facelift.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Dawn",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-dawn.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Matti Blume",
+    "source": "https://commons.wikimedia.org/wiki/File:RR_Dawn,_GIMS_2018,_Le_Grand-Saconnex_(1X7A1234).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Bayon",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-bayon.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "© M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Bayon_1.0_T-GDI_Prime_(Facelift)_%E2%80%93_f_07072024.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW i4",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-i4.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "© M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_i4_eDrive40_Gran_Coup%C3%A9_M_Sportpaket_(G26,_Facelift)_%E2%80%93_f_18042025.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac XT4",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-xt4.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Quzhouliulian",
+    "source": "https://commons.wikimedia.org/wiki/File:Cadillac_XT4_facelift_001.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Falcon",
+    "leurres": [
+      "Ford Mercury Comet",
+      "Ford Anglia",
+      "Ford M151 MUTT"
+    ],
+    "fichier": "modeles/ford-falcon.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Jeremy from Sydney, Australia",
+    "source": "https://commons.wikimedia.org/wiki/File:2014_Ford_Falcon_(FG_X)_XR6_Turbo_sedan_(23382738252).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Proton Wira",
+    "leurres": [
+      "Proton Savvy",
+      "Proton Waja",
+      "Proton Saga"
+    ],
+    "fichier": "modeles/proton-wira.jpg",
+    "licence": "Public domain",
+    "auteur": "OSX",
+    "source": "https://commons.wikimedia.org/wiki/File:1996_Proton_Wira_(C90)_XLi_sedan_(2010-07-30).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan NV200",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-nv200.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:2021_Nissan_NV200_Vanette.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari 275",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-275.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Thesupermat",
+    "source": "https://commons.wikimedia.org/wiki/File:R%C3%A9tromobile_2011_-_Ferrari_275_GTB_-_006.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz EQE",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-eqe.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_V295_350%2B_1X7A0313.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW iX3",
+    "leurres": [
+      "BMW Serie 3 Gran Turismo",
+      "BMW Mini",
+      "BMW Nazca C2"
+    ],
+    "fichier": "modeles/bmw-ix3.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_iX3_NA5_IAA_2025_DSC_1684.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Austral",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-austral.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Renault_Austral_1X7A6753.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lotus Emira",
+    "leurres": [
+      "Lotus Elise",
+      "Lotus Exige",
+      "Lotus Esprit"
+    ],
+    "fichier": "modeles/lotus-emira.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Calreyn88",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_Lotus_Emira_First_Edition.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari 296 GTB",
+    "leurres": [
+      "Ferrari Daytona SP3",
+      "Ferrari Purosangue",
+      "Ferrari Roma"
+    ],
+    "fichier": "modeles/ferrari-296-gtb.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Ferrari_296_GTB_DSC_6997.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volkswagen ID.7",
+    "leurres": [
+      "Volkswagen ID.5",
+      "Volkswagen ID. Polo",
+      "Volkswagen ID.3"
+    ],
+    "fichier": "modeles/volkswagen-id-7.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Volkswagen_ID.7_Tourer_IMG_4193.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari 12Cilindri",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-12cilindri.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_Ferrari_12_Cilindri.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dacia Dokker",
+    "leurres": [
+      "Dacia Sandero",
+      "Dacia Duster",
+      "Dacia Lodgy"
+    ],
+    "fichier": "modeles/dacia-dokker.jpg",
+    "licence": "CC0",
+    "auteur": "Corvettec6r",
+    "source": "https://commons.wikimedia.org/wiki/File:2012_Dacia_Dokker.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Astro",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-astro.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2nd-Chevrolet-Astro.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Pontiac Fiero",
+    "leurres": [
+      "Pontiac GTO",
+      "Pontiac Solstice",
+      "Pontiac Aztek"
+    ],
+    "fichier": "modeles/pontiac-fiero.jpg",
+    "licence": "Public domain",
+    "auteur": "Jonrev at English Wikipedia",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiero88.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Sedici",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-sedici.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Calreyn88",
+    "source": "https://commons.wikimedia.org/wiki/File:2009_Fiat_Sedici_Dynamic_16v_1.6.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Benz & Cie Benz Victoria",
+    "leurres": [
+      "Benz & Cie Benz Velo",
+      "Benz & Cie Blitzen Benz",
+      "Benz & Cie Benz Patent-Motorwagen Number 3"
+    ],
+    "fichier": "modeles/benz-cie-benz-victoria.jpg",
+    "licence": "Public domain",
+    "auteur": "Unknown authorUnknown author",
+    "source": "https://commons.wikimedia.org/wiki/File:Benz_Viktoria.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bugatti type 101",
+    "leurres": [
+      "Bugatti type 57",
+      "Bugatti type 41",
+      "Bugatti Centodieci"
+    ],
+    "fichier": "modeles/bugatti-type-101.jpg",
+    "licence": "Public domain",
+    "auteur": "MPW57",
+    "source": "https://commons.wikimedia.org/wiki/File:Bugatti_Type_101.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW 3200 CS",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-3200-cs.jpg",
+    "licence": "CC0",
+    "auteur": "Alf van Beem",
+    "source": "https://commons.wikimedia.org/wiki/File:Silver_BMW_3200_CS.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari Mondial",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-mondial.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Glen Humble",
+    "source": "https://commons.wikimedia.org/wiki/File:1978_Ferrari_Mondial_shipped_to_Cape_Town,_South_Africa_by_Wavecrest_Ltd,_Gravesend,_Kent_-_23_August_2011.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Moskvitch 408",
+    "leurres": [
+      "Moskvitch 2141 Aleko",
+      "Moskvitch 412",
+      "Moskvitch 402"
+    ],
+    "fichier": "modeles/moskvitch-408.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Torsten Maue",
+    "source": "https://commons.wikimedia.org/wiki/File:OMMMA_2011_Impressionen_(6109567012).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Saab 9-7X",
+    "leurres": [
+      "Saab 9-5",
+      "Saab 9-3",
+      "Saab 9000"
+    ],
+    "fichier": "modeles/saab-9-7x.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "S. Foskett",
+    "source": "https://commons.wikimedia.org/wiki/File:2006_Saab_9-7X_blue.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Five Hundred",
+    "leurres": [
+      "Ford Transit",
+      "Ford Model A",
+      "Ford Kuga"
+    ],
+    "fichier": "modeles/ford-five-hundred.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "RegBarc",
+    "source": "https://commons.wikimedia.org/wiki/File:Ford500a.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "British Leyland Austin Allegro",
+    "leurres": [
+      "British Leyland Austin Metro",
+      "British Leyland Rover SD1",
+      "British Leyland Rover P6"
+    ],
+    "fichier": "modeles/british-leyland-austin-allegro.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Charles01",
+    "source": "https://commons.wikimedia.org/wiki/File:Austin_Allegro_Registration_ca_1975.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda R360",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-r360.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Taisyo",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda-r360-coupe01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lotus Europa",
+    "leurres": [
+      "Lotus Elise",
+      "Lotus Exige",
+      "Lotus Esprit"
+    ],
+    "fichier": "modeles/lotus-europa.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Gtb2",
+    "source": "https://commons.wikimedia.org/wiki/File:Lotus_Europe_series_1_1967.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti QX50",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti Q50"
+    ],
+    "fichier": "modeles/infiniti-qx50.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_Infiniti_QX50_front_5.22.18.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën Jumper",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-jumper.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Citro%C3%ABn_Jumper_(2014)_IMG_0456.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lada Largus",
+    "leurres": [
+      "Lada Niva",
+      "Lada Vesta",
+      "Lada Kalina"
+    ],
+    "fichier": "modeles/lada-largus.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Pulux11",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%BE%D0%BB%D0%B8%D1%86%D0%B8%D1%8F,_%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0_-_Police,_Moscow_15.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "SsangYong Actyon",
+    "leurres": [
+      "SsangYong Rexton",
+      "SsangYong Korando",
+      "SsangYong Rodius"
+    ],
+    "fichier": "modeles/ssangyong-actyon.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:SSANGYONG_ACTYON_China_(3).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki Wagon R",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-wagon-r.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Tennen-Gas",
+    "source": "https://commons.wikimedia.org/wiki/File:Suzuki_Wagon_R_001.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mitsubishi Starion",
+    "leurres": [
+      "Mitsubishi L200",
+      "Mitsubishi i MiEV",
+      "Mitsubishi Galant"
+    ],
+    "fichier": "modeles/mitsubishi-starion.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "No machine-readable author provided. PeteBergeron assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:1987ChryslerConquestTSi.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Simca Aronde",
+    "leurres": [
+      "Simca 1000",
+      "Simca 1100",
+      "Simca-Talbot Horizon"
+    ],
+    "fichier": "modeles/simca-aronde.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Clément Bucco-Lechat",
+    "source": "https://commons.wikimedia.org/wiki/File:Sortie_Soupapes_d%C3%A9gripp%C3%A9es_07-04-2013_-_Simca_Aronde_-_trois-quarts_avant.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hudson Hornet",
+    "leurres": [
+      "Hudson Jet",
+      "Hudson Commodore",
+      "Hudson Wasp"
+    ],
+    "fichier": "modeles/hudson-hornet.jpg",
+    "licence": "Public domain",
+    "auteur": "CZmarlin — Christopher Ziemnowicz, releases all rights but a photo credit would be appreciated if this image is used anywhere other than Wikipedia. Please leave a note at Wikipedia here. Thank you!",
+    "source": "https://commons.wikimedia.org/wiki/File:Hudson_Hornet_4-door_burgundy.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Opel Ampera",
+    "leurres": [
+      "Opel Calibra",
+      "Opel Adam",
+      "Opel Agila"
+    ],
+    "fichier": "modeles/opel-ampera.jpg",
+    "licence": "CC BY 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:Opel_Ampera.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 221",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-221.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_S_320_CDI_4MATIC_L_(V_221)_%E2%80%93_Frontansicht_(1),_30._August_2011,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mini Countryman",
+    "leurres": [
+      "Mini Roadster",
+      "Mini Paceman",
+      "Mini Electric"
+    ],
+    "fichier": "modeles/mini-countryman.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Mini_Countryman_(U25)_John_Cooper_Works_IMG_0034.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Satellite",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-satellite.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Hyundai_H1_Bus_v_purple.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Kia Credos",
+    "leurres": [
+      "Kia cee'd",
+      "Kia Rio",
+      "Kia Sportage"
+    ],
+    "fichier": "modeles/kia-credos.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. Ilya p assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:1996_Kia_Clarus_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "De Tomaso Guarà",
+    "leurres": [
+      "De Tomaso Pantera",
+      "De Tomaso Mangusta",
+      "De Tomaso Vallelunga"
+    ],
+    "fichier": "modeles/de-tomaso-guara.jpg",
+    "licence": "Public domain",
+    "auteur": "photo",
+    "source": "https://commons.wikimedia.org/wiki/File:Guara_2.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "De Tomaso Mangusta",
+    "leurres": [
+      "De Tomaso Pantera",
+      "De Tomaso Guarà",
+      "De Tomaso Vallelunga"
+    ],
+    "fichier": "modeles/de-tomaso-mangusta.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Gonzalo de Velasco",
+    "source": "https://commons.wikimedia.org/wiki/File:DeTomaso_Mangusta.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "SsangYong Korando",
+    "leurres": [
+      "SsangYong Rexton",
+      "SsangYong Actyon",
+      "SsangYong Rodius"
+    ],
+    "fichier": "modeles/ssangyong-korando.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Ssangyong_Korando_e-Motion_IMG_6214.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lincoln MKT",
+    "leurres": [
+      "Lincoln Continental",
+      "Lincoln Town Car",
+      "Lincoln Navigator"
+    ],
+    "fichier": "modeles/lincoln-mkt.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2010_Lincoln_MKT_--_11-25-2009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volvo 480",
+    "leurres": [
+      "Volvo XC90",
+      "Volvo S60",
+      "Volvo XC40"
+    ],
+    "fichier": "modeles/volvo-480.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Stahlkocher",
+    "source": "https://commons.wikimedia.org/wiki/File:Volvo_480_red_vr_TCE.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Moskvitch 412",
+    "leurres": [
+      "Moskvitch 2141 Aleko",
+      "Moskvitch 408",
+      "Moskvitch 402"
+    ],
+    "fichier": "modeles/moskvitch-412.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Robotron1",
+    "source": "https://commons.wikimedia.org/wiki/File:Moskwitsch_412_-_Moskvich_412_IE_-_1975.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Floride et Caravelle",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-floride-et-caravelle.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Renault_Caravelle_IMG_3151.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat 12 HP",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-12-hp.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Tony Harrison from Farnborough, UK",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_12_HP_dell_Automobile.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mitsubishi Mirage",
+    "leurres": [
+      "Mitsubishi L200",
+      "Mitsubishi i MiEV",
+      "Mitsubishi Galant"
+    ],
+    "fichier": "modeles/mitsubishi-mirage.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:2021_Mitsubishi_Mirage_ES_in_Mystic_Black_Met.,_front_right.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat 1500",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-1500.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Ekki01",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_1500_B,_1938.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Toyota Comfort",
+    "leurres": [
+      "Toyota Land Cruiser",
+      "Toyota Yaris",
+      "Toyota Supra"
+    ],
+    "fichier": "modeles/toyota-comfort.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "円周率３パーセント",
+    "source": "https://commons.wikimedia.org/wiki/File:Aichi_Driving_School_Car_20160925-01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Lucerne",
+    "leurres": [
+      "Buick Regal",
+      "Buick LaCrosse",
+      "Buick Park Avenue"
+    ],
+    "fichier": "modeles/buick-lucerne.jpg",
+    "licence": "CC BY 4.0",
+    "auteur": "OWS Photography",
+    "source": "https://commons.wikimedia.org/wiki/File:Buick_Lucerne_V8_Washington_DC_Metro_Area,_USA_(1).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Prefect",
+    "leurres": [
+      "Ford Transit",
+      "Ford Model A",
+      "Ford Kuga"
+    ],
+    "fichier": "modeles/ford-prefect.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "JasonVogel",
+    "source": "https://commons.wikimedia.org/wiki/File:1948_Ford_Prefect_E93A.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Park Avenue",
+    "leurres": [
+      "Buick Regal",
+      "Buick LaCrosse",
+      "Buick Lucerne"
+    ],
+    "fichier": "modeles/buick-park-avenue.jpg",
+    "licence": "CC BY 3.0",
+    "auteur": "Poeloq",
+    "source": "https://commons.wikimedia.org/wiki/File:New_Buick_Park_Avenue.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti JX",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti Q50"
+    ],
+    "fichier": "modeles/infiniti-jx.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2022_Infiniti_QX60_Luxe,_front_6.11.22.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford LTD Crown Victoria",
+    "leurres": [
+      "Ford Escort",
+      "Ford Laser",
+      "Ford Sierra"
+    ],
+    "fichier": "modeles/ford-ltd-crown-victoria.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Ford_LTD_Crown_Victoria_sedan_1.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mitsubishi Pajero Mini",
+    "leurres": [
+      "Mitsubishi L200",
+      "Mitsubishi i MiEV",
+      "Mitsubishi Galant"
+    ],
+    "fichier": "modeles/mitsubishi-pajero-mini.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mytho88",
+    "source": "https://commons.wikimedia.org/wiki/File:Mitsubishi_Pajero_Mini_XR-I,_front_left.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Autobianchi Bianchina",
+    "leurres": [
+      "Autobianchi A112",
+      "Autobianchi Primula",
+      "Autobianchi A111"
+    ],
+    "fichier": "modeles/autobianchi-bianchina.jpg",
+    "licence": "Public domain",
+    "auteur": "Original: Luc106 / Derivative work: Danyele",
+    "source": "https://commons.wikimedia.org/wiki/File:Autobianchi_Bianchina_Berlina_at_the_Old_Time_Show_in_Italy_(edited).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Daihatsu Copen",
+    "leurres": [
+      "Daihatsu Terios",
+      "Daihatsu Applause",
+      "Daihatsu Charade"
+    ],
+    "fichier": "modeles/daihatsu-copen.jpg",
+    "licence": "CC0",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:Daihatsu_Copen_Cero.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "DAF 66",
+    "leurres": [
+      "Daf 33",
+      "Daf 55",
+      "Daf 44"
+    ],
+    "fichier": "modeles/daf-66.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:DAF_66_Marathon_1300_IMG_0320.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën Type A",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-type-a.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Lars-Göran Lindgren Sweden",
+    "source": "https://commons.wikimedia.org/wiki/File:Citroen_A_8_CV_Torpedo_1919.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lancia Aprilia",
+    "leurres": [
+      "Lancia Delta",
+      "Lancia Thesis",
+      "Lancia Stratos"
+    ],
+    "fichier": "modeles/lancia-aprilia.jpg",
+    "licence": "CC BY 3.0",
+    "auteur": "Liftarn",
+    "source": "https://commons.wikimedia.org/wiki/File:1937LanciaAprilia.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Maserati Khamsin",
+    "leurres": [
+      "Maserati GranTurismo",
+      "Maserati Quattroporte",
+      "Maserati MC12"
+    ],
+    "fichier": "modeles/maserati-khamsin.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Brian Snelson",
+    "source": "https://commons.wikimedia.org/wiki/File:Maserati_Khamsin_brown.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo 2000",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-2000.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa_2000_touring_spider.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 129",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-129.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_R129_(1989-1995)_Classic-Gala_2022_1X7A0232_(cropped).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Opel Admiral",
+    "leurres": [
+      "Opel Calibra",
+      "Opel Adam",
+      "Opel Agila"
+    ],
+    "fichier": "modeles/opel-admiral.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. Gryffindor assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:Opel_Admiral6.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Steyr Pinzgauer",
+    "leurres": [
+      "Steyr Haflinger",
+      "Steyr 120",
+      "Steyr 100"
+    ],
+    "fichier": "modeles/steyr-pinzgauer.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Nick",
+    "source": "https://commons.wikimedia.org/wiki/File:Pinzgauer_High_Mobility_All-Terrain_Vehicle_by_Nick.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti I",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti Q50"
+    ],
+    "fichier": "modeles/infiniti-i.jpg",
+    "licence": "Public domain",
+    "auteur": "TTTNIS",
+    "source": "https://commons.wikimedia.org/wiki/File:NISSAN_CEFIRO.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GMC Acadia",
+    "leurres": [
+      "GMC Terrain",
+      "GMC Envoy",
+      "GMC Typhoon"
+    ],
+    "fichier": "modeles/gmc-acadia.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Deathpallie325",
+    "source": "https://commons.wikimedia.org/wiki/File:2024_GMC_Acadia_Denali_front_view.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Silver Seraph",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-silver-seraph.jpg",
+    "licence": "Public domain",
+    "auteur": "Jagvar",
+    "source": "https://commons.wikimedia.org/wiki/File:Rolls-Royce_Silver_Seraph_1999.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volvo ÖV4",
+    "leurres": [
+      "Volvo P1800",
+      "volvo 145",
+      "Volvo XC90"
+    ],
+    "fichier": "modeles/volvo-ov4.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:1928_Volvo_OV4.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Scudo",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-scudo.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_Scudo_-2008_front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Dino",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-dino.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. ChiemseeMan assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_Dino_2400_Bertone_2.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 220",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-220.jpg",
+    "licence": "Public domain",
+    "auteur": "OSX",
+    "source": "https://commons.wikimedia.org/wiki/File:2001_Mercedes-Benz_S_430_(W_220)_sedan_(2010-09-23)_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan 100 NX",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-100-nx.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_100NX_front_20070914.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Matra-Simca Bagheera",
+    "leurres": [
+      "Matra-Simca Rancho",
+      "Matra Djet",
+      "Matra 530"
+    ],
+    "fichier": "modeles/matra-simca-bagheera.jpg",
+    "licence": "Public domain",
+    "auteur": "Scooper",
+    "source": "https://commons.wikimedia.org/wiki/File:Talbot_matra_bagheera.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "SsangYong Rodius",
+    "leurres": [
+      "SsangYong Rexton",
+      "SsangYong Actyon",
+      "SsangYong Korando"
+    ],
+    "fichier": "modeles/ssangyong-rodius.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Rutger van der Maar",
+    "source": "https://commons.wikimedia.org/wiki/File:SsangYong_Rodius_SV_200_2.0_e-XDi_front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Aston Martin 2-Litre Sports",
+    "leurres": [
+      "Aston Martin DB5",
+      "Aston Martin One-77",
+      "Aston Martin DB9"
+    ],
+    "fichier": "modeles/aston-martin-2-litre-sports.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Andrew Bone",
+    "source": "https://commons.wikimedia.org/wiki/File:Aston_Martin_DB1_49104357091.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lancia Alfa",
+    "leurres": [
+      "Lancia Delta",
+      "Lancia Thesis",
+      "Lancia Stratos"
+    ],
+    "fichier": "modeles/lancia-alfa.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "tomislav medak",
+    "source": "https://commons.wikimedia.org/wiki/File:L%27evolutione_dell%27automobile_Lancia.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ-61",
+    "leurres": [
+      "GAZ-69",
+      "GAZ Pobieda",
+      "GAZ-21"
+    ],
+    "fichier": "modeles/gaz-61.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Sergey Korovkin 84",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%93%D0%B0%D0%B7-61.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "TVR Sagaris",
+    "leurres": [
+      "TVR Griffith",
+      "TVR Cerbera",
+      "TVR Tamora"
+    ],
+    "fichier": "modeles/tvr-sagaris.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:TVR_Sagaris_1X7A6549.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Pontiac Vibe",
+    "leurres": [
+      "Pontiac GTO",
+      "Pontiac Solstice",
+      "Pontiac Aztek"
+    ],
+    "fichier": "modeles/pontiac-vibe.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2nd_Pontiac_Vibe_1_--_12-26-2009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki Baleno",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-baleno.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:99-00_Suzuki_Esteem_sedan.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jaguar Mark X",
+    "leurres": [
+      "Jaguar I-Pace",
+      "Jaguar XJS",
+      "Jaguar F-Pace"
+    ],
+    "fichier": "modeles/jaguar-mark-x.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Brian Snelson",
+    "source": "https://commons.wikimedia.org/wiki/File:Mk10Jaguar.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "GAZ-13",
+    "leurres": [
+      "GAZ Tchaïka",
+      "GAZ-62",
+      "GAZ-69"
+    ],
+    "fichier": "modeles/gaz-13.jpg",
+    "licence": "Public domain",
+    "auteur": "Игоревич",
+    "source": "https://commons.wikimedia.org/wiki/File:Russian_car_GAZ-13_Chaika.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet Vega",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-vega.jpg",
+    "licence": "Public domain",
+    "auteur": "Chevrolet pre-1978 (no copyright)",
+    "source": "https://commons.wikimedia.org/wiki/File:1971_Chevrolet_Vega_Coupe.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volkswagen Santana",
+    "leurres": [
+      "Volkswagen Coccinelle",
+      "Volkswagen up!",
+      "Volkswagen New Beetle"
+    ],
+    "fichier": "modeles/volkswagen-santana.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:VOLKSWAGEN_GRAN_SANTANA_China_(3).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Argenta",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-argenta.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Charles01",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_Argenta_argenta.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat Campagnola",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-campagnola.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. Luc106 assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_Campagnola_Mk1.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Acura MDX",
+    "leurres": [
+      "Acura Integra",
+      "Acura RDX",
+      "Acura TL"
+    ],
+    "fichier": "modeles/acura-mdx.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Greg Gjerdingen from Willmar, USA",
+    "source": "https://commons.wikimedia.org/wiki/File:DSC08205_(52803366909).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Porsche 964",
+    "leurres": [
+      "Porsche 918",
+      "Porsche Carrera GT",
+      "Porsche Cayman"
+    ],
+    "fichier": "modeles/porsche-964.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Porsche_964_front_20080515.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Quest",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-quest.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Dinkun Chen",
+    "source": "https://commons.wikimedia.org/wiki/File:NISSAN_QUEST_RE52_China_(4).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "British Morris Marina",
+    "leurres": [
+      "British Morris Minor",
+      "British BMC ADO17",
+      "British MG F"
+    ],
+    "fichier": "modeles/british-morris-marina.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:1979_Morris_Marina_Retro_Classics_2024_IMG_9160.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce 10 HP",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-10-hp.jpg",
+    "licence": "CC BY-SA 2.0 uk",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:Rollsroyce1905.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Subaru BRZ",
+    "leurres": [
+      "Subaru Impreza",
+      "Subaru Legacy",
+      "Subaru Forester"
+    ],
+    "fichier": "modeles/subaru-brz.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Subaru_BRZ_(ZD8)_IMG_0771.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 222",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-222.jpg",
+    "licence": "Public domain",
+    "auteur": "OSX",
+    "source": "https://commons.wikimedia.org/wiki/File:2014_Mercedes-Benz_S_350_BlueTEC_(W_222)_sedan_(2016-01-04)_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW F15",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-f15.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Vauxford",
+    "source": "https://commons.wikimedia.org/wiki/File:2016_BMW_X5_xDrive40d_M_Sport_Automatic_3.0_Front.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki Celerio",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-celerio.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Suzuki_Celerio_(2nd_generation)_IMG_4243.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Audi S8",
+    "leurres": [
+      "Audi R8",
+      "Audi Q7",
+      "Audi TT"
+    ],
+    "fichier": "modeles/audi-s8.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Audi_S8_D5_IMG_3491.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Matra-Simca Rancho",
+    "leurres": [
+      "Matra-Simca Bagheera",
+      "Matra Djet",
+      "Matra 530"
+    ],
+    "fichier": "modeles/matra-simca-rancho.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "unknown, affiliated with Garage de l'Est, uploaded by Bravada",
+    "source": "https://commons.wikimedia.org/wiki/File:1977_Simca_Matra_Rancho.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Datsun Go",
+    "leurres": [
+      "Datsun Cherry",
+      "Datsun on-Do",
+      "Datsun 510"
+    ],
+    "fichier": "modeles/datsun-go.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "オーバードライブ83",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_Datsun_Go_Panca_A_1.2_AD0_(20200222).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW F32",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-f32.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "FotoSleuth",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_428i_(16806790116).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 205",
+    "leurres": [
+      "Mercedes-Benz Citan",
+      "Mercedes-Benz Type 231",
+      "Mercedes-Benz EQV"
+    ],
+    "fichier": "modeles/mercedes-benz-type-205.jpg",
+    "licence": "CC BY-SA 3.0 de",
+    "auteur": "M 93",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_C_220_BlueTEC_Exclusive_(W_205)_%E2%80%93_Frontansicht,_12._Juli_2014,_D%C3%BCsseldorf.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault R23",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-r23.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rick Dikeman",
+    "source": "https://commons.wikimedia.org/wiki/File:Jarno_Trulli_2003.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Subaru R2",
+    "leurres": [
+      "Subaru Impreza",
+      "Subaru Legacy",
+      "Subaru Forester"
+    ],
+    "fichier": "modeles/subaru-r2.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mytho88",
+    "source": "https://commons.wikimedia.org/wiki/File:2003_Subaru_R2_01.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault Estafette",
+    "leurres": [
+      "Renault Supercinq",
+      "Renault 4",
+      "Renault 5"
+    ],
+    "fichier": "modeles/renault-estafette.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "CrazyD",
+    "source": "https://commons.wikimedia.org/wiki/File:Renault_Estafette_1.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti Q30",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti Q50"
+    ],
+    "fichier": "modeles/infiniti-q30.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Benespit",
+    "source": "https://commons.wikimedia.org/wiki/File:00_infiniti_q30_1.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BMW G11",
+    "leurres": [
+      "BMW i3",
+      "BMW X5",
+      "BMW X3"
+    ],
+    "fichier": "modeles/bmw-g11.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:BMW_G11_IMG_2002.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Bentley State Limousine",
+    "leurres": [
+      "Bentley Continental GT",
+      "Bentley Bentayga",
+      "Bentley Continental Flying Spur"
+    ],
+    "fichier": "modeles/bentley-state-limousine.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "S. Foskett",
+    "source": "https://commons.wikimedia.org/wiki/File:2002_Bentley_State_Limousine_2.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac CT5",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-ct5.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Elise240SX",
+    "source": "https://commons.wikimedia.org/wiki/File:2021_Cadillac_CT5-V,_Front_Right,_11-21-2021.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Venue",
+    "leurres": [
+      "Hyundai Tucson",
+      "Hyundai i10",
+      "Hyundai i30"
+    ],
+    "fichier": "modeles/hyundai-venue.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Gpkp",
+    "source": "https://commons.wikimedia.org/wiki/File:4th_International_Auto_Show,_Bangalore_(2025)_07.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lotus Evija",
+    "leurres": [
+      "Lotus Elise",
+      "Lotus Exige",
+      "Lotus Esprit"
+    ],
+    "fichier": "modeles/lotus-evija.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Lotus_Evija_MYLE_Festival_2025_DSC_9429.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac CT4",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-ct4.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Jengtingchen",
+    "source": "https://commons.wikimedia.org/wiki/File:Cadillac_CT4_001.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Maserati Grecale",
+    "leurres": [
+      "Maserati GranTurismo",
+      "Maserati Quattroporte",
+      "Maserati MC12"
+    ],
+    "fichier": "modeles/maserati-grecale.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Maserati_Grecale_Modena_1X7A6369.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "McLaren Artura",
+    "leurres": [
+      "McLaren MP4-12C",
+      "McLaren P1",
+      "McLaren 650 S"
+    ],
+    "fichier": "modeles/mclaren-artura.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "MrWalkr",
+    "source": "https://commons.wikimedia.org/wiki/File:2021_Black_McLaren_Artura.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki XL7",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-xl7.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Suzuki_XL7_--_08-28-2009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari GTC4Lusso",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-gtc4lusso.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Ferrari_GTC4Lusso_IMG_3517.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Geely Smart 1",
+    "leurres": [
+      "Geely CK",
+      "Geely Jiangang",
+      "Geely Lynk & Co 01"
+    ],
+    "fichier": "modeles/geely-smart-1.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Smart_Hashtag_1_Brabus_IMG_9045.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lotus Type 132",
+    "leurres": [
+      "Lotus Elise",
+      "Lotus Exige",
+      "Lotus Esprit"
+    ],
+    "fichier": "modeles/lotus-type-132.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Lotus_Eletre_IAA_2023_1X7A0638.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo Junior",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-junior.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa_Romeo_Junior_Auto_Zuerich_2024_DSC_6376.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jeep Compact SUV",
+    "leurres": [
+      "Jeep Wrangler",
+      "Jeep Compass",
+      "Jeep Renegade"
+    ],
+    "fichier": "modeles/jeep-compact-suv.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Jeep_Avenger_1.2_1X7A1600.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BYD Seal",
+    "leurres": [
+      "BYD Dolphin",
+      "BYD F0",
+      "BYD Seagull"
+    ],
+    "fichier": "modeles/byd-seal.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "User3204",
+    "source": "https://commons.wikimedia.org/wiki/File:2022_BYD_Seal.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lamborghini Temerario",
+    "leurres": [
+      "Lamborghini Aventador",
+      "Lamborghini Murciélago",
+      "Lamborghini Diablo"
+    ],
+    "fichier": "modeles/lamborghini-temerario.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Lamborghini_Temerario_IMG_5361.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Polestar 4",
+    "leurres": [
+      "Polestar 1",
+      "Polestar 3",
+      "Polestar 5"
+    ],
+    "fichier": "modeles/polestar-4.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Polestar_4_Auto_Zuerich_2024_DSC_6581.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Hyundai Ioniq 9",
+    "leurres": [
+      "Hyundai Ioniq 3",
+      "Hyundai Staria",
+      "Hyundai Tucson"
+    ],
+    "fichier": "modeles/hyundai-ioniq-9.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Hyundai_Ioniq_9_IMG_5950.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Acura RDX",
+    "leurres": [
+      "Acura Integra",
+      "Acura TL",
+      "Acura ZDX"
+    ],
+    "fichier": "modeles/acura-rdx.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Kevauto",
+    "source": "https://commons.wikimedia.org/wiki/File:2019_Acura_RDX_front_1.5.18.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Škoda 440",
+    "leurres": [
+      "Škoda Yéti",
+      "Škoda Superb",
+      "Škoda Felicia"
+    ],
+    "fichier": "modeles/skoda-440.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Stahlkocher",
+    "source": "https://commons.wikimedia.org/wiki/File:Skoda_440_red_vr_TCE.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Pontiac Torrent",
+    "leurres": [
+      "Pontiac GTO",
+      "Pontiac Solstice",
+      "Pontiac Aztek"
+    ],
+    "fichier": "modeles/pontiac-torrent.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Pontiac_Torrent_--_08-28-2009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Pontiac Grand Am",
+    "leurres": [
+      "Pontiac GTO",
+      "Pontiac Solstice",
+      "Pontiac Aztek"
+    ],
+    "fichier": "modeles/pontiac-grand-am.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:1999-2002_Pontiac_Grand_Am_SE_sedan_--_12-23-2011.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jaguar XK150",
+    "leurres": [
+      "Jaguar I-Pace",
+      "Jaguar XJS",
+      "Jaguar F-Pace"
+    ],
+    "fichier": "modeles/jaguar-xk150.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Jeremy from Sydney, Australia",
+    "source": "https://commons.wikimedia.org/wiki/File:1959_Jaguar_XK150_(25460836533).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mitsubishi Space Wagon",
+    "leurres": [
+      "Mitsubishi L200",
+      "Mitsubishi i MiEV",
+      "Mitsubishi Galant"
+    ],
+    "fichier": "modeles/mitsubishi-space-wagon.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Mitsubishi_Space_Wagon_front_20071025.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Rolls-Royce Silver Wraith",
+    "leurres": [
+      "Rolls-Royce Ghost",
+      "Rolls-Royce Cullinan",
+      "Rolls-Royce Silver Ghost"
+    ],
+    "fichier": "modeles/rolls-royce-silver-wraith.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rico Heil (User:Silmaril)",
+    "source": "https://commons.wikimedia.org/wiki/File:Rolls-Royce_Silver_Wraith_1955.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volkswagen Lavida",
+    "leurres": [
+      "Volkswagen Coccinelle",
+      "Volkswagen up!",
+      "Volkswagen New Beetle"
+    ],
+    "fichier": "modeles/volkswagen-lavida.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "User3204",
+    "source": "https://commons.wikimedia.org/wiki/File:2018_SAIC-Volkswagen_Lavida_(front).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Tatra 613",
+    "leurres": [
+      "Tatra 77",
+      "Tatra 603",
+      "Tatra 97"
+    ],
+    "fichier": "modeles/tatra-613.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "Felix O",
+    "source": "https://commons.wikimedia.org/wiki/File:Tatra_613_Bratislava._March_1993.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Renault 9 et 11",
+    "leurres": [
+      "Renault 4",
+      "Renault 5",
+      "Renault 25"
+    ],
+    "fichier": "modeles/renault-9-et-11.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Charles01",
+    "source": "https://commons.wikimedia.org/wiki/File:Renault_9_Midi_chez_Auchan.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Saab 9-4X",
+    "leurres": [
+      "Saab 9-5",
+      "Saab 9-3",
+      "Saab 9000"
+    ],
+    "fichier": "modeles/saab-9-4x.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Randy Stern from Minneapolis, MN, USA",
+    "source": "https://commons.wikimedia.org/wiki/File:2011_Saab_9-4x.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Zavod Imeni Likhacheva ZIL 111",
+    "leurres": [
+      "Zavod Imeni Likhacheva ZIL 41047",
+      "Zavod Imeni Likhacheva ZIS 110",
+      "Zavod Imeni Likhacheva ZIL 4104"
+    ],
+    "fichier": "modeles/zavod-imeni-likhacheva-zil-111.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexxx1979",
+    "source": "https://commons.wikimedia.org/wiki/File:Moscow._Museum_of_The_Special_Purpose_Garage._ZIL-111A_P4111639_2600.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Honda Element",
+    "leurres": [
+      "Honda Jazz",
+      "Honda CR-V",
+      "Honda NSX"
+    ],
+    "fichier": "modeles/honda-element.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Rudolf Stricker",
+    "source": "https://commons.wikimedia.org/wiki/File:Honda_Element_front_20080320.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Spyker C8",
+    "leurres": [
+      "Spyker C12 Zagato",
+      "Spyker 60HP",
+      "Spyker D8"
+    ],
+    "fichier": "modeles/spyker-c8.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:2009_Spyker_C8_Spyder_fL.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volvo S70",
+    "leurres": [
+      "Volvo XC90",
+      "Volvo S60",
+      "Volvo XC40"
+    ],
+    "fichier": "modeles/volvo-s70.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Volvo-S70.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo Romeo",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-romeo.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa_Romeo_F12_Classic-Gala_2025_DSC_1061.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Aston Martin V8",
+    "leurres": [
+      "Aston Martin DB5",
+      "Aston Martin One-77",
+      "Aston Martin DB9"
+    ],
+    "fichier": "modeles/aston-martin-v8.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Acabashi",
+    "source": "https://commons.wikimedia.org/wiki/File:1978_Aston_Martin_V8_(Series_3)_5340_cc_at_Horsham_English_Festival_2018_a.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Nissan Terrano II",
+    "leurres": [
+      "Nissan LEAF",
+      "Nissan GT-R",
+      "Nissan Skyline"
+    ],
+    "fichier": "modeles/nissan-terrano-ii.jpg",
+    "licence": "Public domain",
+    "auteur": "Corvettec6r",
+    "source": "https://commons.wikimedia.org/wiki/File:Nissan_Terrano_II_front.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Fairlane",
+    "leurres": [
+      "Ford Thunderbird",
+      "Ford Parklane",
+      "Ford Ranchero"
+    ],
+    "fichier": "modeles/ford-fairlane.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Ford_Fairlane_sedan.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Peugeot 201",
+    "leurres": [
+      "Peugeot 206",
+      "Peugeot 205",
+      "Peugeot 308"
+    ],
+    "fichier": "modeles/peugeot-201.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Peugeot_201_Saloon_(1930)_Classic-Gala_2022_1X7A0267.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Infiniti M",
+    "leurres": [
+      "Infiniti FX",
+      "Infiniti G",
+      "Infiniti Q50"
+    ],
+    "fichier": "modeles/infiniti-m.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:2011_Infiniti_M56S_1_--_06-16-2010.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Dacia Lăstun",
+    "leurres": [
+      "Dacia Sandero",
+      "Dacia Duster",
+      "Dacia Lodgy"
+    ],
+    "fichier": "modeles/dacia-lastun.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Simiprof",
+    "source": "https://commons.wikimedia.org/wiki/File:Dacia_500.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "BYD F0",
+    "leurres": [
+      "BYD Dolphin",
+      "BYD Seal",
+      "BYD Seagull"
+    ],
+    "fichier": "modeles/byd-f0.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Navigator84",
+    "source": "https://commons.wikimedia.org/wiki/File:BYD_F0_facelift_--_Auto_China_--_2014-04-23.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford M151 MUTT",
+    "leurres": [
+      "Ford Anglia",
+      "Ford Popular",
+      "Ford Galaxie"
+    ],
+    "fichier": "modeles/ford-m151-mutt.jpg",
+    "licence": "Public domain",
+    "auteur": "Auteur inconnu",
+    "source": "https://commons.wikimedia.org/wiki/File:JeepFrontM151.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chevrolet K5 Blazer",
+    "leurres": [
+      "Chevrolet Malibu",
+      "Chevrolet Captiva",
+      "Chevrolet Silverado"
+    ],
+    "fichier": "modeles/chevrolet-k5-blazer.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "79k5driver",
+    "source": "https://commons.wikimedia.org/wiki/File:1979_Chevrolet_K5_Blazer_Cheyenne.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Jaguar XK140",
+    "leurres": [
+      "Jaguar I-Pace",
+      "Jaguar XJS",
+      "Jaguar F-Pace"
+    ],
+    "fichier": "modeles/jaguar-xk140.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander Migl",
+    "source": "https://commons.wikimedia.org/wiki/File:Jaguar_XK140_drop_head_coupe_Classic-Gala_2021_1X7A0166.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Rainier",
+    "leurres": [
+      "Buick Regal",
+      "Buick LaCrosse",
+      "Buick Lucerne"
+    ],
+    "fichier": "modeles/buick-rainier.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Buick_Rainier_--_04-05-2011.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Buick Terraza",
+    "leurres": [
+      "Buick Regal",
+      "Buick LaCrosse",
+      "Buick Lucerne"
+    ],
+    "fichier": "modeles/buick-terraza.jpg",
+    "licence": "Public domain",
+    "auteur": "2001FordRangerXLT",
+    "source": "https://commons.wikimedia.org/wiki/File:2006_Buick_Terraza_CXL.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Cadillac Cimarron",
+    "leurres": [
+      "Cadillac Escalade",
+      "Cadillac CTS",
+      "Cadillac One"
+    ],
+    "fichier": "modeles/cadillac-cimarron.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Cadillac_Cimarron_2_--_07-01-2009.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Suzuki Forsa",
+    "leurres": [
+      "Suzuki Swift",
+      "Suzuki Jimny",
+      "Suzuki Escudo"
+    ],
+    "fichier": "modeles/suzuki-forsa.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:1989_Suzuki_Cultus_Eleny_5-door_in_Superior_White,_front_left.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Chrysler Airflow",
+    "leurres": [
+      "Chrysler PT Cruiser",
+      "Chrysler Voyager",
+      "Chrysler Crossfire"
+    ],
+    "fichier": "modeles/chrysler-airflow.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Lars-Göran Lindgren Sweden",
+    "source": "https://commons.wikimedia.org/wiki/File:Chrysler_CU_Airflow_Eight_Sedan_1934.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Fiat 1400",
+    "leurres": [
+      "Fiat 500",
+      "Fiat 126",
+      "Fiat 600"
+    ],
+    "fichier": "modeles/fiat-1400.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Lars-Göran Lindgren Sweden",
+    "source": "https://commons.wikimedia.org/wiki/File:Fiat_195X.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "SsangYong Kyron",
+    "leurres": [
+      "SsangYong Rexton",
+      "SsangYong Actyon",
+      "SsangYong Korando"
+    ],
+    "fichier": "modeles/ssangyong-kyron.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:SsangYong_Kyron_Facelift.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Daf 33",
+    "leurres": [
+      "DAF 66",
+      "Daf 55",
+      "Daf 44"
+    ],
+    "fichier": "modeles/daf-33.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Anrie",
+    "source": "https://commons.wikimedia.org/wiki/File:Daf25.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ford Ranger",
+    "leurres": [
+      "Ford Transit",
+      "Ford Model A",
+      "Ford Kuga"
+    ],
+    "fichier": "modeles/ford-ranger.jpg",
+    "licence": "Public domain",
+    "auteur": "U.S. National Highway Traffic Safety Administration",
+    "source": "https://commons.wikimedia.org/wiki/File:2011_Ford_Ranger_XLT_--_NHTSA.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mini Moke",
+    "leurres": [
+      "Mini Countryman",
+      "Mini Roadster",
+      "Mini Paceman"
+    ],
+    "fichier": "modeles/mini-moke.jpg",
+    "licence": "CC BY-SA 2.5",
+    "auteur": "DeFacto",
+    "source": "https://commons.wikimedia.org/wiki/File:Mini-Moke_1984.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Peugeot P4",
+    "leurres": [
+      "Peugeot 206",
+      "Peugeot 205",
+      "Peugeot 308"
+    ],
+    "fichier": "modeles/peugeot-p4.jpg",
+    "licence": "CC BY-SA 2.0 fr",
+    "auteur": "Rama",
+    "source": "https://commons.wikimedia.org/wiki/File:54RA-IMG_9121.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mercedes-Benz Type 215",
+    "leurres": [
+      "Mercedes-Benz SLR McLaren",
+      "Mercedes-Benz Type 124",
+      "Mercedes-Benz Type 201"
+    ],
+    "fichier": "modeles/mercedes-benz-type-215.jpg",
+    "licence": "Public domain",
+    "auteur": "IFCAR",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_CL-Class_--_01-07-2012.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Ferrari America",
+    "leurres": [
+      "Ferrari Enzo",
+      "Ferrari F40",
+      "Ferrari F430"
+    ],
+    "fichier": "modeles/ferrari-america.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "JaseMan",
+    "source": "https://commons.wikimedia.org/wiki/File:1951_Ferrari_340_America_(2).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Maserati Mistral",
+    "leurres": [
+      "Maserati GranTurismo",
+      "Maserati Quattroporte",
+      "Maserati MC12"
+    ],
+    "fichier": "modeles/maserati-mistral.jpg",
+    "licence": "CC BY 2.0",
+    "auteur": "Rex GrayAltered by Cloverleaf II",
+    "source": "https://commons.wikimedia.org/wiki/File:1967_Maserati_Mistral_Coupe_-_silver_-_fvr_(4637057473)_cropped.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Mazda Familia",
+    "leurres": [
+      "Mazda RX-8",
+      "Mazda RX-7",
+      "Mazda 3"
+    ],
+    "fichier": "modeles/mazda-familia.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Tennen-Gas",
+    "source": "https://commons.wikimedia.org/wiki/File:Mazda_Familia_001.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Isuzu Trooper",
+    "leurres": [
+      "Isuzu D-Max",
+      "Isuzu Faster",
+      "Isuzu Piazza"
+    ],
+    "fichier": "modeles/isuzu-trooper.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Ethan Llamas",
+    "source": "https://commons.wikimedia.org/wiki/File:Isuzu_Trooper_3.0_LS_Dragon_Green_Light_Silver.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Citroën Elysée",
+    "leurres": [
+      "Citroën 2 CV",
+      "Citroën DS",
+      "Citroën C1"
+    ],
+    "fichier": "modeles/citroen-elysee.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "KongFu Wang from Beijing, ChinaCropped by uploader Mr.choppers",
+    "source": "https://commons.wikimedia.org/wiki/File:Citro%C3%ABn_C_Elys%C3%A9e.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo 24 HP",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-24-hp.jpg",
+    "licence": "CC BY-SA 2.0",
+    "auteur": "traumautoarchiv.de",
+    "source": "https://commons.wikimedia.org/wiki/File:ALFA-24-HP.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Volvo 164",
+    "leurres": [
+      "Volvo XC90",
+      "Volvo S60",
+      "Volvo XC40"
+    ],
+    "fichier": "modeles/volvo-164.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Thomas doerfer",
+    "source": "https://commons.wikimedia.org/wiki/File:Volvo_164.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Alfa Romeo 6C",
+    "leurres": [
+      "Alfa Romeo 147",
+      "Alfa Romeo 159",
+      "Alfa Romeo MiTo"
+    ],
+    "fichier": "modeles/alfa-romeo-6c.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Palauenc05",
+    "source": "https://commons.wikimedia.org/wiki/File:Alfa_Romeo_6C_Freccia_d%27Oro_1949.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "NSU Prinz",
+    "leurres": [
+      "NSU Ro80",
+      "NSU Spider",
+      "NSU Typ 110"
+    ],
+    "fichier": "modeles/nsu-prinz.jpg",
+    "licence": "Public domain",
+    "auteur": "No machine-readable author provided. ChiemseeMan assumed (based on copyright claims).",
+    "source": "https://commons.wikimedia.org/wiki/File:NSU_Prinz_30.jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Aston Martin DB6",
+    "leurres": [
+      "Aston Martin DB5",
+      "Aston Martin One-77",
+      "Aston Martin DB9"
+    ],
+    "fichier": "modeles/aston-martin-db6.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Calreyn88",
+    "source": "https://commons.wikimedia.org/wiki/File:Aston_Martin_DB6_Volante_(65405).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lancia Ardea",
+    "leurres": [
+      "Lancia Delta",
+      "Lancia Thesis",
+      "Lancia Stratos"
+    ],
+    "fichier": "modeles/lancia-ardea.jpg",
+    "licence": "Public domain",
+    "auteur": "Luc106",
+    "source": "https://commons.wikimedia.org/wiki/File:Lancia_Ardea.JPG",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "Lancia Aurelia",
+    "leurres": [
+      "Lancia Delta",
+      "Lancia Thesis",
+      "Lancia Stratos"
+    ],
+    "fichier": "modeles/lancia-aurelia.jpg",
+    "licence": "CC BY-SA 3.0",
+    "auteur": "Threecharlie",
+    "source": "https://commons.wikimedia.org/wiki/File:Lancia_Aurelia_B12_in_Rovigo_(2).jpg",
+    "difficulte": 3
+  },
+  {
+    "mode": "modele",
+    "reponse": "British Leyland Rover P6",
+    "leurres": [
+      "British Leyland Austin Metro",
+      "British Leyland Rover SD1",
+      "British Leyland Austin Allegro"
+    ],
+    "fichier": "modeles/british-leyland-rover-p6.jpg",
+    "licence": "CC BY-SA 4.0",
+    "auteur": "Alexander-93",
+    "source": "https://commons.wikimedia.org/wiki/File:Rover_2000_(P6)_IMG_3691.jpg",
+    "difficulte": 3
   }
 ]
