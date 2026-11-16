@@ -203,9 +203,23 @@ function creerEtatVide({ icone, titre, message, lien, libelleLien }) {
 
 let difficulteChoisie = "toutes";
 
+// Début de la phrase d'accueil, selon la difficulté choisie.
+const INTRO_EPREUVES = {
+  toutes: "Trois épreuves",
+  facile: "Trois épreuves faciles",
+  moyen: "Trois épreuves de difficulté moyenne",
+  difficile: "Trois épreuves difficiles",
+};
+
+function afficherIntroEpreuves() {
+  const intro = document.getElementById("intro-epreuves");
+  if (intro) intro.textContent = INTRO_EPREUVES[difficulteChoisie] || INTRO_EPREUVES.toutes;
+}
+
 function construireChoixDifficulte() {
   const zone = document.getElementById("choix-difficulte");
   if (!zone) return;
+  afficherIntroEpreuves();
 
   zone.replaceChildren(...DIFFICULTES.map(([cle, libelle]) => {
     const puce = el("button", "puce", libelle);
@@ -219,6 +233,7 @@ function construireChoixDifficulte() {
       zone.querySelectorAll(".puce").forEach((autre, index) => {
         autre.setAttribute("aria-pressed", String(DIFFICULTES[index][0] === cle));
       });
+      afficherIntroEpreuves();
     });
     return puce;
   }));
