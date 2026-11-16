@@ -10305,11 +10305,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "Zavod Imeni Likhacheva ZIL 41047",
+    "reponse": "ZIL 41047",
     "leurres": [
-      "Zavod Imeni Likhacheva ZIS 110",
-      "Zavod Imeni Likhacheva ZIL 4104",
-      "Zavod Imeni Likhacheva ZIS-101"
+      "ZIS 110",
+      "ZIL 4104",
+      "ZIS-101"
     ],
     "fichier": "modeles/zavod-imeni-likhacheva-zil-41047.jpg",
     "licence": "CC BY-SA 4.0",
@@ -12951,7 +12951,7 @@
   },
   {
     "mode": "modele",
-    "reponse": "Geely Smart 1",
+    "reponse": "Smart #1",
     "leurres": [
       "Geely CK",
       "Geely Jiangang",
@@ -13217,11 +13217,11 @@
   },
   {
     "mode": "modele",
-    "reponse": "Zavod Imeni Likhacheva ZIL 111",
+    "reponse": "ZIL 111",
     "leurres": [
-      "Zavod Imeni Likhacheva ZIL 41047",
-      "Zavod Imeni Likhacheva ZIS 110",
-      "Zavod Imeni Likhacheva ZIL 4104"
+      "ZIL 41047",
+      "ZIS 110",
+      "ZIL 4104"
     ],
     "fichier": "modeles/zavod-imeni-likhacheva-zil-111.jpg",
     "licence": "CC BY-SA 4.0",
