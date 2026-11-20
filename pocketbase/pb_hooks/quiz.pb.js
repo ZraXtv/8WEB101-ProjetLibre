@@ -53,7 +53,6 @@ routerAdd("GET", "/api/quiz/modes", (e) => {
 
   return e.json(200, Object.keys(q.MODES).map((mode) => ({
     mode, titre: q.MODES[mode].titre, questions: compteurs[mode] || 0,
-    coefficient: q.MODES[mode].coefficient,
   })));
 });
 
@@ -203,10 +202,7 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       const rapidite = Math.max(0, q.DUREE_MAX_QUESTION_MS - dureeMs) / q.DUREE_MAX_QUESTION_MS;
       bonus = Math.floor(q.BONUS_RAPIDITE_MAX * rapidite);
       const niveau = courante.getInt("difficulte") || question.getInt("difficulte");
-      // Le coefficient de l'épreuve ne touche que la base : le bonus de
-      // rapidité reste le même partout.
-      const coefficient = q.MODES[question.getString("mode")].coefficient;
-      points = Math.round(q.POINTS_BASE * niveau * coefficient) + bonus;
+      points = q.POINTS_BASE * niveau + bonus;
     }
 
     courante.set("repondue", true);
