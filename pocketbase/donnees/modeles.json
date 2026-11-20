@@ -5685,7 +5685,7 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault 8 et 10",
+    "reponse": "Renault 8 ou 10",
     "leurres": [
       "Renault 4",
       "Renault 5",
@@ -8723,7 +8723,7 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault 15 et 17",
+    "reponse": "Renault 15 ou 17",
     "leurres": [
       "Renault 4",
       "Renault 5",
@@ -11971,7 +11971,7 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault Floride et Caravelle",
+    "reponse": "Renault Floride ou Caravelle",
     "leurres": [
       "Renault 4",
       "Renault 5",
@@ -13189,7 +13189,7 @@
   },
   {
     "mode": "modele",
-    "reponse": "Renault 9 et 11",
+    "reponse": "Renault 9 ou 11",
     "leurres": [
       "Renault 4",
       "Renault 5",
