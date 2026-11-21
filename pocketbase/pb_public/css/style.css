@@ -940,7 +940,7 @@ tbody tr:hover { background: var(--surface-2); }
 .legende-progression svg { flex: none; overflow: visible; }
 
 .zone-courbe { position: relative; }
-.zone-courbe svg { display: block; width: 100%; height: auto; overflow: visible; }
+.zone-courbe > svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .courbe-grille { stroke: var(--bordure); stroke-width: 1; }
 .courbe-axe-texte { fill: var(--texte-doux); font-size: 11px; font-variant-numeric: tabular-nums; }
