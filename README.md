@@ -209,6 +209,18 @@ Le logo d'une marque n'apparaît sur son badge qu'une fois trouvé au moins
 une fois ; avant, seule son initiale est affichée. Sinon la page des
 badges servirait d'antisèche pour le quiz des logos.
 
+### Courbe de progression
+
+La page « Mes stats » trace le score de chaque partie terminée, de la plus
+ancienne à la plus récente (300 dernières au plus), avec en pointillés la
+moyenne des 5 dernières parties. Toutes les parties ont 10 questions et le
+barème est le même dans chaque épreuve (difficulté et rapidité comprises),
+donc les scores se comparent d'une partie à l'autre. Un sélecteur affiche
+toutes les épreuves ou une seule ; en vue « Tous les modes », chaque
+épreuve a sa couleur et sa forme de point (rond, carré, triangle). Le
+survol, le toucher ou les flèches du clavier affichent le détail d'une
+partie. Le graphique est dessiné en SVG, sans bibliothèque.
+
 ## API
 
 Les comptes utilisent l'API standard de PocketBase
@@ -228,6 +240,7 @@ obtenu est envoyé dans l'en-tête `Authorization`. Le jeu a sa propre API :
 | POST | `/api/quiz/parties/<id>/reponse` | Répondre à la question en cours |
 | GET | `/api/quiz/classement?mode=` | Meilleurs scores |
 | GET | `/api/quiz/mes-statistiques` | Statistiques personnelles |
+| GET | `/api/quiz/ma-progression` | Score de chaque partie terminée, pour la courbe |
 | GET | `/api/quiz/mes-badges` | Badges par marque et progression vers le palier suivant |
 | GET | `/api/quiz/mes-badges/<id>/logo` | Logo d'un badge (marque déjà trouvée) |
 | GET | `/api/quiz/admin/questions` | Lister les questions (admin) |
