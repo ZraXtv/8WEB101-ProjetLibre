@@ -385,7 +385,8 @@ function afficherQuestion(question) {
   carte.appendChild(propositions);
   // Place réservée au retour et au crédit : sans elle, la carte grandit à
   // chaque réponse puis rétrécit à la question suivante, et la page saute.
-  carte.appendChild(el("div", "zone-retour"));
+  // Les modèles affichent en plus une astuce : leur zone est plus haute.
+  carte.appendChild(el("div", `zone-retour${partie.mode === "modele" ? " avec-astuce" : ""}`));
 
   carte.insertBefore(
     construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
@@ -470,6 +471,14 @@ async function repondre(choix, zonePropositions, carte) {
 
   const zoneRetour = carte.querySelector(".zone-retour") || carte;
   zoneRetour.appendChild(retour);
+
+  // Comment reconnaître le modèle, montré une fois la réponse donnée.
+  if (resultat.astuce) {
+    const astuce = el("p", "astuce");
+    astuce.appendChild(el("strong", null, "Comment le reconnaître : "));
+    astuce.appendChild(document.createTextNode(resultat.astuce));
+    zoneRetour.appendChild(astuce);
+  }
 
   // Le crédit n'apparaît qu'une fois la réponse donnée.
   let credit = null;

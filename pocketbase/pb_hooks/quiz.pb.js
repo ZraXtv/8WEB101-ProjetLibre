@@ -242,6 +242,9 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       bonnesReponses: p.getInt("bonnes_reponses"),
       terminee,
       badgeDebloque,
+      // Comment reconnaître le modèle : envoyé seulement une fois la réponse
+      // donnée, sinon il servirait d'antisèche.
+      astuce: question.getString("astuce") || null,
     };
   });
   return e.json(statut, resultat);

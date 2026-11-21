@@ -698,6 +698,21 @@ main {
   min-height: 9.6rem;
 }
 
+.zone-retour.avec-astuce { min-height: 14rem; }
+
+.astuce {
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 0.95rem;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--texte);
+}
+
+.astuce strong { font-weight: 700; }
+
 .credit-image {
   margin-top: 1rem;
   font-size: 11px;
