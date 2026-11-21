@@ -183,7 +183,7 @@ retirés du quiz. La difficulté dépend donc de la notoriété du symbole :
 ### Difficulté selon la région
 
 Chaque joueur peut renseigner sa région à l'inscription ou sur sa page
-« Mes stats ». Son drapeau s'affiche alors dans l'en-tête et devant son
+« Profil ». Son drapeau s'affiche alors dans l'en-tête et devant son
 pseudonyme au classement.
 
 La difficulté ci-dessus est une notoriété « moyenne », qui ne vaut pas
@@ -197,7 +197,7 @@ autant au filtre Facile / Moyen / Difficile qu'au barème.
 ### Badges
 
 Chaque marque du quiz des logos a son badge, visible sur la page
-« Mes stats » : bronze après 10 logos de cette marque trouvés, argent
+« Profil » : bronze après 10 logos de cette marque trouvés, argent
 après 50, or après 100. Seules les bonnes réponses comptent, pas les
 questions rencontrées. Le compte est calculé à partir des réponses
 enregistrées (les parties jouées avant l'ajout des badges comptent donc
@@ -211,7 +211,7 @@ badges servirait d'antisèche pour le quiz des logos.
 
 ### Courbe de progression
 
-La page « Mes stats » trace le score de chaque partie terminée, de la plus
+La page « Profil » trace le score de chaque partie terminée, de la plus
 ancienne à la plus récente (300 dernières au plus), avec en pointillés la
 moyenne des 5 dernières parties. Toutes les parties ont 10 questions et le
 barème est le même dans chaque épreuve (difficulté et rapidité comprises),

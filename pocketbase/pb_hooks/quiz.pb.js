@@ -21,7 +21,7 @@ routerAdd("GET", "/api/quiz/moi", (e) => {
   });
 });
 
-// Changement de région depuis la page « Mes stats » (vide = non précisée).
+// Changement de région depuis la page « Profil » (vide = non précisée).
 routerAdd("PATCH", "/api/quiz/moi", (e) => {
   const q = require(`${__hooks}/quiz/commun.js`);
   const { regionValide } = require(`${__hooks}/quiz/regions.js`);
