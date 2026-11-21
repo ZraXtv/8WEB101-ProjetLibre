@@ -325,6 +325,25 @@ routerAdd("GET", "/api/quiz/mes-statistiques", (e) => {
   return e.json(200, { global_: global, parMode, recentes });
 });
 
+/* Courbe de progression : le score de chaque partie terminée, de la plus
+   ancienne à la plus récente. Les parties ont toutes 10 questions et le
+   barème est le même dans chaque mode, donc les scores se comparent.
+   Limitée aux 300 dernières parties pour garder un graphique lisible. */
+routerAdd("GET", "/api/quiz/ma-progression", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+
+  const parties = q.lignes(
+    "SELECT mode, difficulte, score, bonnes_reponses, nb_questions, date_fin FROM parties " +
+    "WHERE utilisateur = {:u} AND terminee = TRUE ORDER BY date_fin DESC LIMIT {:max}",
+    { u: j.id, max: 300 },
+    { mode: "", difficulte: "", score: 0, bonnes_reponses: 0, nb_questions: 0, date_fin: "" },
+  ).reverse();
+
+  return e.json(200, { parties });
+});
+
 // ---- Badges -----------------------------------------------------------------
 
 /* Un badge par marque du quiz des logos : bronze, argent puis or selon le
