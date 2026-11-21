@@ -678,7 +678,7 @@ async function initProfil(utilisateur) {
     return;
   }
 
-  document.getElementById("titre-profil").textContent = `Statistiques de ${utilisateur.nom}`;
+  document.getElementById("titre-profil").textContent = `Profil de ${utilisateur.nom}`;
   initFormulaireRegion(utilisateur);
   initProgression();
   initBadges();
