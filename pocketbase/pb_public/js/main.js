@@ -680,6 +680,7 @@ async function initProfil(utilisateur) {
 
   document.getElementById("titre-profil").textContent = `Statistiques de ${utilisateur.nom}`;
   initFormulaireRegion(utilisateur);
+  initProgression();
   initBadges();
 
   let stats;
@@ -751,6 +752,291 @@ async function initProfil(utilisateur) {
   const cadre = el("div", "table-wrapper");
   cadre.appendChild(table);
   zoneRecentes.replaceChildren(cadre);
+}
+
+/* Courbe de progression : en abscisse les parties dans l'ordre, en ordonnée
+   leur score. Le barème est le même dans chaque mode (la difficulté et la
+   rapidité y sont déjà comptées), donc les scores se comparent. Dessinée en
+   SVG, sans bibliothèque. */
+
+const FILTRES_PROGRESSION = [
+  ["tous", "Tous les modes"],
+  ["logo", "Les logos"],
+  ["modele", "Les modèles"],
+  ["piece", "Les pièces"],
+];
+
+const FENETRE_MOYENNE = 5;
+const NS_SVG = "http://www.w3.org/2000/svg";
+
+function noeudSvg(balise, attributs = {}, classe = "") {
+  const noeud = document.createElementNS(NS_SVG, balise);
+  for (const [nom, valeur] of Object.entries(attributs)) noeud.setAttribute(nom, valeur);
+  if (classe) noeud.setAttribute("class", classe);
+  return noeud;
+}
+
+// Forme du point selon l'épreuve : rond, carré ou triangle, pour que la
+// couleur ne soit jamais le seul moyen de les distinguer.
+function formePoint(mode, x, y, r, classe) {
+  if (mode === "modele") {
+    return noeudSvg("rect", { x: x - r, y: y - r, width: 2 * r, height: 2 * r, rx: 1.5 }, classe);
+  }
+  if (mode === "piece") {
+    const h = r * 1.25;
+    return noeudSvg("path", { d: `M${x} ${y - h}L${x + h} ${y + h * 0.8}L${x - h} ${y + h * 0.8}Z` }, classe);
+  }
+  return noeudSvg("circle", { cx: x, cy: y, r }, classe);
+}
+
+// Moyenne des FENETRE_MOYENNE dernières parties, à partir de la 5e.
+function moyenneGlissante(valeurs) {
+  return valeurs.map((_, i) => {
+    if (i < FENETRE_MOYENNE - 1) return null;
+    const tranche = valeurs.slice(i - FENETRE_MOYENNE + 1, i + 1);
+    return tranche.reduce((somme, v) => somme + v, 0) / tranche.length;
+  });
+}
+
+function points(nombre) {
+  return `${Math.round(nombre).toLocaleString("fr-FR")} pts`;
+}
+
+function libelleDifficulte(cle) {
+  const trouvee = DIFFICULTES.find(([valeur]) => valeur === cle);
+  return trouvee ? trouvee[1] : cle;
+}
+
+function pasGraduation(nombre) {
+  return [1, 2, 5, 10, 20, 50, 100].find((pas) => nombre / pas <= 8) || 100;
+}
+
+function elementLegende(forme, texte) {
+  const item = el("li");
+  const icone = noeudSvg("svg", { width: 18, height: 12, "aria-hidden": "true" });
+  icone.appendChild(forme);
+  item.appendChild(icone);
+  item.appendChild(document.createTextNode(texte));
+  return item;
+}
+
+function dessinerProgression(zone, legende, parties, filtre) {
+  const tous = filtre === "tous";
+  const serie = tous ? parties : parties.filter((p) => p.mode === filtre);
+
+  legende.replaceChildren();
+  if (!serie.length) {
+    zone.replaceChildren(creerEtatVide({
+      icone: "📈",
+      titre: tous ? "Pas encore de partie terminée" : `Aucune partie terminée pour ${libelleMode(filtre).toLowerCase()}`,
+      message: "Terminez une partie pour voir votre courbe de progression.",
+      lien: "index.html",
+      libelleLien: "Jouer",
+    }));
+    return;
+  }
+
+  const scores = serie.map((p) => p.score);
+  const moyennes = moyenneGlissante(scores);
+  const avecMoyenne = serie.length >= FENETRE_MOYENNE;
+
+  // Légende : les épreuves présentes (vue « Tous les modes »), puis la moyenne.
+  if (tous) {
+    Object.keys(MODES).filter((mode) => serie.some((p) => p.mode === mode)).forEach((mode) => {
+      legende.appendChild(elementLegende(formePoint(mode, 9, 6, 4.5, `legende-forme serie-${mode}`), libelleMode(mode)));
+    });
+  }
+  if (avecMoyenne) {
+    legende.appendChild(elementLegende(
+      noeudSvg("path", { d: "M0 6H18" }, "courbe-moyenne"),
+      `Moyenne sur ${FENETRE_MOYENNE} parties`,
+    ));
+  }
+
+  // Dimensions en pixels réels : le texte garde sa taille quelle que soit la largeur.
+  const largeur = Math.max(280, Math.round(zone.clientWidth));
+  const hauteur = largeur < 520 ? 220 : 260;
+  const marge = { haut: 12, droite: 14, bas: 28, gauche: 48 };
+  const utileL = largeur - marge.gauche - marge.droite;
+  const utileH = hauteur - marge.haut - marge.bas;
+
+  const maxScore = Math.max(...scores);
+  const pasY = maxScore > 2000 ? 1000 : 500;
+  const maxY = Math.max(pasY * 2, Math.ceil(maxScore / pasY) * pasY);
+  const n = serie.length;
+  const xDe = (i) => marge.gauche + (n === 1 ? utileL / 2 : (i * utileL) / (n - 1));
+  const yDe = (v) => marge.haut + utileH - (v / maxY) * utileH;
+
+  const dessin = noeudSvg("svg", {
+    viewBox: `0 0 ${largeur} ${hauteur}`, width: largeur, height: hauteur,
+    role: "img", tabindex: "0",
+    "aria-label": `Score de vos ${n} dernières parties, de ${points(Math.min(...scores))} à ${points(maxScore)}. `
+      + "Flèches gauche et droite pour parcourir les parties.",
+  });
+
+  // Grille horizontale et graduations des scores.
+  for (let v = 0; v <= maxY; v += pasY) {
+    dessin.appendChild(noeudSvg("line", { x1: marge.gauche, x2: largeur - marge.droite, y1: yDe(v), y2: yDe(v) }, "courbe-grille"));
+    const texte = noeudSvg("text", { x: marge.gauche - 8, y: yDe(v) + 4, "text-anchor": "end" }, "courbe-axe-texte");
+    texte.textContent = v.toLocaleString("fr-FR");
+    dessin.appendChild(texte);
+  }
+
+  // Graduations des parties (numéro de partie).
+  const pas = pasGraduation(n);
+  serie.forEach((_, i) => {
+    if (n > 1 && i !== 0 && (i + 1) % pas !== 0) return;
+    const texte = noeudSvg("text", { x: xDe(i), y: hauteur - 8, "text-anchor": "middle" }, "courbe-axe-texte");
+    texte.textContent = String(i + 1);
+    dessin.appendChild(texte);
+  });
+
+  const trace = (valeurs) => valeurs
+    .map((v, i) => (v === null ? null : `${xDe(i)} ${yDe(v)}`))
+    .filter(Boolean)
+    .map((p, i) => `${i ? "L" : "M"}${p}`).join("");
+
+  // Un mode : ligne à sa couleur. Tous les modes : liaison neutre, la couleur
+  // reste sur les points.
+  if (n > 1) {
+    dessin.appendChild(noeudSvg("path", { d: trace(scores) },
+      tous ? "courbe-liaison" : `courbe-ligne serie-${filtre}`));
+  }
+  if (avecMoyenne) dessin.appendChild(noeudSvg("path", { d: trace(moyennes) }, "courbe-moyenne"));
+
+  const repere = noeudSvg("line", { y1: marge.haut, y2: marge.haut + utileH }, "courbe-repere");
+  dessin.appendChild(repere);
+
+  const rayon = n > 60 ? 3.5 : 4.5;
+  const marques = serie.map((p, i) => {
+    const marque = formePoint(p.mode, xDe(i), yDe(p.score), rayon, `courbe-point serie-${p.mode}`);
+    dessin.appendChild(marque);
+    return marque;
+  });
+
+  // Bulle d'information : au survol, au doigt ou au clavier.
+  const bulle = el("div", "bulle-courbe");
+  bulle.hidden = true;
+  let actif = -1;
+
+  const montrer = (i) => {
+    if (actif >= 0) marques[actif].classList.remove("actif");
+    actif = i;
+    const p = serie[i];
+    marques[i].classList.add("actif");
+    repere.setAttribute("x1", xDe(i));
+    repere.setAttribute("x2", xDe(i));
+    repere.classList.add("visible");
+
+    const titre = el("div", "bulle-titre");
+    const icone = noeudSvg("svg", { width: 12, height: 12, "aria-hidden": "true" });
+    icone.appendChild(formePoint(p.mode, 6, 6, 4.5, `legende-forme serie-${p.mode}`));
+    titre.appendChild(icone);
+    titre.appendChild(document.createTextNode(`Partie ${i + 1} · ${libelleMode(p.mode)}`));
+    bulle.replaceChildren(
+      titre,
+      el("strong", null, points(p.score)),
+      el("div", null, `${p.bonnes_reponses}/${p.nb_questions} bonnes réponses`),
+      el("div", null, `Difficulté : ${libelleDifficulte(p.difficulte).toLowerCase()}`),
+      el("div", null, dateCourte(p.date_fin)),
+    );
+    if (moyennes[i] !== null) bulle.appendChild(el("div", null, `Moyenne : ${points(moyennes[i])}`));
+    bulle.hidden = false;
+
+    // Bulle à droite du point, ou à gauche si elle déborderait.
+    const x = xDe(i);
+    const gauche = x + 14 + bulle.offsetWidth > largeur ? x - 14 - bulle.offsetWidth : x + 14;
+    const haut = Math.min(Math.max(0, yDe(p.score) - bulle.offsetHeight / 2), hauteur - bulle.offsetHeight);
+    bulle.style.transform = `translate(${Math.max(0, gauche)}px, ${haut}px)`;
+  };
+
+  const cacher = () => {
+    if (actif >= 0) marques[actif].classList.remove("actif");
+    actif = -1;
+    repere.classList.remove("visible");
+    bulle.hidden = true;
+  };
+
+  // Partie la plus proche du pointeur en abscisse : la cible est toute la
+  // colonne, pas seulement le petit point.
+  dessin.addEventListener("pointermove", (evenement) => {
+    const cadre = dessin.getBoundingClientRect();
+    const x = ((evenement.clientX - cadre.left) / cadre.width) * largeur;
+    const i = n === 1 ? 0 : Math.round(((x - marge.gauche) / utileL) * (n - 1));
+    montrer(Math.min(n - 1, Math.max(0, i)));
+  });
+  dessin.addEventListener("pointerleave", cacher);
+  dessin.addEventListener("blur", cacher);
+  dessin.addEventListener("keydown", (evenement) => {
+    if (evenement.key !== "ArrowLeft" && evenement.key !== "ArrowRight") return;
+    evenement.preventDefault();
+    const sens = evenement.key === "ArrowRight" ? 1 : -1;
+    montrer(actif < 0 ? n - 1 : Math.min(n - 1, Math.max(0, actif + sens)));
+  });
+
+  zone.replaceChildren(dessin, bulle);
+}
+
+function resumeProgression(parties, filtre) {
+  const serie = filtre === "tous" ? parties : parties.filter((p) => p.mode === filtre);
+  if (!serie.length) return "";
+  const nb = `${serie.length} partie${serie.length > 1 ? "s" : ""}`;
+  if (serie.length < FENETRE_MOYENNE * 2) {
+    return `${nb}. Meilleur score : ${points(Math.max(...serie.map((p) => p.score)))}.`;
+  }
+  const moyenne = (tranche) => tranche.reduce((s, p) => s + p.score, 0) / tranche.length;
+  const recentes = moyenne(serie.slice(-FENETRE_MOYENNE));
+  const avant = moyenne(serie.slice(-FENETRE_MOYENNE * 2, -FENETRE_MOYENNE));
+  const ecart = Math.round(recentes - avant);
+  const tendance = ecart === 0 ? "stable" : `${ecart > 0 ? "+" : "−"}${points(Math.abs(ecart))}`;
+  return `${nb}. Moyenne des ${FENETRE_MOYENNE} dernières : ${points(recentes)} `
+    + `(${tendance} par rapport aux ${FENETRE_MOYENNE} précédentes).`;
+}
+
+async function initProgression() {
+  const zone = document.getElementById("courbe-progression");
+  if (!zone) return;
+  const legende = document.getElementById("legende-progression");
+  const resume = document.getElementById("resume-progression");
+
+  let parties;
+  try {
+    ({ parties } = await api("/ma-progression"));
+  } catch {
+    toast("Impossible de charger votre progression.", "erreur");
+    return;
+  }
+
+  let filtre = "tous";
+  const afficher = () => {
+    resume.textContent = resumeProgression(parties, filtre);
+    dessinerProgression(zone, legende, parties, filtre);
+  };
+
+  const zoneFiltre = document.getElementById("filtre-progression");
+  zoneFiltre.replaceChildren(...FILTRES_PROGRESSION.map(([cle, libelle]) => {
+    const puce = el("button", "puce", libelle);
+    puce.type = "button";
+    puce.setAttribute("aria-pressed", String(cle === filtre));
+    puce.addEventListener("click", () => {
+      filtre = cle;
+      zoneFiltre.querySelectorAll(".puce").forEach((autre, index) => {
+        autre.setAttribute("aria-pressed", String(FILTRES_PROGRESSION[index][0] === cle));
+      });
+      afficher();
+    });
+    return puce;
+  }));
+
+  afficher();
+
+  // Redessine à la bonne largeur quand la fenêtre change de taille.
+  let largeurConnue = zone.clientWidth;
+  new ResizeObserver(() => {
+    if (Math.abs(zone.clientWidth - largeurConnue) < 2) return;
+    largeurConnue = zone.clientWidth;
+    afficher();
+  }).observe(zone);
 }
 
 /* Badges : un par marque du quiz des logos, en bronze, argent puis or selon
