@@ -12078,7 +12078,7 @@
     "reponse": "BMW E70",
     "leurres": [
       "BMW i3",
-      "BMW X5",
+      "BMW X6",
       "BMW X3"
     ],
     "fichier": "modeles/bmw-e70.jpg",
@@ -12086,7 +12086,7 @@
     "auteur": "JaayJay",
     "source": "https://commons.wikimedia.org/wiki/File:BMW_E70_X5_3,0d_pre-facelift.jpg",
     "difficulte": 3,
-    "astuce": "Grand SUV aux lignes lisses et phares à anneaux lumineux, plus massif et haut que le X3."
+    "astuce": "Grand SUV aux phares à anneaux lumineux et au toit droit, sans la ligne de coupé fuyante du X6, plus massif que le X3."
   },
   {
     "mode": "modele",
@@ -13372,7 +13372,7 @@
     "mode": "modele",
     "reponse": "GAZ-13",
     "leurres": [
-      "GAZ Tchaïka",
+      "GAZ-24",
       "GAZ-62",
       "GAZ-69"
     ],
@@ -13553,7 +13553,7 @@
     "reponse": "BMW F15",
     "leurres": [
       "BMW i3",
-      "BMW X5",
+      "BMW X6",
       "BMW X3"
     ],
     "fichier": "modeles/bmw-f15.jpg",
@@ -13561,7 +13561,7 @@
     "auteur": "Vauxford",
     "source": "https://commons.wikimedia.org/wiki/File:2016_BMW_X5_xDrive40d_M_Sport_Automatic_3.0_Front.jpg",
     "difficulte": 3,
-    "astuce": "SUV haut et massif aux larges haricots reliés aux phares, plus gros que le X3 et bien plus haut que la i3."
+    "astuce": "SUV haut aux larges haricots reliés aux phares, avec un toit droit et un hayon vertical, contrairement à la ligne fuyante du X6."
   },
   {
     "mode": "modele",
