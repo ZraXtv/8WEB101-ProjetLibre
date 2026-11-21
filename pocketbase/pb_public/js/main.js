@@ -959,12 +959,15 @@ function dessinerProgression(zone, legende, parties, filtre) {
 
   // Partie la plus proche du pointeur en abscisse : la cible est toute la
   // colonne, pas seulement le petit point.
-  dessin.addEventListener("pointermove", (evenement) => {
+  const suivrePointeur = (evenement) => {
     const cadre = dessin.getBoundingClientRect();
     const x = ((evenement.clientX - cadre.left) / cadre.width) * largeur;
     const i = n === 1 ? 0 : Math.round(((x - marge.gauche) / utileL) * (n - 1));
     montrer(Math.min(n - 1, Math.max(0, i)));
-  });
+  };
+  // pointerdown : un simple appui du doigt ne déclenche pas pointermove.
+  dessin.addEventListener("pointermove", suivrePointeur);
+  dessin.addEventListener("pointerdown", suivrePointeur);
   dessin.addEventListener("pointerleave", cacher);
   dessin.addEventListener("blur", cacher);
   dessin.addEventListener("keydown", (evenement) => {
