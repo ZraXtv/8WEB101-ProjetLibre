@@ -722,6 +722,61 @@ main {
 
 .credit-image a { color: var(--texte-doux); text-decoration: underline; }
 
+/* Texte d'attente : utile seulement dans la colonne de droite sur ordinateur. */
+.retour-attente { display: none; }
+
+/* Sur ordinateur, flexbox en deux colonnes : la question (chrono, image,
+   propositions) à gauche, le retour (résultat, astuce, crédit) à droite. La
+   colonne de droite a sa propre hauteur, la carte ne bouge plus du tout. */
+@media (min-width: 960px) {
+  .plateau:has(.disposition-jeu) { max-width: 1120px; }
+
+  .disposition-jeu {
+    display: flex;
+    align-items: stretch;
+    gap: 1.75rem;
+  }
+
+  .colonne-question {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Colonne plus étroite : on garde une grille 2 × 2, pas 3 + 1. */
+  .disposition-jeu .propositions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .disposition-jeu .zone-retour,
+  .disposition-jeu .zone-retour.avec-astuce {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    flex: 0 0 300px;
+    min-height: 0;
+    padding-left: 1.75rem;
+    border-left: 1px solid var(--bordure);
+  }
+
+  .retour-attente {
+    display: block;
+    margin: auto 0;
+    font-size: 13px;
+    text-align: center;
+    color: var(--texte-doux);
+  }
+
+  .disposition-jeu .retour-reponse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    margin-top: 0;
+  }
+
+  .disposition-jeu .retour-points { display: flex; flex-direction: column; }
+  .disposition-jeu .retour-reponse .btn { margin-top: 0.3rem; padding: 11px 18px; }
+  .disposition-jeu .astuce { margin: 0; }
+  .disposition-jeu .credit-image { margin-top: auto; text-align: left; }
+}
+
 /* Écran de fin */
 .carte-resultat {
   text-align: center;
