@@ -371,34 +371,43 @@ function afficherQuestion(question) {
   remplissage.style.width = `${(question.position / question.total) * 100}%`;
   jauge.appendChild(remplissage);
 
-  // Deux colonnes sur ordinateur (flexbox) : la question à gauche, le retour
-  // à droite. Sur mobile, le retour passe sous les propositions.
+  // Sur ordinateur (flexbox) : chrono et question en haut, l'image à gauche,
+  // les réponses et le retour à droite. Sur mobile, tout s'empile.
   const carte = el("div", "carte-question disposition-jeu");
-  const colonne = el("div", "colonne-question");
-  colonne.appendChild(el("p", "enonce", question.question));
-  colonne.appendChild(construireCadreImage(question));
+  carte.appendChild(el("p", "enonce", question.question));
 
+  const corps = el("div", "corps-jeu");
+  corps.appendChild(construireCadreImage(question));
+  const colonne = el("div", "colonne-reponses");
+
+  // Chaque réponse porte son numéro : les touches 1 à 4 la choisissent.
   const propositions = el("div", "propositions");
-  question.propositions.forEach((choix) => {
-    const bouton = el("button", "proposition", choix);
+  question.propositions.forEach((choix, index) => {
+    const bouton = el("button", "proposition");
     bouton.type = "button";
+    bouton.dataset.choix = choix;
+    const touche = el("kbd", "touche", String(index + 1));
+    touche.setAttribute("aria-hidden", "true");
+    bouton.append(touche, el("span", "proposition-texte", choix));
     bouton.addEventListener("click", () => repondre(choix, propositions, carte));
     propositions.appendChild(bouton);
   });
   colonne.appendChild(propositions);
-  colonne.insertBefore(
-    construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
-    colonne.firstChild,
-  );
-  carte.appendChild(colonne);
 
   // Place réservée au retour et au crédit : sans elle, la carte grandit à
   // chaque réponse puis rétrécit à la question suivante, et la page saute.
   // Les modèles affichent en plus une astuce : leur zone est plus haute.
   const zoneRetour = el("div", `zone-retour${partie.mode === "modele" ? " avec-astuce" : ""}`);
-  // Texte d'attente, visible seulement dans la colonne de droite.
-  zoneRetour.appendChild(el("p", "retour-attente", "Choisissez une réponse : le résultat s'affichera ici."));
-  carte.appendChild(zoneRetour);
+  // Rappel des raccourcis, visible seulement sur ordinateur.
+  zoneRetour.appendChild(el("p", "retour-attente", "Touches 1 à 4 pour répondre, Entrée pour continuer."));
+  colonne.appendChild(zoneRetour);
+
+  corps.appendChild(colonne);
+  carte.appendChild(corps);
+  carte.insertBefore(
+    construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
+    carte.firstChild,
+  );
 
   // Le crédit est gardé de côté : le nom de l'auteur est souvent celui de la
   // marque, l'afficher avant la réponse donnerait la solution.
@@ -435,8 +444,8 @@ async function repondre(choix, zonePropositions, carte) {
 
   zonePropositions.querySelectorAll(".proposition").forEach((bouton) => {
     bouton.disabled = true;
-    if (bouton.textContent === resultat.bonneReponse) bouton.classList.add("correcte");
-    else if (bouton.textContent === choix) bouton.classList.add("incorrecte");
+    if (bouton.dataset.choix === resultat.bonneReponse) bouton.classList.add("correcte");
+    else if (bouton.dataset.choix === choix) bouton.classList.add("incorrecte");
   });
 
   carte.querySelector(".chrono")?.classList.add("fige");
@@ -533,6 +542,33 @@ function afficherResultat() {
   zone.replaceChildren(carte);
 }
 
+/* Raccourcis clavier pendant une partie : 1 à 4 choisissent une réponse,
+   Entrée passe à la question suivante (ou au résultat). */
+function raccourcisJeu(evenement) {
+  if (evenement.ctrlKey || evenement.altKey || evenement.metaKey || evenement.repeat) return;
+  const cible = evenement.target;
+  if (cible.closest && cible.closest("input, textarea, select, [contenteditable]")) return;
+
+  const zone = document.getElementById("zone-jeu");
+  if (/^[1-4]$/.test(evenement.key)) {
+    const bouton = zone.querySelectorAll(".proposition")[Number(evenement.key) - 1];
+    if (bouton && !bouton.disabled) {
+      evenement.preventDefault();
+      bouton.click();
+    }
+    return;
+  }
+
+  // Entrée sur un bouton déjà sélectionné : le navigateur le déclenche seul.
+  if (evenement.key === "Enter" && !(cible instanceof HTMLButtonElement || cible instanceof HTMLAnchorElement)) {
+    const suite = zone.querySelector(".retour-reponse .btn");
+    if (suite && !suite.disabled) {
+      evenement.preventDefault();
+      suite.click();
+    }
+  }
+}
+
 async function initJeu(promesseUtilisateur) {
   const zone = document.getElementById("zone-jeu");
   if (!zone) return;
@@ -545,6 +581,8 @@ async function initJeu(promesseUtilisateur) {
     window.location.href = "index.html";
     return;
   }
+
+  document.addEventListener("keydown", raccourcisJeu);
 
   const chargement = el("div", "carte-question");
   chargement.appendChild(el("div", "squelette", " "));
