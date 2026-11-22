@@ -371,9 +371,12 @@ function afficherQuestion(question) {
   remplissage.style.width = `${(question.position / question.total) * 100}%`;
   jauge.appendChild(remplissage);
 
-  const carte = el("div", "carte-question");
-  carte.appendChild(el("p", "enonce", question.question));
-  carte.appendChild(construireCadreImage(question));
+  // Deux colonnes sur ordinateur (flexbox) : la question à gauche, le retour
+  // à droite. Sur mobile, le retour passe sous les propositions.
+  const carte = el("div", "carte-question disposition-jeu");
+  const colonne = el("div", "colonne-question");
+  colonne.appendChild(el("p", "enonce", question.question));
+  colonne.appendChild(construireCadreImage(question));
 
   const propositions = el("div", "propositions");
   question.propositions.forEach((choix) => {
@@ -382,16 +385,20 @@ function afficherQuestion(question) {
     bouton.addEventListener("click", () => repondre(choix, propositions, carte));
     propositions.appendChild(bouton);
   });
-  carte.appendChild(propositions);
+  colonne.appendChild(propositions);
+  colonne.insertBefore(
+    construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
+    colonne.firstChild,
+  );
+  carte.appendChild(colonne);
+
   // Place réservée au retour et au crédit : sans elle, la carte grandit à
   // chaque réponse puis rétrécit à la question suivante, et la page saute.
   // Les modèles affichent en plus une astuce : leur zone est plus haute.
-  carte.appendChild(el("div", `zone-retour${partie.mode === "modele" ? " avec-astuce" : ""}`));
-
-  carte.insertBefore(
-    construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
-    carte.firstChild,
-  );
+  const zoneRetour = el("div", `zone-retour${partie.mode === "modele" ? " avec-astuce" : ""}`);
+  // Texte d'attente, visible seulement dans la colonne de droite.
+  zoneRetour.appendChild(el("p", "retour-attente", "Choisissez une réponse : le résultat s'affichera ici."));
+  carte.appendChild(zoneRetour);
 
   // Le crédit est gardé de côté : le nom de l'auteur est souvent celui de la
   // marque, l'afficher avant la réponse donnerait la solution.
@@ -470,6 +477,7 @@ async function repondre(choix, zonePropositions, carte) {
   retour.appendChild(suite);
 
   const zoneRetour = carte.querySelector(".zone-retour") || carte;
+  zoneRetour.querySelector(".retour-attente")?.remove();
   zoneRetour.appendChild(retour);
 
   // Comment reconnaître le modèle, montré une fois la réponse donnée.
