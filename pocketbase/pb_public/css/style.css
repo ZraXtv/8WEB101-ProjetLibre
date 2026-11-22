@@ -722,44 +722,96 @@ main {
 
 .credit-image a { color: var(--texte-doux); text-decoration: underline; }
 
-/* Texte d'attente : utile seulement dans la colonne de droite sur ordinateur. */
+/* Numéro de la réponse (touches 1 à 4 du clavier). */
+.proposition {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.touche {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--bordure-forte);
+  border-radius: 6px;
+  background: var(--surface-3);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  font-stretch: 100%;
+  color: var(--texte-doux);
+}
+
+.proposition.correcte .touche,
+.proposition.incorrecte .touche { border-color: currentColor; color: inherit; }
+
+/* Écran tactile : pas de clavier, les numéros ne servent à rien. */
+@media (hover: none), (pointer: coarse) {
+  .touche { display: none; }
+}
+
+/* Rappel des raccourcis : seulement sur ordinateur. */
 .retour-attente { display: none; }
 
-/* Sur ordinateur, flexbox en deux colonnes : la question (chrono, image,
-   propositions) à gauche, le retour (résultat, astuce, crédit) à droite. La
-   colonne de droite a sa propre hauteur, la carte ne bouge plus du tout. */
+/* Sur ordinateur, flexbox : chrono et question en haut, l'image à gauche,
+   les réponses (une par ligne) puis le retour à droite. La place du retour
+   est réservée : la carte garde la même hauteur avant et après la réponse. */
 @media (min-width: 960px) {
   .plateau:has(.disposition-jeu) { max-width: 1120px; }
 
-  .disposition-jeu {
+  .corps-jeu {
     display: flex;
     align-items: stretch;
     gap: 1.75rem;
   }
 
-  .colonne-question {
+  /* Le cadre prend la hauteur de la colonne de droite. L'image est posée en
+     absolu : sa taille ne change plus celle de la carte d'une question à
+     l'autre. */
+  .disposition-jeu .cadre-image {
+    position: relative;
     flex: 1 1 0;
     min-width: 0;
+    min-height: 380px;
+    aspect-ratio: auto;
+    margin-bottom: 0;
   }
 
-  /* Colonne plus étroite : on garde une grille 2 × 2, pas 3 + 1. */
-  .disposition-jeu .propositions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .disposition-jeu .cadre-image img {
+    position: absolute;
+    inset: clamp(1rem, 3vw, 2rem);
+    width: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+    height: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+  }
 
-  .disposition-jeu .zone-retour,
-  .disposition-jeu .zone-retour.avec-astuce {
+  .colonne-reponses {
+    flex: 0 0 340px;
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
-    flex: 0 0 300px;
-    min-height: 0;
-    padding-left: 1.75rem;
-    border-left: 1px solid var(--bordure);
   }
+
+  .disposition-jeu .propositions { grid-template-columns: minmax(0, 1fr); }
+
+  .disposition-jeu .zone-retour {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-height: 13.5rem;
+  }
+
+  .disposition-jeu .zone-retour.avec-astuce { min-height: 20rem; }
 
   .retour-attente {
     display: block;
-    margin: auto 0;
-    font-size: 13px;
+    font-size: 12px;
     text-align: center;
     color: var(--texte-doux);
   }
@@ -771,8 +823,7 @@ main {
     margin-top: 0;
   }
 
-  .disposition-jeu .retour-points { display: flex; flex-direction: column; }
-  .disposition-jeu .retour-reponse .btn { margin-top: 0.3rem; padding: 11px 18px; }
+  .disposition-jeu .retour-reponse .btn { padding: 11px 18px; }
   .disposition-jeu .astuce { margin: 0; }
   .disposition-jeu .credit-image { margin-top: auto; text-align: left; }
 }
