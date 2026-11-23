@@ -10,6 +10,13 @@ const MODES = {
   modele: { titre: "Devine le modèle", question: "Quel est ce modèle ?" },
   piece: { titre: "Devine la pièce", question: "Quelle est cette pièce ?" },
 };
+/* Réponses à ne jamais proposer ensemble : la photo de l'une montre aussi
+   l'autre (sur celle du piston, on voit les bielles), le joueur aurait raison
+   avec les deux. */
+const CONFUSIONS = {
+  Piston: ["Bielle"],
+  Bielle: ["Piston"],
+};
 const DIFFICULTES = { toutes: null, facile: 1, moyen: 2, difficile: 3 };
 
 const NB_QUESTIONS = 10;
@@ -129,7 +136,7 @@ function lignes(sql, params, modele) {
 }
 
 module.exports = {
-  MODES, DIFFICULTES, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
+  MODES, DIFFICULTES, CONFUSIONS, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
   DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
   erreur, joueur, estAdmin, melanger, anatomieDe, lienRevision, propositionsDe, questionPublique, partieDe,
   questionCourante, lignes,
