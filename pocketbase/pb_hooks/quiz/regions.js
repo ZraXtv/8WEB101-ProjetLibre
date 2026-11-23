@@ -63,8 +63,9 @@ const MARCHES = {
 const PAYS = {
   ca: { "Subaru": 1, "Mazda": 1, "Hyundai": 1, "Mitsubishi": 1, "Oldsmobile": 2 },
   us: { "Tesla": 1, "Subaru": 1, "AMC": 2, "Studebaker": 2 },
-  fr: { "Citroën": 1, "Renault": 1, "DS Automobiles": 1, "Alpine": 1, "Simca": 2, "Talbot": 2 },
-  be: { "Citroën": 1, "Renault": 1, "DS Automobiles": 2 },
+  // Peugeot n'a pas de logo dans le quiz, mais ses modèles en ont.
+  fr: { "Peugeot": 1, "Citroën": 1, "Renault": 1, "DS Automobiles": 1, "Alpine": 1, "Simca": 2, "Talbot": 2 },
+  be: { "Peugeot": 1, "Citroën": 1, "Renault": 1, "DS Automobiles": 2 },
   ch: {},
   gb: { "Aston Martin": 1, "Bentley": 1, "McLaren": 1, "Rolls-Royce": 1, "Talbot": 2 },
   de: { "Opel": 1, "Maybach": 2, "Borgward": 2, "Horch": 2, "Hanomag": 2 },
@@ -92,4 +93,25 @@ function difficultePour(marque, base, region) {
   return Object.prototype.hasOwnProperty.call(marche, marque) ? marche[marque] : base;
 }
 
-module.exports = { REGIONS, regionValide, listerRegions, difficultePour };
+// Marques des tables ci-dessus, les plus longues d'abord : « Alfa Romeo
+// Spider » doit trouver « Alfa Romeo » et non une marque plus courte.
+const MARQUES_REGIONALES = [...new Set(
+  Object.values(PAYS).concat(Object.values(MARCHES)).flatMap((table) => Object.keys(table)),
+)].sort((a, b) => b.length - a.length);
+
+/** Difficulté d'un modèle pour un joueur de cette région. Elle suit la
+    notoriété de sa marque dans la région : un modèle d'une marque courante
+    chez le joueur (niveau 1) devient un cran plus facile, celui d'une marque
+    rare (niveau 3) un cran plus difficile ; sinon la difficulté de base reste.
+    Un cran seulement : connaître la marque n'aide pas à départager ses
+    propres modèles, qui servent de leurres. */
+function difficulteModelePour(modele, base, region) {
+  const marque = MARQUES_REGIONALES.find((m) => modele.startsWith(`${m} `));
+  if (!marque) return base;
+  const niveauMarque = difficultePour(marque, null, region);
+  if (niveauMarque === 1) return Math.max(1, base - 1);
+  if (niveauMarque === 3) return Math.min(3, base + 1);
+  return base;
+}
+
+module.exports = { REGIONS, regionValide, listerRegions, difficultePour, difficulteModelePour };

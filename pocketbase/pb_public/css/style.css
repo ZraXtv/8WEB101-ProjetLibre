@@ -29,6 +29,10 @@
   --rouge-500: #b42318;
   --rouge-100: rgba(180, 35, 24, 0.1);
 
+  --bronze: #a8662f;
+  --argent: #7f8a96;
+  --or: #b8860b;
+
   --fond: var(--papier);
   --fond-degrade: radial-gradient(120% 90% at 50% 30%, var(--papier) 0%, #dde1e5 55%, var(--papier-bord) 100%);
   --verre: rgba(246, 247, 249, 0.84);
@@ -73,6 +77,10 @@
   --rouge-500: #f06b5d;
   --rouge-100: rgba(240, 107, 93, 0.14);
 
+  --bronze: #d08b51;
+  --argent: #b9c3cd;
+  --or: #e6b83c;
+
   --fond-degrade: radial-gradient(120% 90% at 50% 30%, #1c232b 0%, var(--papier) 55%, var(--papier-bord) 100%);
   --verre: rgba(28, 35, 43, 0.84);
   --surface: rgba(255, 255, 255, 0.04);
@@ -93,6 +101,10 @@
    ========================================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
+
+/* Place de la barre de défilement toujours réservée : sinon la page se
+   décale de côté chaque fois qu'elle apparaît ou disparaît. */
+html { scrollbar-gutter: stable; }
 
 body {
   margin: 0;
@@ -650,13 +662,6 @@ main {
 }
 
 .retour-texte { font-weight: 640; }
-.retour-explication {
-  flex-basis: 100%;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--texte);
-}
 .retour-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-left: auto; }
 .retour-texte.gagne { color: var(--vert-500); }
 .retour-texte.perdu { color: var(--rouge-500); }
@@ -699,6 +704,30 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hauteur du retour (texte, points, bouton) et du crédit, réservée avant la
+   réponse pour que la carte garde la même taille d'une question à l'autre. */
+.zone-retour {
+  /* flow-root : la marge haute du retour reste dans la zone au lieu de
+     s'ajouter au-dessus, ce qui agrandissait encore la carte. */
+  display: flow-root;
+  min-height: 9.6rem;
+}
+
+.zone-retour.avec-astuce { min-height: 14rem; }
+
+.astuce {
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 0.95rem;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--texte);
+}
+
+.astuce strong { font-weight: 700; }
+
 .credit-image {
   margin-top: 1rem;
   font-size: 11px;
@@ -707,6 +736,114 @@ main {
 }
 
 .credit-image a { color: var(--texte-doux); text-decoration: underline; }
+
+/* Numéro de la réponse (touches 1 à 4 du clavier). */
+.proposition {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.touche {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--bordure-forte);
+  border-radius: 6px;
+  background: var(--surface-3);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  font-stretch: 100%;
+  color: var(--texte-doux);
+}
+
+.proposition.correcte .touche,
+.proposition.incorrecte .touche { border-color: currentColor; color: inherit; }
+
+/* Écran tactile : pas de clavier, les numéros ne servent à rien. */
+@media (hover: none), (pointer: coarse) {
+  .touche { display: none; }
+}
+
+/* Rappel des raccourcis : seulement sur ordinateur. */
+.retour-attente { display: none; }
+
+/* Sur ordinateur, flexbox : chrono et question en haut, l'image à gauche,
+   les réponses (une par ligne) puis le retour à droite. La place du retour
+   est réservée : la carte garde la même hauteur avant et après la réponse. */
+@media (min-width: 960px) {
+  .plateau:has(.disposition-jeu) { max-width: 1120px; }
+
+  .corps-jeu {
+    display: flex;
+    align-items: stretch;
+    gap: 1.75rem;
+  }
+
+  /* Le cadre prend la hauteur de la colonne de droite. L'image est posée en
+     absolu : sa taille ne change plus celle de la carte d'une question à
+     l'autre. */
+  .disposition-jeu .cadre-image {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 380px;
+    aspect-ratio: auto;
+    margin-bottom: 0;
+  }
+
+  .disposition-jeu .cadre-image img {
+    position: absolute;
+    inset: clamp(1rem, 3vw, 2rem);
+    width: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+    height: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .colonne-reponses {
+    flex: 0 0 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .disposition-jeu .propositions { grid-template-columns: minmax(0, 1fr); }
+
+  .disposition-jeu .zone-retour {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-height: 13.5rem;
+  }
+
+  .disposition-jeu .zone-retour.avec-astuce { min-height: 20rem; }
+
+  .retour-attente {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: var(--texte-doux);
+  }
+
+  .disposition-jeu .retour-reponse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    margin-top: 0;
+  }
+
+  .disposition-jeu .retour-reponse .btn { padding: 11px 18px; }
+  .disposition-jeu .retour-actions { margin-left: 0; }
+  .disposition-jeu .retour-actions .btn { flex: 1; text-align: center; }
+  .disposition-jeu .astuce { margin: 0; }
+  .disposition-jeu .credit-image { margin-top: auto; text-align: left; }
+}
 
 /* Écran de fin */
 .carte-resultat {
@@ -921,6 +1058,189 @@ tbody tr:hover { background: var(--surface-2); }
 
 .carte-region { margin-bottom: 2rem; max-width: 520px; }
 .carte-region h2 { margin: 0; }
+
+/* Courbe de progression : une couleur et une forme de point par épreuve
+   (bleu, orange, vert, assez distincts aussi pour les daltoniens). */
+:root {
+  --serie-logo: #2a78d6;
+  --serie-modele: #eb6834;
+  --serie-piece: #1baf7a;
+}
+
+:root[data-theme="sombre"] {
+  --serie-logo: #3987e5;
+  --serie-modele: #d95926;
+  --serie-piece: #199e70;
+}
+
+.section-progression { margin-bottom: 2rem; }
+
+.carte-progression { padding: 1rem 1.1rem 0.6rem; }
+
+.legende-progression {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin: 0 0 0.4rem;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--texte-doux);
+}
+
+.legende-progression li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legende-progression svg { flex: none; overflow: visible; }
+
+.zone-courbe { position: relative; }
+.zone-courbe > svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.courbe-grille { stroke: var(--bordure); stroke-width: 1; }
+.courbe-axe-texte { fill: var(--texte-doux); font-size: 11px; font-variant-numeric: tabular-nums; }
+.courbe-ligne { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.courbe-liaison { fill: none; stroke: var(--bordure-forte); stroke-width: 1.5; stroke-linejoin: round; }
+.courbe-moyenne {
+  fill: none;
+  stroke: var(--texte);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  stroke-linejoin: round;
+  opacity: 0.75;
+}
+.courbe-point { stroke: var(--fond); stroke-width: 2; }
+.courbe-repere { stroke: var(--texte-doux); stroke-width: 1; opacity: 0; }
+.courbe-repere.visible { opacity: 0.5; }
+.courbe-point.actif { stroke: var(--texte); }
+
+.serie-logo { --serie: var(--serie-logo); }
+.serie-modele { --serie: var(--serie-modele); }
+.serie-piece { --serie: var(--serie-piece); }
+.courbe-point, .legende-forme { fill: var(--serie); }
+.courbe-ligne { stroke: var(--serie); }
+
+.bulle-courbe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  min-width: 9.5rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--entete-fond);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  font-size: 12px;
+  color: var(--texte-doux);
+  pointer-events: none;
+}
+
+.bulle-courbe[hidden] { display: none; }
+.bulle-courbe strong { display: block; font-size: 15px; color: var(--texte); }
+.bulle-courbe .bulle-titre { display: flex; align-items: center; gap: 0.4rem; color: var(--texte); }
+
+/* Badges par marque : le logo dans une médaille dont l'anneau prend la
+   couleur du palier atteint. Une marque jamais trouvée n'affiche que son
+   initiale. */
+.section-badges { margin-bottom: 2rem; }
+
+.entete-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.entete-badges h2 { margin: 0; }
+.entete-badges .note { margin-top: 0.3rem; max-width: 36rem; }
+.filtre-badges { margin-top: 0; }
+
+.grille-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.badge {
+  --couleur-palier: var(--filet);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px 12px;
+  text-align: center;
+  background: var(--verre);
+  border: 1px solid var(--bordure);
+  border-radius: var(--r-md);
+}
+
+.badge-bronze { --couleur-palier: var(--bronze); }
+.badge-argent { --couleur-palier: var(--argent); }
+.badge-or { --couleur-palier: var(--or); }
+
+.badge-medaille {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--couleur-palier), 0 6px 14px -8px rgba(0, 0, 0, 0.5);
+}
+
+.badge-medaille img { width: 70%; height: 70%; object-fit: contain; }
+
+.badge-initiale {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-stretch: 125%;
+  color: #b2bac3;
+}
+
+.badge-verrouille .badge-medaille { box-shadow: 0 0 0 2px var(--filet); }
+.badge-verrouille .badge-medaille img { filter: grayscale(1); opacity: 0.45; }
+
+.badge-nom {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.badge-palier {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--couleur-palier);
+}
+
+.badge-verrouille .badge-palier { color: var(--texte-doux); }
+
+.badge-jauge {
+  width: 100%;
+  height: 3px;
+  margin-top: 4px;
+  border-radius: var(--r-pilule);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.badge-jauge-remplissage {
+  height: 100%;
+  background: var(--accent);
+}
+
+.badge-or .badge-jauge-remplissage { background: var(--or); }
+
+.badge-compte {
+  font-size: 11px;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+}
 
 [role="alert"] {
   margin-top: 1rem;

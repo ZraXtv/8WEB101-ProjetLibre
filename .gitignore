@@ -12,3 +12,6 @@ pocketbase/pocketbase
 pocketbase/pocketbase.exe
 pocketbase/pb_data/
 pocketbase/.env
+
+# Réponses de Wikidata et Commons gardées par outils/importer_modeles.py
+pocketbase/outils/.cache/

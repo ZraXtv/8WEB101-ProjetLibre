@@ -28,6 +28,42 @@ const DUREE_MAX_QUESTION_MS = 20000;
 // démarre avant que la question ne s'affiche dans le navigateur.
 const TOLERANCE_RESEAU_MS = 1500;
 
+// Badges par marque : nombre de logos trouvés pour débloquer chaque palier.
+const PALIERS_BADGES = [
+  { nom: "bronze", seuil: 10 },
+  { nom: "argent", seuil: 50 },
+  { nom: "or", seuil: 100 },
+];
+
+/** Plus haut palier atteint avec ce nombre de bonnes réponses, ou null. */
+function palierAtteint(bonnes) {
+  let atteint = null;
+  for (const p of PALIERS_BADGES) if (bonnes >= p.seuil) atteint = p.nom;
+  return atteint;
+}
+
+function prochainPalier(bonnes) {
+  return PALIERS_BADGES.find((p) => bonnes < p.seuil) || null;
+}
+
+/** Logos trouvés par le joueur, par marque ({ marque: nombre }). Calculé à
+    partir des réponses enregistrées : aucun compteur à tenir à jour, et les
+    parties jouées avant l'ajout des badges comptent aussi. Seules les bonnes
+    réponses comptent, pas les questions simplement rencontrées. « app » peut
+    être une transaction, pour voir la réponse qu'on vient d'y enregistrer. */
+function bonnesParMarque(app, utilisateurId, marque) {
+  const resultat = arrayOf(new DynamicModel({ marque: "", bonnes: 0 }));
+  app.db().newQuery(
+    "SELECT q.reponse AS marque, COUNT(*) AS bonnes FROM questions_partie qp " +
+    "JOIN parties p ON p.id = qp.partie JOIN questions q ON q.id = qp.question " +
+    "WHERE p.utilisateur = {:u} AND q.mode = 'logo' AND qp.correcte = TRUE " +
+    "AND ({:m} = '' OR q.reponse = {:m}) GROUP BY q.reponse",
+  ).bind({ u: utilisateurId, m: marque || "" }).all(resultat);
+  const compteurs = {};
+  for (const ligne of resultat) compteurs[ligne.marque] = ligne.bonnes;
+  return compteurs;
+}
+
 function erreur(e, statut, message) {
   return e.json(statut, { erreur: message });
 }
@@ -71,6 +107,45 @@ function lienRevision(question) {
   // Sans « index.html » : PocketBase redirige cette adresse vers le dossier
   // et perd les paramètres au passage.
   return `anatomie/?model=${encodeURIComponent(a.modele)}&piece=${encodeURIComponent(a.piece)}`;
+}
+
+/** Mauvaises réponses choisies pour cette question (modèles proches), ou []. */
+function leurresDe(question) {
+  const valeur = toString(question.get("leurres"));
+  if (!valeur || valeur === "null") return [];
+  const leurres = JSON.parse(valeur);
+  return Array.isArray(leurres) ? leurres.map(String) : [];
+}
+
+/* Les mauvaises réponses commencent si possible par la même lettre que la
+   bonne (Honda, Hyundai, Horch, Hanomag) : il faut alors vraiment reconnaître
+   le logo, pas seulement éliminer les marques sans rapport.
+   Les lettres rares parmi les questions (F, G, I, K, N, X…) sont complétées
+   par ces marques réelles, qui ne servent que de leurres. Certaines ont été
+   retirées du quiz parce que leur logo écrit leur nom. */
+const LEURRES_SUPPLEMENTAIRES = {
+  logo: [
+    "Bugatti", "BYD", "Cadillac", "Chrysler", "Cupra", "Fiat", "Ford", "Fisker",
+    "Geely", "Genesis", "GMC", "Infiniti", "Isuzu", "Iveco", "Kia", "Karma", "KTM", "Lamborghini", "Lancia", "Land Rover", "Lotus",
+    "Nissan", "NSU", "Nash", "Oltcit", "Ram", "Rover", "Vauxhall", "Vector",
+    "Xiaomi", "Zeekr", "Zotye",
+  ],
+};
+
+/** Première lettre, sans accent : Škoda et Subaru commencent tous deux par S. */
+function initiale(texte) {
+  return String(texte).normalize("NFD").charAt(0).toUpperCase();
+}
+
+/** Leurres pris dans « reponses », ceux de même initiale que la bonne
+    réponse en premier (dans un ordre aléatoire), puis les autres. */
+function leurresParInitiale(mode, bonne, reponses) {
+  const candidats = [...new Set(reponses.concat(LEURRES_SUPPLEMENTAIRES[mode] || []))]
+    .filter((r) => r !== bonne);
+  const lettre = initiale(bonne);
+  const memeLettre = melanger(candidats.filter((r) => initiale(r) === lettre));
+  const autres = melanger(candidats.filter((r) => initiale(r) !== lettre));
+  return memeLettre.concat(autres);
 }
 
 function propositionsDe(qp) {
@@ -137,7 +212,10 @@ function lignes(sql, params, modele) {
 
 module.exports = {
   MODES, DIFFICULTES, CONFUSIONS, NB_QUESTIONS, NB_PROPOSITIONS, POINTS_BASE, BONUS_RAPIDITE_MAX,
-  DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS,
-  erreur, joueur, estAdmin, melanger, anatomieDe, lienRevision, propositionsDe, questionPublique, partieDe,
+  DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS, PALIERS_BADGES,
+  palierAtteint, prochainPalier, bonnesParMarque,
+  erreur, joueur, estAdmin, melanger, anatomieDe, lienRevision, leurresDe, leurresParInitiale,
+  propositionsDe, questionPublique,
+  partieDe,
   questionCourante, lignes,
 };

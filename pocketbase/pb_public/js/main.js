@@ -203,9 +203,23 @@ function creerEtatVide({ icone, titre, message, lien, libelleLien }) {
 
 let difficulteChoisie = "toutes";
 
+// Début de la phrase d'accueil, selon la difficulté choisie.
+const INTRO_EPREUVES = {
+  toutes: "Trois épreuves",
+  facile: "Trois épreuves faciles",
+  moyen: "Trois épreuves de difficulté moyenne",
+  difficile: "Trois épreuves difficiles",
+};
+
+function afficherIntroEpreuves() {
+  const intro = document.getElementById("intro-epreuves");
+  if (intro) intro.textContent = INTRO_EPREUVES[difficulteChoisie] || INTRO_EPREUVES.toutes;
+}
+
 function construireChoixDifficulte() {
   const zone = document.getElementById("choix-difficulte");
   if (!zone) return;
+  afficherIntroEpreuves();
 
   zone.replaceChildren(...DIFFICULTES.map(([cle, libelle]) => {
     const puce = el("button", "puce", libelle);
@@ -219,6 +233,7 @@ function construireChoixDifficulte() {
       zone.querySelectorAll(".puce").forEach((autre, index) => {
         autre.setAttribute("aria-pressed", String(DIFFICULTES[index][0] === cle));
       });
+      afficherIntroEpreuves();
     });
     return puce;
   }));
@@ -254,9 +269,11 @@ async function initAccueil() {
     carte.appendChild(el("p", null, details.texte || ""));
 
     const pied = el("div", "carte-mode-pied");
-    const pret = infos.questions >= 4;
+    // Les modèles ont leurs propres mauvaises réponses : une seule question
+    // suffit pour jouer.
+    const pret = infos.questions >= 1;
     pied.appendChild(el("span", `etiquette ${pret ? "pret" : "vide"}`,
-      pret ? `${infos.questions} questions` : "bientôt disponible"));
+      pret ? `${infos.questions} question${infos.questions > 1 ? "s" : ""}` : "bientôt disponible"));
     pied.appendChild(el("span", null, pret ? "Jouer →" : ""));
     carte.appendChild(pied);
 
@@ -355,20 +372,42 @@ function afficherQuestion(question) {
   remplissage.style.width = `${(question.position / question.total) * 100}%`;
   jauge.appendChild(remplissage);
 
-  const carte = el("div", "carte-question");
+  // Sur ordinateur (flexbox) : chrono et question en haut, l'image à gauche,
+  // les réponses et le retour à droite. Sur mobile, tout s'empile.
+  const carte = el("div", "carte-question disposition-jeu");
   carte.appendChild(el("p", "enonce", question.question));
   if (question.indice) carte.appendChild(el("p", "indice-question", `Indice : ${question.indice}`));
-  carte.appendChild(construireCadreImage(question));
 
+  const corps = el("div", "corps-jeu");
+  corps.appendChild(construireCadreImage(question));
+  const colonne = el("div", "colonne-reponses");
+
+  // Chaque réponse porte son numéro : les touches 1 à 4 la choisissent.
   const propositions = el("div", "propositions");
-  question.propositions.forEach((choix) => {
-    const bouton = el("button", "proposition", choix);
+  question.propositions.forEach((choix, index) => {
+    const bouton = el("button", "proposition");
     bouton.type = "button";
+    bouton.dataset.choix = choix;
+    const touche = el("kbd", "touche", String(index + 1));
+    touche.setAttribute("aria-hidden", "true");
+    bouton.append(touche, el("span", "proposition-texte", choix));
     bouton.addEventListener("click", () => repondre(choix, propositions, carte));
     propositions.appendChild(bouton);
   });
-  carte.appendChild(propositions);
+  colonne.appendChild(propositions);
 
+  // Place réservée au retour et au crédit : sans elle, la carte grandit à
+  // chaque réponse puis rétrécit à la question suivante, et la page saute.
+  // Les modèles (astuce) et les pièces (explication) affichent un texte de
+  // plus : leur zone est plus haute.
+  const avecTexte = partie.mode === "modele" || partie.mode === "piece";
+  const zoneRetour = el("div", `zone-retour${avecTexte ? " avec-astuce" : ""}`);
+  // Rappel des raccourcis, visible seulement sur ordinateur.
+  zoneRetour.appendChild(el("p", "retour-attente", "Touches 1 à 4 pour répondre, Entrée pour continuer."));
+  colonne.appendChild(zoneRetour);
+
+  corps.appendChild(colonne);
+  carte.appendChild(corps);
   carte.insertBefore(
     construireChrono(question.tempsLimiteMs, () => repondre("", propositions, carte)),
     carte.firstChild,
@@ -407,10 +446,16 @@ async function repondre(choix, zonePropositions, carte) {
     reponse: resultat.bonneReponse, choix, correcte: resultat.correcte, revision: resultat.revision,
   });
 
+  if (resultat.badgeDebloque) {
+    const { marque, palier } = resultat.badgeDebloque;
+    const infos = PALIERS_BADGES[palier];
+    toast(`${infos.icone} Badge ${infos.libelle.toLowerCase()} débloqué : ${marque} !`, "succes");
+  }
+
   zonePropositions.querySelectorAll(".proposition").forEach((bouton) => {
     bouton.disabled = true;
-    if (bouton.textContent === resultat.bonneReponse) bouton.classList.add("correcte");
-    else if (bouton.textContent === choix) bouton.classList.add("incorrecte");
+    if (bouton.dataset.choix === resultat.bonneReponse) bouton.classList.add("correcte");
+    else if (bouton.dataset.choix === choix) bouton.classList.add("incorrecte");
   });
 
   carte.querySelector(".chrono")?.classList.add("fige");
@@ -430,8 +475,6 @@ async function repondre(choix, zonePropositions, carte) {
       ` dont +${resultat.bonusRapidite} rapidité (${secondes} s)`));
     retour.appendChild(points);
   }
-
-  if (resultat.explication) retour.appendChild(el("p", "retour-explication", resultat.explication));
 
   const boutons = el("div", "retour-actions");
 
@@ -463,7 +506,25 @@ async function repondre(choix, zonePropositions, carte) {
   boutons.appendChild(suite);
   retour.appendChild(boutons);
 
-  carte.appendChild(retour);
+  const zoneRetour = carte.querySelector(".zone-retour") || carte;
+  zoneRetour.querySelector(".retour-attente")?.remove();
+  zoneRetour.appendChild(retour);
+
+  // Pièces : à quoi sert la pièce, dans le même encadré que l'astuce des modèles.
+  if (resultat.explication) {
+    const explication = el("p", "astuce");
+    explication.appendChild(el("strong", null, "À quoi ça sert : "));
+    explication.appendChild(document.createTextNode(resultat.explication));
+    zoneRetour.appendChild(explication);
+  }
+
+  // Comment reconnaître le modèle, montré une fois la réponse donnée.
+  if (resultat.astuce) {
+    const astuce = el("p", "astuce");
+    astuce.appendChild(el("strong", null, "Comment le reconnaître : "));
+    astuce.appendChild(document.createTextNode(resultat.astuce));
+    zoneRetour.appendChild(astuce);
+  }
 
   // Le crédit n'apparaît qu'une fois la réponse donnée.
   let credit = null;
@@ -471,7 +532,7 @@ async function repondre(choix, zonePropositions, carte) {
     credit = JSON.parse(carte.dataset.credit || "{}");
   } catch { credit = null; }
   const blocCredit = construireCredit(credit);
-  if (blocCredit) carte.appendChild(blocCredit);
+  if (blocCredit) zoneRetour.appendChild(blocCredit);
 
   suite.focus({ preventScroll: true });
   retour.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -542,6 +603,33 @@ function afficherResultat() {
   window.scrollTo({ top: 0 });
 }
 
+/* Raccourcis clavier pendant une partie : 1 à 4 choisissent une réponse,
+   Entrée passe à la question suivante (ou au résultat). */
+function raccourcisJeu(evenement) {
+  if (evenement.ctrlKey || evenement.altKey || evenement.metaKey || evenement.repeat) return;
+  const cible = evenement.target;
+  if (cible.closest && cible.closest("input, textarea, select, [contenteditable]")) return;
+
+  const zone = document.getElementById("zone-jeu");
+  if (/^[1-4]$/.test(evenement.key)) {
+    const bouton = zone.querySelectorAll(".proposition")[Number(evenement.key) - 1];
+    if (bouton && !bouton.disabled) {
+      evenement.preventDefault();
+      bouton.click();
+    }
+    return;
+  }
+
+  // Entrée sur un bouton déjà sélectionné : le navigateur le déclenche seul.
+  if (evenement.key === "Enter" && !(cible instanceof HTMLButtonElement || cible instanceof HTMLAnchorElement)) {
+    const suite = zone.querySelector(".retour-reponse .btn");
+    if (suite && !suite.disabled) {
+      evenement.preventDefault();
+      suite.click();
+    }
+  }
+}
+
 async function initJeu(promesseUtilisateur) {
   const zone = document.getElementById("zone-jeu");
   if (!zone) return;
@@ -554,6 +642,8 @@ async function initJeu(promesseUtilisateur) {
     window.location.href = "index.html";
     return;
   }
+
+  document.addEventListener("keydown", raccourcisJeu);
 
   const chargement = el("div", "carte-question");
   chargement.appendChild(el("div", "squelette", " "));
@@ -696,8 +786,10 @@ async function initProfil(utilisateur) {
     return;
   }
 
-  document.getElementById("titre-profil").textContent = `Statistiques de ${utilisateur.nom}`;
+  document.getElementById("titre-profil").textContent = `Profil de ${utilisateur.nom}`;
   initFormulaireRegion(utilisateur);
+  initProgression();
+  initBadges();
 
   let stats;
   try {
@@ -768,6 +860,413 @@ async function initProfil(utilisateur) {
   const cadre = el("div", "table-wrapper");
   cadre.appendChild(table);
   zoneRecentes.replaceChildren(cadre);
+}
+
+/* Courbe de progression : en abscisse les parties dans l'ordre, en ordonnée
+   leur score. Le barème est le même dans chaque mode (la difficulté et la
+   rapidité y sont déjà comptées), donc les scores se comparent. Dessinée en
+   SVG, sans bibliothèque. */
+
+const FILTRES_PROGRESSION = [
+  ["tous", "Tous les modes"],
+  ["logo", "Les logos"],
+  ["modele", "Les modèles"],
+  ["piece", "Les pièces"],
+];
+
+const FENETRE_MOYENNE = 5;
+const NS_SVG = "http://www.w3.org/2000/svg";
+
+function noeudSvg(balise, attributs = {}, classe = "") {
+  const noeud = document.createElementNS(NS_SVG, balise);
+  for (const [nom, valeur] of Object.entries(attributs)) noeud.setAttribute(nom, valeur);
+  if (classe) noeud.setAttribute("class", classe);
+  return noeud;
+}
+
+// Forme du point selon l'épreuve : rond, carré ou triangle, pour que la
+// couleur ne soit jamais le seul moyen de les distinguer.
+function formePoint(mode, x, y, r, classe) {
+  if (mode === "modele") {
+    return noeudSvg("rect", { x: x - r, y: y - r, width: 2 * r, height: 2 * r, rx: 1.5 }, classe);
+  }
+  if (mode === "piece") {
+    const h = r * 1.25;
+    return noeudSvg("path", { d: `M${x} ${y - h}L${x + h} ${y + h * 0.8}L${x - h} ${y + h * 0.8}Z` }, classe);
+  }
+  return noeudSvg("circle", { cx: x, cy: y, r }, classe);
+}
+
+// Moyenne des FENETRE_MOYENNE dernières parties, à partir de la 5e.
+function moyenneGlissante(valeurs) {
+  return valeurs.map((_, i) => {
+    if (i < FENETRE_MOYENNE - 1) return null;
+    const tranche = valeurs.slice(i - FENETRE_MOYENNE + 1, i + 1);
+    return tranche.reduce((somme, v) => somme + v, 0) / tranche.length;
+  });
+}
+
+function points(nombre) {
+  return `${Math.round(nombre).toLocaleString("fr-FR")} pts`;
+}
+
+function libelleDifficulte(cle) {
+  const trouvee = DIFFICULTES.find(([valeur]) => valeur === cle);
+  return trouvee ? trouvee[1] : cle;
+}
+
+function pasGraduation(nombre) {
+  return [1, 2, 5, 10, 20, 50, 100].find((pas) => nombre / pas <= 8) || 100;
+}
+
+function elementLegende(forme, texte) {
+  const item = el("li");
+  const icone = noeudSvg("svg", { width: 18, height: 12, "aria-hidden": "true" });
+  icone.appendChild(forme);
+  item.appendChild(icone);
+  item.appendChild(document.createTextNode(texte));
+  return item;
+}
+
+function dessinerProgression(zone, legende, parties, filtre) {
+  const tous = filtre === "tous";
+  const serie = tous ? parties : parties.filter((p) => p.mode === filtre);
+
+  legende.replaceChildren();
+  if (!serie.length) {
+    zone.replaceChildren(creerEtatVide({
+      icone: "📈",
+      titre: tous ? "Pas encore de partie terminée" : `Aucune partie terminée pour ${libelleMode(filtre).toLowerCase()}`,
+      message: "Terminez une partie pour voir votre courbe de progression.",
+      lien: "index.html",
+      libelleLien: "Jouer",
+    }));
+    return;
+  }
+
+  const scores = serie.map((p) => p.score);
+  const moyennes = moyenneGlissante(scores);
+  const avecMoyenne = serie.length >= FENETRE_MOYENNE;
+
+  // Légende : les épreuves présentes (vue « Tous les modes »), puis la moyenne.
+  if (tous) {
+    Object.keys(MODES).filter((mode) => serie.some((p) => p.mode === mode)).forEach((mode) => {
+      legende.appendChild(elementLegende(formePoint(mode, 9, 6, 4.5, `legende-forme serie-${mode}`), libelleMode(mode)));
+    });
+  }
+  if (avecMoyenne) {
+    legende.appendChild(elementLegende(
+      noeudSvg("path", { d: "M0 6H18" }, "courbe-moyenne"),
+      `Moyenne sur ${FENETRE_MOYENNE} parties`,
+    ));
+  }
+
+  // Dimensions en pixels réels : le texte garde sa taille quelle que soit la largeur.
+  const largeur = Math.max(280, Math.round(zone.clientWidth));
+  const hauteur = largeur < 520 ? 220 : 260;
+  const marge = { haut: 12, droite: 14, bas: 28, gauche: 48 };
+  const utileL = largeur - marge.gauche - marge.droite;
+  const utileH = hauteur - marge.haut - marge.bas;
+
+  const maxScore = Math.max(...scores);
+  const pasY = maxScore > 2000 ? 1000 : 500;
+  const maxY = Math.max(pasY * 2, Math.ceil(maxScore / pasY) * pasY);
+  const n = serie.length;
+  const xDe = (i) => marge.gauche + (n === 1 ? utileL / 2 : (i * utileL) / (n - 1));
+  const yDe = (v) => marge.haut + utileH - (v / maxY) * utileH;
+
+  const dessin = noeudSvg("svg", {
+    viewBox: `0 0 ${largeur} ${hauteur}`, width: largeur, height: hauteur,
+    role: "img", tabindex: "0",
+    "aria-label": `Score de vos ${n} dernières parties, de ${points(Math.min(...scores))} à ${points(maxScore)}. `
+      + "Flèches gauche et droite pour parcourir les parties.",
+  });
+
+  // Grille horizontale et graduations des scores.
+  for (let v = 0; v <= maxY; v += pasY) {
+    dessin.appendChild(noeudSvg("line", { x1: marge.gauche, x2: largeur - marge.droite, y1: yDe(v), y2: yDe(v) }, "courbe-grille"));
+    const texte = noeudSvg("text", { x: marge.gauche - 8, y: yDe(v) + 4, "text-anchor": "end" }, "courbe-axe-texte");
+    texte.textContent = v.toLocaleString("fr-FR");
+    dessin.appendChild(texte);
+  }
+
+  // Graduations des parties (numéro de partie).
+  const pas = pasGraduation(n);
+  serie.forEach((_, i) => {
+    if (n > 1 && i !== 0 && (i + 1) % pas !== 0) return;
+    const texte = noeudSvg("text", { x: xDe(i), y: hauteur - 8, "text-anchor": "middle" }, "courbe-axe-texte");
+    texte.textContent = String(i + 1);
+    dessin.appendChild(texte);
+  });
+
+  const trace = (valeurs) => valeurs
+    .map((v, i) => (v === null ? null : `${xDe(i)} ${yDe(v)}`))
+    .filter(Boolean)
+    .map((p, i) => `${i ? "L" : "M"}${p}`).join("");
+
+  // Un mode : ligne à sa couleur. Tous les modes : liaison neutre, la couleur
+  // reste sur les points.
+  if (n > 1) {
+    dessin.appendChild(noeudSvg("path", { d: trace(scores) },
+      tous ? "courbe-liaison" : `courbe-ligne serie-${filtre}`));
+  }
+  if (avecMoyenne) dessin.appendChild(noeudSvg("path", { d: trace(moyennes) }, "courbe-moyenne"));
+
+  const repere = noeudSvg("line", { y1: marge.haut, y2: marge.haut + utileH }, "courbe-repere");
+  dessin.appendChild(repere);
+
+  const rayon = n > 60 ? 3.5 : 4.5;
+  const marques = serie.map((p, i) => {
+    const marque = formePoint(p.mode, xDe(i), yDe(p.score), rayon, `courbe-point serie-${p.mode}`);
+    dessin.appendChild(marque);
+    return marque;
+  });
+
+  // Bulle d'information : au survol, au doigt ou au clavier.
+  const bulle = el("div", "bulle-courbe");
+  bulle.hidden = true;
+  let actif = -1;
+
+  const montrer = (i) => {
+    if (actif >= 0) marques[actif].classList.remove("actif");
+    actif = i;
+    const p = serie[i];
+    marques[i].classList.add("actif");
+    repere.setAttribute("x1", xDe(i));
+    repere.setAttribute("x2", xDe(i));
+    repere.classList.add("visible");
+
+    const titre = el("div", "bulle-titre");
+    const icone = noeudSvg("svg", { width: 12, height: 12, "aria-hidden": "true" });
+    icone.appendChild(formePoint(p.mode, 6, 6, 4.5, `legende-forme serie-${p.mode}`));
+    titre.appendChild(icone);
+    titre.appendChild(document.createTextNode(`Partie ${i + 1} · ${libelleMode(p.mode)}`));
+    bulle.replaceChildren(
+      titre,
+      el("strong", null, points(p.score)),
+      el("div", null, `${p.bonnes_reponses}/${p.nb_questions} bonnes réponses`),
+      el("div", null, `Difficulté : ${libelleDifficulte(p.difficulte).toLowerCase()}`),
+      el("div", null, dateCourte(p.date_fin)),
+    );
+    if (moyennes[i] !== null) bulle.appendChild(el("div", null, `Moyenne : ${points(moyennes[i])}`));
+    bulle.hidden = false;
+
+    // Bulle à droite du point, ou à gauche si elle déborderait.
+    const x = xDe(i);
+    const gauche = x + 14 + bulle.offsetWidth > largeur ? x - 14 - bulle.offsetWidth : x + 14;
+    const haut = Math.min(Math.max(0, yDe(p.score) - bulle.offsetHeight / 2), hauteur - bulle.offsetHeight);
+    bulle.style.transform = `translate(${Math.max(0, gauche)}px, ${haut}px)`;
+  };
+
+  const cacher = () => {
+    if (actif >= 0) marques[actif].classList.remove("actif");
+    actif = -1;
+    repere.classList.remove("visible");
+    bulle.hidden = true;
+  };
+
+  // Partie la plus proche du pointeur en abscisse : la cible est toute la
+  // colonne, pas seulement le petit point.
+  const suivrePointeur = (evenement) => {
+    const cadre = dessin.getBoundingClientRect();
+    const x = ((evenement.clientX - cadre.left) / cadre.width) * largeur;
+    const i = n === 1 ? 0 : Math.round(((x - marge.gauche) / utileL) * (n - 1));
+    montrer(Math.min(n - 1, Math.max(0, i)));
+  };
+  // pointerdown : un simple appui du doigt ne déclenche pas pointermove.
+  dessin.addEventListener("pointermove", suivrePointeur);
+  dessin.addEventListener("pointerdown", suivrePointeur);
+  dessin.addEventListener("pointerleave", cacher);
+  dessin.addEventListener("blur", cacher);
+  dessin.addEventListener("keydown", (evenement) => {
+    if (evenement.key !== "ArrowLeft" && evenement.key !== "ArrowRight") return;
+    evenement.preventDefault();
+    const sens = evenement.key === "ArrowRight" ? 1 : -1;
+    montrer(actif < 0 ? n - 1 : Math.min(n - 1, Math.max(0, actif + sens)));
+  });
+
+  zone.replaceChildren(dessin, bulle);
+}
+
+function resumeProgression(parties, filtre) {
+  const serie = filtre === "tous" ? parties : parties.filter((p) => p.mode === filtre);
+  if (!serie.length) return "";
+  const nb = `${serie.length} partie${serie.length > 1 ? "s" : ""}`;
+  if (serie.length < FENETRE_MOYENNE * 2) {
+    return `${nb}. Meilleur score : ${points(Math.max(...serie.map((p) => p.score)))}.`;
+  }
+  const moyenne = (tranche) => tranche.reduce((s, p) => s + p.score, 0) / tranche.length;
+  const recentes = moyenne(serie.slice(-FENETRE_MOYENNE));
+  const avant = moyenne(serie.slice(-FENETRE_MOYENNE * 2, -FENETRE_MOYENNE));
+  const ecart = Math.round(recentes - avant);
+  const tendance = ecart === 0 ? "stable" : `${ecart > 0 ? "+" : "−"}${points(Math.abs(ecart))}`;
+  return `${nb}. Moyenne des ${FENETRE_MOYENNE} dernières : ${points(recentes)} `
+    + `(${tendance} par rapport aux ${FENETRE_MOYENNE} précédentes).`;
+}
+
+async function initProgression() {
+  const zone = document.getElementById("courbe-progression");
+  if (!zone) return;
+  const legende = document.getElementById("legende-progression");
+  const resume = document.getElementById("resume-progression");
+
+  let parties;
+  try {
+    ({ parties } = await api("/ma-progression"));
+  } catch {
+    toast("Impossible de charger votre progression.", "erreur");
+    return;
+  }
+
+  let filtre = "tous";
+  const afficher = () => {
+    resume.textContent = resumeProgression(parties, filtre);
+    dessinerProgression(zone, legende, parties, filtre);
+  };
+
+  const zoneFiltre = document.getElementById("filtre-progression");
+  zoneFiltre.replaceChildren(...FILTRES_PROGRESSION.map(([cle, libelle]) => {
+    const puce = el("button", "puce", libelle);
+    puce.type = "button";
+    puce.setAttribute("aria-pressed", String(cle === filtre));
+    puce.addEventListener("click", () => {
+      filtre = cle;
+      zoneFiltre.querySelectorAll(".puce").forEach((autre, index) => {
+        autre.setAttribute("aria-pressed", String(FILTRES_PROGRESSION[index][0] === cle));
+      });
+      afficher();
+    });
+    return puce;
+  }));
+
+  afficher();
+
+  // Redessine à la bonne largeur quand la fenêtre change de taille.
+  let largeurConnue = zone.clientWidth;
+  new ResizeObserver(() => {
+    if (Math.abs(zone.clientWidth - largeurConnue) < 2) return;
+    largeurConnue = zone.clientWidth;
+    afficher();
+  }).observe(zone);
+}
+
+/* Badges : un par marque du quiz des logos, en bronze, argent puis or selon
+   le nombre de logos trouvés. Les seuils viennent du serveur. */
+
+const PALIERS_BADGES = {
+  bronze: { libelle: "Bronze", icone: "🥉" },
+  argent: { libelle: "Argent", icone: "🥈" },
+  or: { libelle: "Or", icone: "🥇" },
+};
+
+const FILTRES_BADGES = [
+  ["tous", "Tous"],
+  ["obtenus", "Obtenus"],
+  ["a-debloquer", "À débloquer"],
+];
+
+/* Comme les images des questions, les logos ne sont pas publics : ils sont
+   téléchargés avec le jeton du joueur, puis affichés. */
+async function chargerLogoBadge(image, chemin) {
+  try {
+    const reponse = await fetch(`${SERVEUR}${chemin}`, { headers: { Authorization: lireJeton() } });
+    if (!reponse.ok) return;
+    image.src = URL.createObjectURL(await reponse.blob());
+  } catch { /* logo absent : la médaille reste vide */ }
+}
+
+function carteBadge(badge) {
+  const carte = el("article", `badge ${badge.palier ? `badge-${badge.palier}` : "badge-verrouille"}`);
+
+  const medaille = el("div", "badge-medaille");
+  if (badge.logo) {
+    const logo = el("img");
+    logo.alt = "";
+    chargerLogoBadge(logo, badge.logo);
+    medaille.appendChild(logo);
+  } else {
+    // Marque jamais trouvée : son logo la trahirait dans le quiz.
+    medaille.appendChild(el("span", "badge-initiale", badge.marque.charAt(0)));
+  }
+  carte.appendChild(medaille);
+
+  carte.appendChild(el("div", "badge-nom", badge.marque));
+  carte.appendChild(el("div", "badge-palier",
+    badge.palier ? PALIERS_BADGES[badge.palier].libelle : "À débloquer"));
+
+  const jauge = el("div", "badge-jauge");
+  const remplissage = el("div", "badge-jauge-remplissage");
+  const cible = badge.prochain ? badge.prochain.seuil : badge.bonnes;
+  remplissage.style.width = `${cible ? Math.min(100, (badge.bonnes / cible) * 100) : 0}%`;
+  jauge.appendChild(remplissage);
+  carte.appendChild(jauge);
+
+  carte.appendChild(el("div", "badge-compte", badge.prochain
+    ? `${badge.bonnes} / ${badge.prochain.seuil} vers ${PALIERS_BADGES[badge.prochain.nom].libelle.toLowerCase()}`
+    : `${badge.bonnes} logos trouvés`));
+
+  carte.title = `${badge.marque} : ${badge.bonnes} logo${badge.bonnes > 1 ? "s" : ""} trouvé${badge.bonnes > 1 ? "s" : ""}`;
+  return carte;
+}
+
+async function initBadges() {
+  const grille = document.getElementById("grille-badges");
+  if (!grille) return;
+
+  let donnees;
+  try {
+    donnees = await api("/mes-badges");
+  } catch {
+    toast("Impossible de charger vos badges.", "erreur");
+    return;
+  }
+
+  const { badges, paliers } = donnees;
+  const parPalier = (nom) => badges.filter((b) => b.palier === nom).length;
+  const obtenus = badges.filter((b) => b.palier).length;
+  const decompte = paliers.slice().reverse()
+    .map((p) => `${PALIERS_BADGES[p.nom].icone} ${parPalier(p.nom)}`).join("   ");
+  const regle = paliers
+    .map((p) => `${PALIERS_BADGES[p.nom].libelle.toLowerCase()} à ${p.seuil}`).join(", ");
+  document.getElementById("resume-badges").textContent =
+    `${obtenus} badge${obtenus > 1 ? "s" : ""} sur ${badges.length} marques   ${decompte}. `
+    + `Logos d'une même marque à trouver : ${regle}.`;
+
+  let filtre = "tous";
+  const afficher = () => {
+    const visibles = badges.filter((b) =>
+      filtre === "tous" || (filtre === "obtenus" ? b.palier : !b.palier));
+    if (!visibles.length) {
+      grille.replaceChildren(creerEtatVide({
+        icone: "🏅",
+        titre: filtre === "obtenus" ? "Aucun badge pour l'instant" : "Tous les badges sont débloqués",
+        message: filtre === "obtenus"
+          ? `Trouvez ${paliers[0].seuil} fois le logo d'une même marque pour gagner son badge bronze.`
+          : "Visez maintenant l'or pour chaque marque !",
+        lien: filtre === "obtenus" ? "index.html" : null,
+        libelleLien: "Jouer",
+      }));
+      return;
+    }
+    grille.replaceChildren(...visibles.map(carteBadge));
+  };
+
+  const zoneFiltre = document.getElementById("filtre-badges");
+  zoneFiltre.replaceChildren(...FILTRES_BADGES.map(([cle, libelle]) => {
+    const puce = el("button", "puce", libelle);
+    puce.type = "button";
+    puce.setAttribute("aria-pressed", String(cle === filtre));
+    puce.addEventListener("click", () => {
+      filtre = cle;
+      zoneFiltre.querySelectorAll(".puce").forEach((autre, index) => {
+        autre.setAttribute("aria-pressed", String(FILTRES_BADGES[index][0] === cle));
+      });
+      afficher();
+    });
+    return puce;
+  }));
+
+  afficher();
 }
 
 function initFormulaireRegion(utilisateur) {

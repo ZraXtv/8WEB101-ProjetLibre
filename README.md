@@ -13,7 +13,21 @@ JavaScript. L'ancienne version (serveur Flask) est conservée dans
 ## Lancer le projet
 
 Tout se passe dans le dossier `pocketbase/`. Au premier lancement, la base
-est créée et les 64 questions de logos y sont chargées automatiquement.
+est créée et les questions y sont chargées automatiquement : 64 logos et
+1000 modèles de voitures (`donnees/modeles.json`, voir « Importer des
+modèles » plus bas).
+
+Les questions de modèles portent leurs propres mauvaises réponses (champ
+`leurres`) : trois autres modèles **de la même marque**, par exemple Peugeot
+106, 206 et 309 pour une Peugeot 205. Le logo de la marque étant visible
+sur la photo, des leurres d'une autre marque s'élimineraient d'un coup d'œil.
+Si une question en a moins de trois, les autres modèles du quiz complètent.
+
+Les photos viennent de Wikimedia Commons, sous licence libre (CC BY,
+CC BY-SA, CC0 ou domaine public) ; l'auteur, la licence et le lien de chaque
+photo sont dans `donnees/modeles.json` et s'affichent sous l'image pendant
+le jeu. Quand un texte de la photo donnait la réponse (badge « M3 » ou
+« GT-R », affichette de vente), il a été flouté, ce que le crédit signale.
 
 ```bash
 cd pocketbase
@@ -59,9 +73,11 @@ pocketbase/
 │   ├── 1790000000_structure.js
 │   ├── 1790000001_questions_logos.js   chargement des logos
 │   ├── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
+│   ├── 1790000003_modeles.js …         épreuve des modèles (jusqu'à 1790000011)
 │   ├── 1790000003_pieces.js            épreuve des pièces
 │   ├── 1790000004_images_pieces.js     indice et explication des pièces
-│   └── 1790000005_photos_pieces.js     photos Wikimedia Commons des pièces
+│   ├── 1790000005_photos_pieces.js     photos Wikimedia Commons des pièces
+│   └── 1790000006_recadrage_photos.js  photos des pièces recadrées
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP
@@ -69,6 +85,7 @@ pocketbase/
 ├── pb_public/          le site : pages, CSS, JS, polices, explorateur 3D
 ├── donnees/            questions de départ et leurs images (non publiques)
 ├── outils/simplifier.mjs   allègement des modèles 3D (voir pb_public/anatomie/README.md)
+├── outils/importer_modeles.py  import des modèles de voitures (Wikidata, Commons)
 ├── demarrer.sh / demarrer.ps1, Dockerfile, docker-compose.yml
 ├── .env.example        réglages propres à chaque machine
 ├── VERSION             version de PocketBase utilisée
@@ -86,9 +103,36 @@ commiter. Ne pas retoucher une migration déjà appliquée.
 
 Depuis le tableau de bord, collection `questions` : choisir le mode, la
 réponse, l'image, la difficulté (1 à 3) et cocher `actif`. Les épreuves
-« modèles » et « pièces » s'ouvrent automatiquement à partir de 4 questions.
-La page « Admin » du site permet ensuite d'activer, désactiver ou recalibrer
-les questions.
+« modèles » et « pièces » s'ouvrent automatiquement dès leur première
+question. La page « Admin » du site permet ensuite d'activer, désactiver ou
+recalibrer les questions.
+
+### Importer des modèles
+
+Les 50 premiers modèles ont été choisis et vérifiés à la main. Les autres
+viennent de `outils/importer_modeles.py`, qui complète `donnees/modeles.json`
+jusqu'au nombre voulu :
+
+```bash
+cd pocketbase
+pip install pillow
+python outils/importer_modeles.py --total 1000
+```
+
+- les modèles sont ceux de **Wikidata** qui ont une photo, classés par
+  notoriété (nombre d'articles Wikipédia qui leur sont consacrés) ; les plus
+  connus sont faciles, les moins connus difficiles ;
+- la photo est l'image représentative choisie sur Wikidata, hébergée sur
+  **Wikimedia Commons** sous licence libre ; son crédit est conservé. Les
+  noms de fichiers qui annoncent un arrière, un intérieur ou un moteur sont
+  écartés, et l'image est réduite à 640 px de large ;
+- les trois leurres sont des modèles de la même marque, de l'époque la plus
+  proche ; les variantes d'un même modèle (« Golf » / « Golf GTI ») ne sont
+  jamais proposées ensemble ;
+- les réponses des API sont gardées dans `outils/.cache/` (ignoré par git).
+
+Une photo inadaptée passée entre les mailles (nom du modèle lisible, mauvais
+véhicule) se désactive depuis la page « Admin ».
 
 ### L'épreuve des pièces
 
@@ -122,9 +166,12 @@ tableau de bord).
 1. Le navigateur demande une partie (`POST /api/quiz/parties`) en précisant
    l'épreuve et la difficulté.
 2. Le serveur tire 10 questions au hasard et, pour chacune, fabrique
-   4 propositions : la bonne réponse et trois réponses piochées parmi les
-   autres questions de la même épreuve. Ces propositions sont **figées en
-   base** au moment du tirage.
+   4 propositions : la bonne réponse et trois leurres qui commencent si
+   possible par la même lettre (Honda, Hyundai, Horch, Hanomag). Les leurres
+   viennent des autres questions de l'épreuve, complétées pour les lettres
+   rares par une liste de marques qui ne servent que de leurres
+   (`LEURRES_SUPPLEMENTAIRES` dans `pb_hooks/quiz/commun.js`). Ces
+   propositions sont **figées en base** au moment du tirage.
 3. Le navigateur reçoit l'image et les 4 propositions, **mais jamais
    l'indication de la bonne réponse**. L'image passe par une adresse neutre
    (`/api/quiz/parties/<id>/image`) : le nom du fichier, qui contient souvent
@@ -144,7 +191,8 @@ de PocketBase : seuls les hooks du jeu et le tableau de bord y accèdent.
 
 ### Barème
 
-- 100 points par bonne réponse, multipliés par la difficulté (1 à 3)
+- 100 points par bonne réponse, multipliés par la difficulté (1 à 3), dans
+  toutes les épreuves
 - jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
 - 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
   réseau), la réponse compte comme fausse. Le chrono affiché n'est
@@ -165,7 +213,7 @@ retirés du quiz. La difficulté dépend donc de la notoriété du symbole :
 ### Difficulté selon la région
 
 Chaque joueur peut renseigner sa région à l'inscription ou sur sa page
-« Mes stats ». Son drapeau s'affiche alors dans l'en-tête et devant son
+« Profil ». Son drapeau s'affiche alors dans l'en-tête et devant son
 pseudonyme au classement.
 
 La difficulté ci-dessus est une notoriété « moyenne », qui ne vaut pas
@@ -175,6 +223,33 @@ logo est recalculée (`pb_hooks/quiz/regions.js`) : marques nationales du
 pays d'abord, puis écarts propres au marché (Europe, Amérique, Asie), sinon
 la difficulté de base. Elle est figée au lancement de la partie et sert
 autant au filtre Facile / Moyen / Difficile qu'au barème.
+
+### Badges
+
+Chaque marque du quiz des logos a son badge, visible sur la page
+« Profil » : bronze après 10 logos de cette marque trouvés, argent
+après 50, or après 100. Seules les bonnes réponses comptent, pas les
+questions rencontrées. Le compte est calculé à partir des réponses
+enregistrées (les parties jouées avant l'ajout des badges comptent donc
+aussi), et un message s'affiche en pleine partie quand un palier est
+franchi. Les seuils sont réglés par `PALIERS_BADGES` dans
+`pb_hooks/quiz/commun.js`.
+
+Le logo d'une marque n'apparaît sur son badge qu'une fois trouvé au moins
+une fois ; avant, seule son initiale est affichée. Sinon la page des
+badges servirait d'antisèche pour le quiz des logos.
+
+### Courbe de progression
+
+La page « Profil » trace le score de chaque partie terminée, de la plus
+ancienne à la plus récente (300 dernières au plus), avec en pointillés la
+moyenne des 5 dernières parties. Toutes les parties ont 10 questions et le
+barème est le même dans chaque épreuve (difficulté et rapidité comprises),
+donc les scores se comparent d'une partie à l'autre. Un sélecteur affiche
+toutes les épreuves ou une seule ; en vue « Tous les modes », chaque
+épreuve a sa couleur et sa forme de point (rond, carré, triangle). Le
+survol, le toucher ou les flèches du clavier affichent le détail d'une
+partie. Le graphique est dessiné en SVG, sans bibliothèque.
 
 ## API
 
@@ -195,6 +270,9 @@ obtenu est envoyé dans l'en-tête `Authorization`. Le jeu a sa propre API :
 | POST | `/api/quiz/parties/<id>/reponse` | Répondre à la question en cours |
 | GET | `/api/quiz/classement?mode=` | Meilleurs scores |
 | GET | `/api/quiz/mes-statistiques` | Statistiques personnelles |
+| GET | `/api/quiz/ma-progression` | Score de chaque partie terminée, pour la courbe |
+| GET | `/api/quiz/mes-badges` | Badges par marque et progression vers le palier suivant |
+| GET | `/api/quiz/mes-badges/<id>/logo` | Logo d'un badge (marque déjà trouvée) |
 | GET | `/api/quiz/admin/questions` | Lister les questions (admin) |
 | PATCH | `/api/quiz/admin/questions/<id>` | Activer ou recalibrer une question (admin) |
 | GET | `/api/quiz/admin/questions/<id>/image` | Vignette d'une question (admin) |

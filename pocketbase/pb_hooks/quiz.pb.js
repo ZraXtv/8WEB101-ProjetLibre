@@ -21,7 +21,7 @@ routerAdd("GET", "/api/quiz/moi", (e) => {
   });
 });
 
-// Changement de région depuis la page « Mes stats » (vide = non précisée).
+// Changement de région depuis la page « Profil » (vide = non précisée).
 routerAdd("PATCH", "/api/quiz/moi", (e) => {
   const q = require(`${__hooks}/quiz/commun.js`);
   const { regionValide } = require(`${__hooks}/quiz/regions.js`);
@@ -67,7 +67,8 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   if (!q.MODES[mode]) return q.erreur(e, 400, "Mode de jeu inconnu.");
   if (!(difficulte in q.DIFFICULTES)) return q.erreur(e, 400, "Difficulté inconnue.");
 
-  const { difficultePour } = require(`${__hooks}/quiz/regions.js`);
+  const { difficultePour, difficulteModelePour } = require(`${__hooks}/quiz/regions.js`);
+  const difficulteRegionale = mode === "modele" ? difficulteModelePour : difficultePour;
   const j = q.joueur(e);
   const region = j ? j.getString("region") : "";
 
@@ -75,26 +76,26 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   // ici plutôt que dans la requête.
   const voulue = q.DIFFICULTES[difficulte];
   const niveau = {};
-  const disponibles = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode })
-    .filter((r) => {
-      niveau[r.id] = difficultePour(r.getString("reponse"), r.getInt("difficulte"), region);
-      return voulue === null || niveau[r.id] === voulue;
-    });
-  if (disponibles.length < q.NB_PROPOSITIONS) {
-    return q.erreur(e, 409, "Pas encore assez de questions dans ce mode. Revenez bientôt !");
-  }
-
-  const tirage = q.melanger(disponibles.slice()).slice(0, q.NB_QUESTIONS);
-  const toutesReponses = [...new Set(disponibles.map((r) => r.getString("reponse")))];
-  // Mauvaises réponses, de la plus proche à la plus lointaine : d'abord la
-  // même famille (l'indice affiché, « Synchronisation »…), sinon l'indice
-  // suffirait à éliminer les autres ; puis le même modèle 3D (pas de « Roue »
-  // pour une pièce du moteur) ; puis n'importe quelle réponse du mode.
+  const actives = $app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode });
+  const disponibles = actives.filter((r) => {
+    niveau[r.id] = difficulteRegionale(r.getString("reponse"), r.getInt("difficulte"), region);
+    return voulue === null || niveau[r.id] === voulue;
+  });
+  // Réponses de toutes les questions du mode, pas seulement celles de la
+  // difficulté choisie : il y a ainsi plus de noms de même initiale.
+  const toutesReponses = [...new Set(actives.map((r) => r.getString("reponse")))];
+  // Mauvaises réponses : d'abord les leurres choisis pour la question (modèles
+  // proches), puis d'autres réponses du mode, de même initiale si possible.
+  // Pièces : mauvaises réponses de la même famille que l'indice affiché
+  // (« Synchronisation »…), sinon l'indice suffirait à éliminer les autres ;
+  // puis du même modèle 3D (pas de « Roue » pour une pièce du moteur) ; puis
+  // n'importe quelle pièce. Jamais deux réponses que la photo confond
+  // (piston et bielle).
   const famille = (r) => r.getString("indice");
   const groupe = (r) => (q.anatomieDe(r) || {}).modele || "";
   const parCle = (cle) => {
     const index = {};
-    for (const r of disponibles) {
+    for (const r of actives) {
       const k = cle(r);
       if (!k) continue;
       if (!index[k]) index[k] = new Set();
@@ -104,7 +105,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
   };
   const reponsesDeLaFamille = parCle(famille);
   const reponsesDuGroupe = parCle(groupe);
-  const distracteursPour = (question) => {
+  const leurresPiece = (question) => {
     const bonne = question.getString("reponse");
     const interdites = new Set([bonne].concat(q.CONFUSIONS[bonne] || []));
     const choisies = [];
@@ -121,6 +122,20 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
     }
     return choisies;
   };
+  const leurresDe = (question) => {
+    if (mode === "piece") return leurresPiece(question);
+    const bonne = question.getString("reponse");
+    const propres = q.melanger(q.leurresDe(question).filter((r) => r !== bonne));
+    const autres = q.leurresParInitiale(mode, bonne, toutesReponses)
+      .filter((r) => propres.indexOf(r) === -1);
+    return propres.concat(autres).slice(0, q.NB_PROPOSITIONS - 1);
+  };
+  const jouables = disponibles.filter((r) => leurresDe(r).length === q.NB_PROPOSITIONS - 1);
+  if (!jouables.length) {
+    return q.erreur(e, 409, "Pas encore assez de questions dans ce mode. Revenez bientôt !");
+  }
+
+  const tirage = q.melanger(jouables.slice()).slice(0, q.NB_QUESTIONS);
 
   let partie, premiere;
   $app.runInTransaction((tx) => {
@@ -139,7 +154,7 @@ routerAdd("POST", "/api/quiz/parties", (e) => {
     const collection = tx.findCollectionByNameOrId("questions_partie");
     tirage.forEach((question, position) => {
       const bonne = question.getString("reponse");
-      const propositions = q.melanger(distracteursPour(question).concat([bonne]));
+      const propositions = q.melanger(leurresDe(question).concat([bonne]));
       const qp = new Record(collection);
       qp.set("partie", partie.id);
       qp.set("position", position);
@@ -233,6 +248,16 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
     courante.set("duree_ms", dureeMs);
     tx.save(courante);
 
+    // Le compte inclut la réponse qu'on vient d'enregistrer : un palier pile
+    // atteint signifie que le badge vient d'être débloqué.
+    let badgeDebloque = null;
+    const proprietaire = p.getString("utilisateur");
+    if (correcte && proprietaire && question.getString("mode") === "logo") {
+      const bonnes = q.bonnesParMarque(tx, proprietaire, bonneReponse)[bonneReponse] || 0;
+      const palier = q.PALIERS_BADGES.find((pal) => pal.seuil === bonnes);
+      if (palier) badgeDebloque = { marque: bonneReponse, palier: palier.nom };
+    }
+
     const terminee = !q.questionCourante(tx, p);
     p.set("score", p.getInt("score") + points);
     p.set("bonnes_reponses", p.getInt("bonnes_reponses") + (correcte ? 1 : 0));
@@ -255,6 +280,10 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       score: p.getInt("score"),
       bonnesReponses: p.getInt("bonnes_reponses"),
       terminee,
+      badgeDebloque,
+      // Comment reconnaître le modèle : envoyé seulement une fois la réponse
+      // donnée, sinon il servirait d'antisèche.
+      astuce: question.getString("astuce") || null,
     };
   });
   return e.json(statut, resultat);
@@ -333,6 +362,80 @@ routerAdd("GET", "/api/quiz/mes-statistiques", (e) => {
   );
 
   return e.json(200, { global_: global, parMode, recentes });
+});
+
+/* Courbe de progression : le score de chaque partie terminée, de la plus
+   ancienne à la plus récente. Les parties ont toutes 10 questions et le
+   barème est le même dans chaque mode, donc les scores se comparent.
+   Limitée aux 300 dernières parties pour garder un graphique lisible. */
+routerAdd("GET", "/api/quiz/ma-progression", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+
+  const parties = q.lignes(
+    "SELECT mode, difficulte, score, bonnes_reponses, nb_questions, date_fin FROM parties " +
+    "WHERE utilisateur = {:u} AND terminee = TRUE ORDER BY date_fin DESC LIMIT {:max}",
+    { u: j.id, max: 300 },
+    { mode: "", difficulte: "", score: 0, bonnes_reponses: 0, nb_questions: 0, date_fin: "" },
+  ).reverse();
+
+  return e.json(200, { parties });
+});
+
+// ---- Badges -----------------------------------------------------------------
+
+/* Un badge par marque du quiz des logos : bronze, argent puis or selon le
+   nombre de fois où le joueur a trouvé son logo. */
+routerAdd("GET", "/api/quiz/mes-badges", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+
+  const compteurs = q.bonnesParMarque($app, j.id);
+  const rang = { bronze: 1, argent: 2, or: 3 };
+  const badges = $app.findRecordsByFilter("questions", "mode = 'logo' && actif = true", "", 0, 0)
+    .map((r) => {
+      const marque = r.getString("reponse");
+      const bonnes = compteurs[marque] || 0;
+      return {
+        marque,
+        bonnes,
+        palier: q.palierAtteint(bonnes),
+        prochain: q.prochainPalier(bonnes),
+        // Logo montré seulement pour une marque déjà trouvée : sinon la page
+        // servirait d'antisèche pour le quiz des logos.
+        logo: bonnes > 0 ? `/api/quiz/mes-badges/${r.id}/logo` : null,
+      };
+    })
+    .sort((a, b) => (rang[b.palier] || 0) - (rang[a.palier] || 0)
+      || b.bonnes - a.bonnes || a.marque.localeCompare(b.marque));
+
+  return e.json(200, { paliers: q.PALIERS_BADGES, badges });
+});
+
+// Logo d'un badge (chargé par fetch avec le jeton du joueur).
+routerAdd("GET", "/api/quiz/mes-badges/{id}/logo", (e) => {
+  const q = require(`${__hooks}/quiz/commun.js`);
+  const j = q.joueur(e);
+  if (!j) return q.erreur(e, 401, "Non connecté.");
+  let question;
+  try {
+    question = $app.findRecordById("questions", e.request.pathValue("id"));
+  } catch (_) {
+    return q.erreur(e, 404, "Logo introuvable.");
+  }
+  const marque = question.getString("reponse");
+  if (question.getString("mode") !== "logo" || !q.bonnesParMarque($app, j.id, marque)[marque]) {
+    return q.erreur(e, 404, "Logo introuvable.");
+  }
+  e.response.header().set("Cache-Control", "private, max-age=3600");
+  const stockage = $app.newFilesystem();
+  try {
+    stockage.serve(e.response, e.request, `${question.baseFilesPath()}/${question.getString("image")}`, "image");
+  } finally {
+    stockage.close();
+  }
 });
 
 // ---- Administration ---------------------------------------------------------
