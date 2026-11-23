@@ -53,6 +53,7 @@ routerAdd("GET", "/api/quiz/modes", (e) => {
 
   return e.json(200, Object.keys(q.MODES).map((mode) => ({
     mode, titre: q.MODES[mode].titre, questions: compteurs[mode] || 0,
+    coefficient: q.MODES[mode].coefficient,
   })));
 });
 
@@ -239,7 +240,10 @@ routerAdd("POST", "/api/quiz/parties/{id}/reponse", (e) => {
       const rapidite = Math.max(0, q.DUREE_MAX_QUESTION_MS - dureeMs) / q.DUREE_MAX_QUESTION_MS;
       bonus = Math.floor(q.BONUS_RAPIDITE_MAX * rapidite);
       const niveau = courante.getInt("difficulte") || question.getInt("difficulte");
-      points = q.POINTS_BASE * niveau + bonus;
+      // Le coefficient de l'épreuve ne touche que la base : le bonus de
+      // rapidité reste le même partout.
+      const coefficient = q.MODES[question.getString("mode")].coefficient;
+      points = Math.round(q.POINTS_BASE * niveau * coefficient) + bonus;
     }
 
     courante.set("repondue", true);
@@ -365,8 +369,8 @@ routerAdd("GET", "/api/quiz/mes-statistiques", (e) => {
 });
 
 /* Courbe de progression : le score de chaque partie terminée, de la plus
-   ancienne à la plus récente. Les parties ont toutes 10 questions et le
-   barème est le même dans chaque mode, donc les scores se comparent.
+   ancienne à la plus récente. Les parties ont toutes 10 questions ; seul
+   le coefficient de l'épreuve (×1,5 pour les modèles) change le barème.
    Limitée aux 300 dernières parties pour garder un graphique lisible. */
 routerAdd("GET", "/api/quiz/ma-progression", (e) => {
   const q = require(`${__hooks}/quiz/commun.js`);

@@ -191,8 +191,9 @@ de PocketBase : seuls les hooks du jeu et le tableau de bord y accèdent.
 
 ### Barème
 
-- 100 points par bonne réponse, multipliés par la difficulté (1 à 3), dans
-  toutes les épreuves
+- 100 points par bonne réponse, multipliés par la difficulté (1 à 3) et
+  par le coefficient de l'épreuve : ×1 pour les logos, ×1,5 pour les
+  modèles, plus durs à reconnaître (`coefficient` dans `pb_hooks/quiz/commun.js`)
 - jusqu'à 100 points de bonus selon la rapidité, dégressif sur 20 secondes
 - 20 secondes par question : passé ce délai (plus 1,5 s de tolérance pour le
   réseau), la réponse compte comme fausse. Le chrono affiché n'est
@@ -243,9 +244,10 @@ badges servirait d'antisèche pour le quiz des logos.
 
 La page « Profil » trace le score de chaque partie terminée, de la plus
 ancienne à la plus récente (300 dernières au plus), avec en pointillés la
-moyenne des 5 dernières parties. Toutes les parties ont 10 questions et le
-barème est le même dans chaque épreuve (difficulté et rapidité comprises),
-donc les scores se comparent d'une partie à l'autre. Un sélecteur affiche
+moyenne des 5 dernières parties. Toutes les parties ont 10 questions et la
+difficulté comme la rapidité sont comptées dans le score ; les modèles
+rapportent 1,5 fois plus, donc pour comparer une épreuve avec elle-même,
+mieux vaut la choisir seule dans le sélecteur. Un sélecteur affiche
 toutes les épreuves ou une seule ; en vue « Tous les modes », chaque
 épreuve a sa couleur et sa forme de point (rond, carré, triangle). Le
 survol, le toucher ou les flèches du clavier affichent le détail d'une
