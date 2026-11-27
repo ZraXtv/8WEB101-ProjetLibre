@@ -21,7 +21,7 @@ const SERVEUR = "";
 const CLE_JETON = "jeton_quiz";
 
 const PAGES_INTERNES = new Set([
-  "index.html", "jeu.html", "classement.html", "profil.html",
+  "index.html", "jeu.html", "entrainement.html", "classement.html", "profil.html",
   "connexion.html", "inscription.html", "admin.html",
 ]);
 
@@ -239,16 +239,66 @@ function construireChoixDifficulte() {
   }));
 }
 
+/* Partie classée (points, chrono, classement) ou entraînement libre. En
+   entraînement, la difficulté s'adapte toute seule : pas de choix de niveau. */
+const TYPES_JEU = [
+  ["partie", "Partie"],
+  ["entrainement", "Entraînement"],
+];
+let typeJeu = "partie";
+
+function lancerEntrainement(modes) {
+  window.location.href = `entrainement.html?modes=${encodeURIComponent(modes)}`;
+}
+
+function appliquerTypeJeu() {
+  const entrainement = typeJeu === "entrainement";
+  const bascules = [
+    ["intro-partie", entrainement], ["choix-difficulte", entrainement],
+    ["intro-entrainement", !entrainement], ["entrainement-tout", !entrainement],
+  ];
+  for (const [id, cache] of bascules) {
+    const element = document.getElementById(id);
+    if (element) element.hidden = cache;
+  }
+}
+
+function construireChoixType(quandChange) {
+  const zone = document.getElementById("choix-type");
+  if (!zone) return;
+  zone.replaceChildren(...TYPES_JEU.map(([cle, libelle]) => {
+    const puce = el("button", "puce", libelle);
+    puce.type = "button";
+    puce.setAttribute("aria-pressed", String(cle === typeJeu));
+    puce.addEventListener("click", () => {
+      typeJeu = cle;
+      try {
+        localStorage.setItem("typeJeu", cle);
+      } catch { /* navigation privée */ }
+      zone.querySelectorAll(".puce").forEach((autre, index) => {
+        autre.setAttribute("aria-pressed", String(TYPES_JEU[index][0] === cle));
+      });
+      appliquerTypeJeu();
+      quandChange();
+    });
+    return puce;
+  }));
+  appliquerTypeJeu();
+}
+
 async function initAccueil() {
   const grille = document.getElementById("grille-modes");
   if (!grille) return;
 
   try {
     difficulteChoisie = localStorage.getItem("difficulte") || "toutes";
+    typeJeu = localStorage.getItem("typeJeu") || "partie";
   } catch { difficulteChoisie = "toutes"; }
   if (!DIFFICULTES.some(([cle]) => cle === difficulteChoisie)) difficulteChoisie = "toutes";
+  if (!TYPES_JEU.some(([cle]) => cle === typeJeu)) typeJeu = "partie";
 
   construireChoixDifficulte();
+  document.getElementById("entrainement-tout")?.addEventListener("click", () => lancerEntrainement("toutes"));
 
   let modes = [];
   try {
@@ -258,6 +308,12 @@ async function initAccueil() {
     return;
   }
 
+  construireChoixType(() => afficherCartesModes(grille, modes));
+  afficherCartesModes(grille, modes);
+}
+
+function afficherCartesModes(grille, modes) {
+  const entrainement = typeJeu === "entrainement";
   grille.replaceChildren(...modes.map((infos) => {
     const details = MODES[infos.mode] || {};
     const item = el("li");
@@ -273,17 +329,21 @@ async function initAccueil() {
     // suffit pour jouer.
     const pret = infos.questions >= 1;
     let etiquette = `${infos.questions} question${infos.questions > 1 ? "s" : ""}`;
-    if (infos.coefficient > 1) {
+    if (infos.coefficient > 1 && !entrainement) {
       etiquette += ` · points ×${String(infos.coefficient).replace(".", ",")}`;
     }
     pied.appendChild(el("span", `etiquette ${pret ? "pret" : "vide"}`,
       pret ? etiquette : "bientôt disponible"));
-    pied.appendChild(el("span", null, pret ? "Jouer →" : ""));
+    pied.appendChild(el("span", null, pret ? (entrainement ? "S'entraîner →" : "Jouer →") : ""));
     carte.appendChild(pied);
 
     carte.disabled = !pret;
     if (pret) {
       carte.addEventListener("click", () => {
+        if (typeJeu === "entrainement") {
+          lancerEntrainement(infos.mode);
+          return;
+        }
         window.location.href =
           `jeu.html?mode=${encodeURIComponent(infos.mode)}&difficulte=${encodeURIComponent(difficulteChoisie)}`;
       });

@@ -379,6 +379,19 @@ main {
   font-size: 1rem;
 }
 
+/* Type de jeu (partie ou entraînement) puis niveau, ou le bouton
+   d'entraînement sur toutes les épreuves. */
+.choix-jeu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.choix-jeu .choix-difficulte { margin-top: 0; }
+.choix-jeu [hidden] { display: none; }
+
 .grille-modes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
