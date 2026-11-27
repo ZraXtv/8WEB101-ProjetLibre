@@ -52,15 +52,20 @@ function prochainPalier(bonnes) {
 /** Logos trouvés par le joueur, par marque ({ marque: nombre }). Calculé à
     partir des réponses enregistrées : aucun compteur à tenir à jour, et les
     parties jouées avant l'ajout des badges comptent aussi. Seules les bonnes
-    réponses comptent, pas les questions simplement rencontrées. « app » peut
-    être une transaction, pour voir la réponse qu'on vient d'y enregistrer. */
+    réponses comptent, pas les questions simplement rencontrées ; celles du
+    mode entraînement aussi. « app » peut être une transaction, pour voir la
+    réponse qu'on vient d'y enregistrer. */
 function bonnesParMarque(app, utilisateurId, marque) {
   const resultat = arrayOf(new DynamicModel({ marque: "", bonnes: 0 }));
   app.db().newQuery(
-    "SELECT q.reponse AS marque, COUNT(*) AS bonnes FROM questions_partie qp " +
+    "SELECT marque, COUNT(*) AS bonnes FROM (" +
+    "SELECT q.reponse AS marque FROM questions_partie qp " +
     "JOIN parties p ON p.id = qp.partie JOIN questions q ON q.id = qp.question " +
     "WHERE p.utilisateur = {:u} AND q.mode = 'logo' AND qp.correcte = TRUE " +
-    "AND ({:m} = '' OR q.reponse = {:m}) GROUP BY q.reponse",
+    "UNION ALL " +
+    "SELECT q.reponse AS marque FROM reponses_entrainement r JOIN questions q ON q.id = r.question " +
+    "WHERE r.utilisateur = {:u} AND q.mode = 'logo' AND r.correcte = TRUE" +
+    ") WHERE ({:m} = '' OR marque = {:m}) GROUP BY marque",
   ).bind({ u: utilisateurId, m: marque || "" }).all(resultat);
   const compteurs = {};
   for (const ligne of resultat) compteurs[ligne.marque] = ligne.bonnes;
