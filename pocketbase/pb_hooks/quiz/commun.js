@@ -219,7 +219,15 @@ function preparerTirage(app, mode, region) {
       .filter((r) => propres.indexOf(r) === -1);
     return propres.concat(autres).slice(0, NB_PROPOSITIONS - 1);
   };
-  const jouables = actives.filter((r) => leurresDeQuestion(r).length === NB_PROPOSITIONS - 1);
+  // Logos et modèles : les mauvaises réponses peuvent venir de toutes les
+  // autres réponses de l'épreuve, il suffit qu'il y en ait assez. Calculer
+  // les leurres de chacun des ~1000 modèles juste pour le vérifier prenait
+  // plusieurs secondes. Pièces (peu nombreuses, règles de famille et de
+  // confusion) : vérification complète.
+  const distinctes = new Set(toutesReponses.concat(LEURRES_SUPPLEMENTAIRES[mode] || [])).size;
+  const jouables = mode === "piece"
+    ? actives.filter((r) => leurresDeQuestion(r).length === NB_PROPOSITIONS - 1)
+    : (distinctes >= NB_PROPOSITIONS ? actives : []);
   return { actives, niveau, leurresDe: leurresDeQuestion, jouables };
 }
 
