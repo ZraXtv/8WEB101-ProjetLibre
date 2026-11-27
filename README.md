@@ -74,14 +74,17 @@ pocketbase/
 │   ├── 1790000001_questions_logos.js   chargement des logos
 │   ├── 1790000002_regions_et_logos.js  régions des joueurs, mise à jour des logos
 │   ├── 1790000003_modeles.js …         épreuve des modèles (jusqu'à 1790000011)
+│   ├── 1790000012_entrainement.js      mode entraînement (état, révisions, journal)
 │   ├── 1790000003_pieces.js            épreuve des pièces
 │   ├── 1790000004_images_pieces.js     indice et explication des pièces
 │   ├── 1790000005_photos_pieces.js     photos Wikimedia Commons des pièces
 │   └── 1790000006_recadrage_photos.js  photos des pièces recadrées
 ├── pb_hooks/           logique côté serveur
 │   ├── quiz.pb.js          API du jeu (/api/quiz/…)
+│   ├── entrainement.pb.js  API du mode entraînement (/api/quiz/entrainement…)
 │   ├── securite.pb.js      politique de mots de passe, en-têtes HTTP
-│   └── quiz/               modules partagés (dont regions.js : difficulté par région)
+│   └── quiz/               modules partagés (regions.js : difficulté par région,
+│                           entrainement.js : alternance, niveaux, révisions)
 ├── pb_public/          le site : pages, CSS, JS, polices, explorateur 3D
 ├── donnees/            questions de départ et leurs images (non publiques)
 ├── outils/simplifier.mjs   allègement des modèles 3D (voir pb_public/anatomie/README.md)
@@ -233,7 +236,8 @@ après 50, or après 100. Seules les bonnes réponses comptent, pas les
 questions rencontrées. Le compte est calculé à partir des réponses
 enregistrées (les parties jouées avant l'ajout des badges comptent donc
 aussi), et un message s'affiche en pleine partie quand un palier est
-franchi. Les seuils sont réglés par `PALIERS_BADGES` dans
+franchi. Les logos trouvés en mode entraînement comptent aussi. Les seuils
+sont réglés par `PALIERS_BADGES` dans
 `pb_hooks/quiz/commun.js`.
 
 Le logo d'une marque n'apparaît sur son badge qu'une fois trouvé au moins
@@ -252,6 +256,37 @@ toutes les épreuves ou une seule ; en vue « Tous les modes », chaque
 épreuve a sa couleur et sa forme de point (rond, carré, triangle). Le
 survol, le toucher ou les flèches du clavier affichent le détail d'une
 partie. Le graphique est dessiné en SVG, sans bibliothèque.
+
+## Mode entraînement
+
+Sur l'accueil, le choix « Partie / Entraînement » donne accès à un
+entraînement libre (`entrainement.html`), sur toutes les épreuves ou sur une
+seule. Il faut être connecté : les questions à revoir sont gardées par
+joueur, d'une séance à l'autre.
+
+- **Ni points ni chrono.** Rien n'est enregistré dans les parties : le
+  classement, les statistiques et la courbe du profil ne voient pas
+  l'entraînement. Seuls les logos trouvés comptent pour les badges.
+- **Les épreuves alternent** : un logo, un modèle, une pièce, un logo…
+  (une épreuve sans question est sautée).
+- **La difficulté s'adapte**, épreuve par épreuve. Le niveau (facile,
+  moyen, difficile) monte quand au moins 80 % des 8 dernières réponses
+  sont justes, et descend à 50 % ou moins (après au moins 6 réponses au même
+  niveau). La première séance commence au niveau moyen.
+- **Les questions ratées reviennent** (répétition espacée) : 3 questions plus
+  tard, puis 6, 12 et 24 à chaque bonne réponse. Après 4 réussites
+  d'affilée, la question est apprise ; une erreur remet l'écart à 3. Une
+  question à revoir arrivée à échéance passe avant les nouvelles, avec
+  l'étiquette « À revoir ». Sinon, une question jamais vue est tirée au
+  niveau de l'épreuve.
+- Le bouton **Arrêter** affiche le bilan : réponses justes, niveau atteint
+  dans chaque épreuve et nombre de questions encore à revoir.
+
+L'écart se compte en questions d'entraînement du joueur, toutes épreuves et
+toutes séances confondues. Avec trois épreuves en alternance, 3, 6, 12 et 24
+tombent juste sur le tour de l'épreuve de la question. Les réglages
+(`ECART_INITIAL`, `SERIE_APPRISE`, seuils de niveau) sont en tête de
+`pb_hooks/quiz/entrainement.js`.
 
 ## API
 
@@ -275,6 +310,11 @@ obtenu est envoyé dans l'en-tête `Authorization`. Le jeu a sa propre API :
 | GET | `/api/quiz/ma-progression` | Score de chaque partie terminée, pour la courbe |
 | GET | `/api/quiz/mes-badges` | Badges par marque et progression vers le palier suivant |
 | GET | `/api/quiz/mes-badges/<id>/logo` | Logo d'un badge (marque déjà trouvée) |
+| POST | `/api/quiz/entrainement` | Démarrer une séance d'entraînement (`modes` : `toutes` ou une épreuve) |
+| POST | `/api/quiz/entrainement/question` | Question d'entraînement suivante |
+| POST | `/api/quiz/entrainement/reponse` | Répondre ; renvoie quand la question reviendra et le niveau |
+| GET | `/api/quiz/entrainement/<id>/image` | Image de la question d'entraînement en cours |
+| GET | `/api/quiz/entrainement/bilan` | Bilan de la séance |
 | GET | `/api/quiz/admin/questions` | Lister les questions (admin) |
 | PATCH | `/api/quiz/admin/questions/<id>` | Activer ou recalibrer une question (admin) |
 | GET | `/api/quiz/admin/questions/<id>/image` | Vignette d'une question (admin) |
