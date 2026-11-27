@@ -703,7 +703,8 @@ function raccourcisJeu(evenement) {
 
 async function initJeu(promesseUtilisateur) {
   const zone = document.getElementById("zone-jeu");
-  if (!zone) return;
+  // La page d'entraînement a la même zone de jeu, gérée par initEntrainement.
+  if (!zone || zone.hasAttribute("data-entrainement")) return;
 
   const params = new URLSearchParams(window.location.search);
   const mode = params.get("mode");
@@ -748,6 +749,233 @@ async function initJeu(promesseUtilisateur) {
 
   document.title = `${debut.titre} — Auto Quiz`;
   afficherQuestion(debut.question);
+}
+
+/* ==========================================================================
+   Entraînement : sans points ni chrono. Le serveur choisit l'épreuve (en
+   alternance), le niveau (selon les réussites) et ramène les questions ratées.
+   ========================================================================== */
+
+const NIVEAUX = { 1: "facile", 2: "moyen", 3: "difficile" };
+const entrainement = { modes: "toutes", seance: null, verrou: false };
+
+/** Ce qui attend la question après cette réponse, en une phrase (ou null). */
+function texteDevenir(resultat) {
+  const devenir = resultat.devenir || {};
+  if (devenir.vientDetre) return "Apprise ! Elle ne reviendra plus en révision.";
+  if (devenir.apprise) return null;
+  if (!resultat.correcte) return `Elle reviendra dans ${devenir.dans} questions.`;
+  const restantes = devenir.restantes;
+  return `Elle reviendra dans ${devenir.dans} questions : encore ${restantes} `
+    + `réussite${restantes > 1 ? "s" : ""} pour l'apprendre.`;
+}
+
+function afficherQuestionEntrainement(question) {
+  const zone = document.getElementById("zone-jeu");
+  entrainement.verrou = false;
+
+  // Épreuve, numéro dans la séance, niveau de l'épreuve, « À revoir ».
+  const niveau = (entrainement.seance?.niveaux || {})[question.mode] || 2;
+  const barre = el("div", "barre-jeu barre-entrainement");
+  const infos = el("div", "barre-entrainement-infos");
+  infos.appendChild(el("span", null, `${libelleMode(question.mode)} · question ${question.numeroSeance}`));
+  infos.appendChild(el("span", "etiquette niveau-entrainement", `Niveau ${NIVEAUX[niveau]}`));
+  if (question.aRevoir) infos.appendChild(el("span", "etiquette a-revoir", "À revoir"));
+  const arreter = el("button", "btn btn-secondary btn-arreter", "Arrêter");
+  arreter.type = "button";
+  arreter.addEventListener("click", afficherBilanEntrainement);
+  barre.append(infos, arreter);
+
+  // Les épreuves alternent : même place réservée pour toutes (ligne d'indice,
+  // zone de retour haute), sinon la carte change de taille à chaque question.
+  const carte = el("div", "carte-question disposition-jeu");
+  carte.appendChild(el("p", "enonce", question.question));
+  const indice = el("p", `indice-question${question.indice ? "" : " indice-vide"}`,
+    question.indice ? `Indice : ${question.indice}` : "Indice");
+  if (!question.indice) indice.setAttribute("aria-hidden", "true");
+  carte.appendChild(indice);
+
+  const corps = el("div", "corps-jeu");
+  corps.appendChild(construireCadreImage(question));
+  const colonne = el("div", "colonne-reponses");
+
+  const propositions = el("div", "propositions");
+  question.propositions.forEach((choix, index) => {
+    const bouton = el("button", "proposition");
+    bouton.type = "button";
+    bouton.dataset.choix = choix;
+    const touche = el("kbd", "touche", String(index + 1));
+    touche.setAttribute("aria-hidden", "true");
+    bouton.append(touche, el("span", "proposition-texte", choix));
+    bouton.addEventListener("click", () => repondreEntrainement(choix, propositions, carte));
+    propositions.appendChild(bouton);
+  });
+  colonne.appendChild(propositions);
+
+  const zoneRetour = el("div", "zone-retour avec-astuce");
+  zoneRetour.appendChild(el("p", "retour-attente", "Touches 1 à 4 pour répondre, Entrée pour continuer."));
+  colonne.appendChild(zoneRetour);
+
+  corps.appendChild(colonne);
+  carte.appendChild(corps);
+  carte.dataset.credit = JSON.stringify(question.credit || {});
+
+  zone.replaceChildren(barre, carte);
+  window.scrollTo({ top: 0 });
+}
+
+async function repondreEntrainement(choix, zonePropositions, carte) {
+  if (entrainement.verrou) return;
+  entrainement.verrou = true;
+
+  let resultat;
+  try {
+    resultat = await api("/entrainement/reponse", { method: "POST", body: JSON.stringify({ choix }) });
+  } catch (erreur) {
+    toast(erreur.message, "erreur");
+    entrainement.verrou = false;
+    return;
+  }
+  entrainement.seance = resultat.seance;
+
+  if (resultat.niveau?.change) {
+    const monte = resultat.niveau.change > 0;
+    toast(`${libelleMode(resultat.mode)} : ${monte ? "vous passez au" : "retour au"} niveau ${NIVEAUX[resultat.niveau.niveau]}`,
+      monte ? "succes" : "info");
+  }
+  if (resultat.badgeDebloque) {
+    const { marque, palier } = resultat.badgeDebloque;
+    const infos = PALIERS_BADGES[palier];
+    toast(`${infos.icone} Badge ${infos.libelle.toLowerCase()} débloqué : ${marque} !`, "succes");
+  }
+
+  zonePropositions.querySelectorAll(".proposition").forEach((bouton) => {
+    bouton.disabled = true;
+    if (bouton.dataset.choix === resultat.bonneReponse) bouton.classList.add("correcte");
+    else if (bouton.dataset.choix === choix) bouton.classList.add("incorrecte");
+  });
+
+  const retour = el("div", "retour-reponse");
+  retour.appendChild(el("span", `retour-texte ${resultat.correcte ? "gagne" : "perdu"}`,
+    resultat.correcte ? "Bonne réponse !" : `Raté — c'était ${resultat.bonneReponse}`));
+  const devenir = texteDevenir(resultat);
+  if (devenir) retour.appendChild(el("span", "retour-devenir", devenir));
+
+  const boutons = el("div", "retour-actions");
+  const suite = el("button", "btn btn-primary btn-suite", "Question suivante");
+  suite.type = "button";
+  suite.addEventListener("click", async () => {
+    suite.disabled = true;
+    try {
+      const { question, seance } = await api("/entrainement/question", { method: "POST" });
+      entrainement.seance = seance;
+      afficherQuestionEntrainement(question);
+    } catch (erreur) {
+      toast(erreur.message, "erreur");
+      suite.disabled = false;
+    }
+  });
+  if (resultat.revision) {
+    const reviser = el("a", "btn btn-secondary", "Réviser en 3D");
+    reviser.href = resultat.revision;
+    reviser.target = "_blank";
+    reviser.rel = "noopener";
+    boutons.appendChild(reviser);
+  }
+  boutons.appendChild(suite);
+  retour.appendChild(boutons);
+
+  const zoneRetour = carte.querySelector(".zone-retour") || carte;
+  zoneRetour.querySelector(".retour-attente")?.remove();
+  zoneRetour.appendChild(retour);
+  ajouterSuiteReponse(zoneRetour, resultat, carte);
+
+  suite.focus({ preventScroll: true });
+  retour.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+async function afficherBilanEntrainement() {
+  const zone = document.getElementById("zone-jeu");
+  let bilan;
+  try {
+    bilan = await api("/entrainement/bilan");
+  } catch (erreur) {
+    toast(erreur.message, "erreur");
+    return;
+  }
+
+  const total = bilan.bonnes + bilan.ratees;
+  const carte = el("div", "carte-resultat");
+  carte.appendChild(el("p", null, "Séance terminée"));
+  carte.appendChild(el("div", "resultat-score", `${bilan.bonnes} / ${total}`));
+  carte.appendChild(el("p", "resultat-detail", total
+    ? `${bilan.bonnes} bonne${bilan.bonnes > 1 ? "s" : ""} réponse${bilan.bonnes > 1 ? "s" : ""} — ${pourcentage(bilan.bonnes, total)} %`
+    : "Aucune question répondue pendant cette séance."));
+
+  // Niveau atteint dans chaque épreuve travaillée.
+  const epreuves = entrainement.modes === "toutes" ? Object.keys(MODES) : [entrainement.modes];
+  const niveaux = el("ul", "bilan-niveaux");
+  for (const mode of epreuves) {
+    const ligne = el("li");
+    ligne.appendChild(el("span", null, libelleMode(mode)));
+    ligne.appendChild(el("strong", null, `niveau ${NIVEAUX[bilan.niveaux[mode]] || "moyen"}`));
+    niveaux.appendChild(ligne);
+  }
+  carte.appendChild(niveaux);
+
+  carte.appendChild(el("p", "resultat-detail", bilan.aRevoir
+    ? `${bilan.aRevoir} question${bilan.aRevoir > 1 ? "s" : ""} à revoir : elle${bilan.aRevoir > 1 ? "s" : ""} reviendr${bilan.aRevoir > 1 ? "ont" : "a"} à la prochaine séance.`
+    : "Aucune question à revoir. Bravo !"));
+
+  const actions = el("div", "resultat-actions");
+  const reprendre = el("button", "btn btn-primary", "Reprendre l'entraînement");
+  reprendre.type = "button";
+  reprendre.addEventListener("click", () => window.location.reload());
+  actions.appendChild(reprendre);
+  const accueil = el("a", "btn btn-secondary", "Changer d'épreuve");
+  accueil.href = "index.html";
+  actions.appendChild(accueil);
+  carte.appendChild(actions);
+
+  zone.replaceChildren(carte);
+  window.scrollTo({ top: 0 });
+}
+
+async function initEntrainement(promesseUtilisateur) {
+  const zone = document.getElementById("zone-jeu");
+  if (!zone || !zone.hasAttribute("data-entrainement")) return;
+
+  const modes = new URLSearchParams(window.location.search).get("modes") || "toutes";
+  entrainement.modes = modes === "toutes" || MODES[modes] ? modes : "toutes";
+
+  // Les questions à revoir sont gardées par joueur : il faut un compte.
+  const utilisateur = await promesseUtilisateur;
+  if (!utilisateur) {
+    const ici = `entrainement.html?modes=${entrainement.modes}`;
+    window.location.href = `connexion.html?suivant=${encodeURIComponent(ici)}`;
+    return;
+  }
+
+  document.addEventListener("keydown", raccourcisJeu);
+  zone.replaceChildren(creerEtatVide({
+    icone: "⏳", titre: "Préparation de l'entraînement", message: "Un instant...",
+  }));
+
+  try {
+    const { question, seance } = await api("/entrainement", {
+      method: "POST", body: JSON.stringify({ modes: entrainement.modes }),
+    });
+    entrainement.seance = seance;
+    afficherQuestionEntrainement(question);
+  } catch (erreur) {
+    zone.replaceChildren(creerEtatVide({
+      icone: "🚧",
+      titre: "Entraînement impossible",
+      message: erreur.message,
+      lien: "index.html",
+      libelleLien: "Retour aux épreuves",
+    }));
+  }
 }
 
 /* ==========================================================================
@@ -1639,6 +1867,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initAccueil();
   initJeu(promesseUtilisateur);
+  initEntrainement(promesseUtilisateur);
   initClassement();
   initFormulaireConnexion();
   initFormulaireInscription();
