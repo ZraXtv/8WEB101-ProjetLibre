@@ -151,6 +151,73 @@ function leurresParInitiale(mode, bonne, reponses) {
   return memeLettre.concat(autres);
 }
 
+/** Tout ce qu'il faut pour tirer des questions d'une épreuve :
+    - « niveau » : difficulté de chaque question pour ce joueur (sa région
+      rend une marque locale plus facile) ;
+    - « leurresDe(question) » : trois mauvaises réponses, tirées au hasard ;
+    - « jouables » : les questions actives qui ont assez de mauvaises réponses.
+    Partagé par les parties et l'entraînement. */
+function preparerTirage(app, mode, region) {
+  const { difficultePour, difficulteModelePour } = require(`${__hooks}/quiz/regions.js`);
+  const difficulteRegionale = mode === "modele" ? difficulteModelePour : difficultePour;
+  const actives = app.findRecordsByFilter("questions", "mode = {:mode} && actif = true", "", 0, 0, { mode });
+  const niveau = {};
+  for (const r of actives) {
+    niveau[r.id] = difficulteRegionale(r.getString("reponse"), r.getInt("difficulte"), region);
+  }
+  // Réponses de toutes les questions du mode, pas seulement celles de la
+  // difficulté choisie : il y a ainsi plus de noms de même initiale.
+  const toutesReponses = [...new Set(actives.map((r) => r.getString("reponse")))];
+  // Mauvaises réponses : d'abord les leurres choisis pour la question (modèles
+  // proches), puis d'autres réponses du mode, de même initiale si possible.
+  // Pièces : mauvaises réponses de la même famille que l'indice affiché
+  // (« Synchronisation »…), sinon l'indice suffirait à éliminer les autres ;
+  // puis du même modèle 3D (pas de « Roue » pour une pièce du moteur) ; puis
+  // n'importe quelle pièce. Jamais deux réponses que la photo confond
+  // (piston et bielle).
+  const famille = (r) => r.getString("indice");
+  const groupe = (r) => (anatomieDe(r) || {}).modele || "";
+  const parCle = (cle) => {
+    const index = {};
+    for (const r of actives) {
+      const k = cle(r);
+      if (!k) continue;
+      if (!index[k]) index[k] = new Set();
+      index[k].add(r.getString("reponse"));
+    }
+    return index;
+  };
+  const reponsesDeLaFamille = parCle(famille);
+  const reponsesDuGroupe = parCle(groupe);
+  const leurresPiece = (question) => {
+    const bonne = question.getString("reponse");
+    const interdites = new Set([bonne].concat(CONFUSIONS[bonne] || []));
+    const choisies = [];
+    const sources = [
+      reponsesDeLaFamille[famille(question)] || [],
+      reponsesDuGroupe[groupe(question)] || [],
+      toutesReponses,
+    ];
+    for (const source of sources) {
+      for (const r of melanger([...source])) {
+        if (choisies.length >= NB_PROPOSITIONS - 1) return choisies;
+        if (!interdites.has(r)) { choisies.push(r); interdites.add(r); }
+      }
+    }
+    return choisies;
+  };
+  const leurresDeQuestion = (question) => {
+    if (mode === "piece") return leurresPiece(question);
+    const bonne = question.getString("reponse");
+    const propres = melanger(leurresDe(question).filter((r) => r !== bonne));
+    const autres = leurresParInitiale(mode, bonne, toutesReponses)
+      .filter((r) => propres.indexOf(r) === -1);
+    return propres.concat(autres).slice(0, NB_PROPOSITIONS - 1);
+  };
+  const jouables = actives.filter((r) => leurresDeQuestion(r).length === NB_PROPOSITIONS - 1);
+  return { actives, niveau, leurresDe: leurresDeQuestion, jouables };
+}
+
 function propositionsDe(qp) {
   return JSON.parse(toString(qp.get("propositions")) || "[]");
 }
@@ -218,7 +285,7 @@ module.exports = {
   DUREE_MAX_QUESTION_MS, TOLERANCE_RESEAU_MS, PALIERS_BADGES,
   palierAtteint, prochainPalier, bonnesParMarque,
   erreur, joueur, estAdmin, melanger, anatomieDe, lienRevision, leurresDe, leurresParInitiale,
-  propositionsDe, questionPublique,
+  preparerTirage, propositionsDe, questionPublique,
   partieDe,
   questionCourante, lignes,
 };
