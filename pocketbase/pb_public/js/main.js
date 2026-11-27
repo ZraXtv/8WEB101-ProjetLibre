@@ -542,7 +542,7 @@ async function repondre(choix, zonePropositions, carte) {
 
   const boutons = el("div", "retour-actions");
 
-  const suite = el("button", "btn btn-primary",
+  const suite = el("button", "btn btn-primary btn-suite",
     resultat.terminee ? "Voir le résultat" : "Question suivante");
   suite.type = "button";
   suite.addEventListener("click", async () => {
@@ -573,7 +573,15 @@ async function repondre(choix, zonePropositions, carte) {
   const zoneRetour = carte.querySelector(".zone-retour") || carte;
   zoneRetour.querySelector(".retour-attente")?.remove();
   zoneRetour.appendChild(retour);
+  ajouterSuiteReponse(zoneRetour, resultat, carte);
 
+  suite.focus({ preventScroll: true });
+  retour.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+/* Après la réponse (partie ou entraînement) : à quoi sert la pièce, comment
+   reconnaître le modèle, puis le crédit de l'image. */
+function ajouterSuiteReponse(zoneRetour, resultat, carte) {
   // Pièces : à quoi sert la pièce, dans le même encadré que l'astuce des modèles.
   if (resultat.explication) {
     const explication = el("p", "astuce");
@@ -590,16 +598,14 @@ async function repondre(choix, zonePropositions, carte) {
     zoneRetour.appendChild(astuce);
   }
 
-  // Le crédit n'apparaît qu'une fois la réponse donnée.
+  // Le crédit n'apparaît qu'une fois la réponse donnée : le nom de l'auteur
+  // est souvent celui de la marque.
   let credit = null;
   try {
     credit = JSON.parse(carte.dataset.credit || "{}");
   } catch { credit = null; }
   const blocCredit = construireCredit(credit);
   if (blocCredit) zoneRetour.appendChild(blocCredit);
-
-  suite.focus({ preventScroll: true });
-  retour.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
 /* Récapitulatif de fin : chaque question avec la bonne réponse et, en cas
@@ -686,7 +692,8 @@ function raccourcisJeu(evenement) {
 
   // Entrée sur un bouton déjà sélectionné : le navigateur le déclenche seul.
   if (evenement.key === "Enter" && !(cible instanceof HTMLButtonElement || cible instanceof HTMLAnchorElement)) {
-    const suite = zone.querySelector(".retour-reponse .btn");
+    // Le bouton « Question suivante », pas « Réviser en 3D » placé avant lui.
+    const suite = zone.querySelector(".retour-reponse .btn-suite");
     if (suite && !suite.disabled) {
       evenement.preventDefault();
       suite.click();
